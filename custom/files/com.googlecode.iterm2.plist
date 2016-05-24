@@ -262,13 +262,13 @@
 	<key>NSWindow Frame NSColorPanel</key>
 	<string>881 344 343 414 0 0 1280 777 </string>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>586 33 445 77 0 0 1280 777 </string>
+	<string>769 281 445 77 0 0 1280 777 </string>
 	<key>NSWindow Frame Preferences</key>
 	<string>159 56 924 485 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 24 1203 753 0 0 1280 777 </string>
+	<string>1 25 1196 752 0 0 1280 777 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>0 24 1203 753 0 0 1280 777 </string>
+	<string>49 37 1096 689 0 0 1280 777 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -463,7 +463,7 @@
 			<key>Close Sessions On End</key>
 			<false/>
 			<key>Columns</key>
-			<integer>107</integer>
+			<integer>118</integer>
 			<key>Command</key>
 			<string></string>
 			<key>Cursor Color</key>
@@ -848,11 +848,11 @@
 			<key>Name</key>
 			<string>BusinessMuumuu</string>
 			<key>Non Ascii Font</key>
-			<string>SourceCodePro-Regular 18</string>
+			<string>SauceCodePowerline-Regular 18</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>Inconsolata-Regular 20</string>
+			<string>Inconsolata-Regular 19</string>
 			<key>Option Key Sends</key>
 			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
@@ -860,7 +860,7 @@
 			<key>Right Option Key Sends</key>
 			<integer>0</integer>
 			<key>Rows</key>
-			<integer>32</integer>
+			<integer>37</integer>
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
@@ -1036,7 +1036,7 @@
 	<key>NoSyncTimeOfLastPromo</key>
 	<real>477543601.73791599</real>
 	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>484515742.48742503</real>
+	<real>485822485.975353</real>
 	<key>OnlyWhenMoreTabs</key>
 	<true/>
 	<key>OpenArrangementAtStartup</key>
@@ -1103,7 +1103,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2016-05-09T19:03:38Z</date>
+	<date>2016-05-24T10:51:11Z</date>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowBookmarkName</key>

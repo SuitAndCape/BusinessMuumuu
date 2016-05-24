@@ -28,15 +28,19 @@
   "font_size": 18.0,
   "highlight_line": true,
   "line_numbers": true,
-  "line_padding_bottom": 2,
-  "line_padding_top": 2,
+  "line_padding_bottom": 3.0,
+  "line_padding_top": 3.0,
   "margin": 0,
   "rulers":
   [
-    -0.3,
-    -0.2,
-    80.2,
-    80.3,
+    -0.5,    /// => "font_face": "AnonymousPro"
+    -0.4,    /// => "font_face": "AnonymousPro"
+    80.2,    /// => "font_face": "AnonymousPro"
+    80.3,    /// => "font_face": "AnonymousPro"
+    // -0.3, /// => "font_face": "Source Code Pro"
+    // -0.2, /// => "font_face": "Source Code Pro"
+    // 80.2, /// => "font_face": "Source Code Pro"
+    // 80.3, /// => "font_face": "Source Code Pro"
   ],
   "spell_check": true,
   "tab_size": 2,
