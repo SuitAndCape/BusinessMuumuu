@@ -393,6 +393,9 @@ appkillinator "Jumpcut"
 
 echo "Adjusting Opera settings"
 
+## Do not automatically send Opera crash reports to Opera
+defaults write com.operasoftware.Opera OPEnableCrashLogsUpload -bool true
+
 ## Expand Opera's print dialog box by default
 defaults write com.operasoftware.Opera PMPrintingExpandedStateForPrint2 -bool true
 
@@ -402,6 +405,9 @@ appkillinator "Opera"
 ##== Opera Developer ==========================================================#
 
 echo "Adjusting Opera Developer settings"
+
+## Do not automatically send Opera Developer crash reports to Opera
+defaults write com.operasoftware.OperaDeveloper OPEnableCrashLogsUpload -bool true
 
 ## Expand Opera Developer's print dialog box by default
 defaults write com.operasoftware.OperaDeveloper PMPrintingExpandedStateForPrint2 -bool true
