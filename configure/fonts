@@ -5,11 +5,6 @@
 ##============================================================================##
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  ## Make an Adobe-Fonts/ directory, if it doesn't exist
-  if [ ! -d "${FONTS_DIR}"/Adobe-Fonts ]; then
-    mkdir -p "${FONTS_DIR}"/Adobe-Fonts
-  fi
-
   ## Make a Google-Fonts/ directory, if it doesn't exist
   if [ ! -d "${FONTS_DIR}"/Google-Fonts ]; then
     mkdir -p "${FONTS_DIR}"/Google-Fonts

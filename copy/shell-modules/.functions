@@ -11,9 +11,9 @@
 ## `-` – Change to the previous working directory
 ## (also see: `alias cd-`)
 ## @source http://unix.stackexchange.com/a/236262/165656
-function -() {
+-() {
   if [[ $# -eq 0 ]]; then
-    cd $OLDPWD && echo -e "cd $OLDPWD/ $ARROW $PWD/"
+    cd "${OLDPWD}" && echo -e "cd ${OLDPWD}/ ${ARROW} $PWD/"
   else
     builtin - "$@"
   fi
@@ -21,33 +21,33 @@ function -() {
 
 ## `bush INTEGER` – Tree-like list of directory contents three, optionally nth,
 #levels deep
-function bush() {
+bush() {
   ## Directory contents limit
   local contents_limit=20
   ## Directory contents to ignore
   local contents_neglect=".DS_Store|.git|.sass-cache|Icon*|bower_components|jspm_packages|node_modules"
   ## Directory depth limit, unless an integer argument is passed
   local depth_limit="${1:-3}"; shift
-  tree --dirsfirst --filelimit $contents_limit -aCF $@ -I $contents_neglect -L $depth_limit
+  tree --dirsfirst --filelimit "${contents_limit}" -aCF "$@" -I "${contents_neglect}" -L "${depth_limit}"
 }
 
 ## `cls PATH/TO/DIRECTORY` – Change directory and list contents in long format
-function cls() {
+cls() {
   if [ -d "$1" ]; then
-    cd "$1"
+    cd "$1" || exit
     ls -laF
   elif [ "$1" = "" ]; then
-    cd ~
+    cd ~ || exit
     ls -laF
   else
-    echo -e "$SHELL_ENV_TYPE: cls: no such directory: $NO$1/$PE"
+    echo -e "${SHELL_ENV_TYPE}: cls: no such directory: ${NO}$1/${PE}"
   fi
 }
 
 ## `extract PATH/TO/FILE` – Extract common package and compressed file formats
 ## @based-on https://github.com/xvoland/Extract
 ## @modifier Ali Esmaili
-function extract() {
+extract() {
   if [ -z "$1" ]; then
     ## Display usage if no parameters given
     echo "Usage: extract <PATH/FILE_NAME>.<7z|Z|bz2|exe|gz|lzma|rar|tar.bz2|tar.gz|tar.xz|tar|tb2|tbz2|tbz|tgz|txz|xz|zip>"
@@ -75,67 +75,67 @@ function extract() {
         *.txz)     tar xvJf ./"$1"    ;;
         *.xz)      unxz ./"$1"        ;;
         *.zip)     unzip ./"$1"       ;;
-        *)         echo -e "$SHELL_ENV_TYPE: extract: unknown archive method: $NO$1$PE" ;;
+        *)         echo -e "${SHELL_ENV_TYPE}: extract: unknown archive method: ${NO}$1${PE}" ;;
       esac
     else
-      echo -e "$SHELL_ENV_TYPE: extract: no such file: $NO$1$PE"
+      echo -e "${SHELL_ENV_TYPE}: extract: no such file: ${NO}$1${PE}"
     fi
   fi
 }
 
 ## `launch INTEGER` – Launch a local HTTP server from a directory, optionally at
 #a specific port number
-function launch() {
+launch() {
   local port="${1:-8080}"
   open "http://localhost:${port}/"
-  python -c $'import SimpleHTTPServer; \nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map; \nmap[""] = "text/plain"; \nfor key, value in map.items():\n\tmap[key] = value + "; charset=UTF-8"; \nSimpleHTTPServer.test();' "$port"
+  python -c $'import SimpleHTTPServer; \nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map; \nmap[""] = "text/plain"; \nfor key, value in map.items():\n\tmap[key] = value + "; charset=UTF-8"; \nSimpleHTTPServer.test();' "${port}"
 }
 
 ## `mkcd PATH/TO/DIRECTORY` – Create a directory then change to it
-function mkcd() {
+mkcd() {
   if ! [ -d "$1" ]; then
     mkdir -pv "$@" && cd "$_"
   elif [ -d "$1" ]; then
-    echo -e "$SHELL_ENV_TYPE: mkcd: directory already exists: $NO$1/$PE"
+    echo -e "${SHELL_ENV_TYPE}: mkcd: directory already exists: ${NO}$1/${PE}"
   else
-    echo -e "$SHELL_ENV_TYPE: mkcd: unable to create directory: $NO$1/$PE"
+    echo -e "${SHELL_ENV_TYPE}: mkcd: unable to create directory: ${NO}$1/${PE}"
   fi
 }
 
-## `ql` – Opens a file using Quicklook Preview
-function ql() {
+## `ql` – Opens Quick Look generated previews for the specified files
+ql() {
   if [ -f "$1" ]; then
     qlmanage -p "$1" >& /dev/null
   else
-    echo -e "$SHELL_ENV_TYPE: ql: no such file: $NO$1$PE"
+    echo -e "${SHELL_ENV_TYPE}: ql: no such file: ${NO}$1${PE}"
   fi
 }
 
 ## `shb` – Switch to the Bash shell
-function shb() {
+shb() {
   ## Use the Homebrew maintained Bash shell, if it exists
   if [[ -e "/usr/local/bin/bash" ]]; then
-    chsh -s /usr/local/bin/bash $USER
+    chsh -s /usr/local/bin/bash "${USER}"
   ## Use the system's Bash shell, if the Homebrew version doesn't exist
   else
-    chsh -s /bin/bash $USER
+    chsh -s /bin/bash "${USER}"
   fi
 }
 
 ## `shz` – Switch to the Zsh shell
-function shz() {
+shz() {
   ## Use the Homebrew maintained Zsh shell, if it exists
   if [[ -e "/usr/local/bin/zsh" ]]; then
-    chsh -s /usr/local/bin/zsh $USER
+    chsh -s /usr/local/bin/zsh "${USER}"
   ## Use the system's Zsh shell, if the Homebrew version doesn't exist
   else
-    chsh -s /bin/zsh $USER
+    chsh -s /bin/zsh "${USER}"
   fi
 }
 
 ## `up INTEGER` – Change to the parent directory, optionally nth levels up
 ## (also see aliases: `..`, `...`, `....`, `.....`, and `......`)
-function up() {
+up() {
   local destination=""
   count=$1
   for ((i=1; i <= count; i++)); do
@@ -153,12 +153,12 @@ function up() {
 ## Force `command not found` to pretty print
 if SHELL_BASH; then
   ## Bash handler
-  function command_not_found_handle() {
-    echo -e "$SHELL_ENV_TYPE: command not found: $NO$1$PE"
+  command_not_found_handle() {
+    echo -e "${SHELL_ENV_TYPE}: command not found: ${NO}$1${PE}"
   }
 elif SHELL_ZSH; then
   ## Zsh handler
-  function command_not_found_handler() {
-    echo -e "$SHELL_ENV_TYPE: command not found: $NO$1$PE"
+  command_not_found_handler() {
+    echo -e "${SHELL_ENV_TYPE}: command not found: ${NO}$1${PE}"
   }
 fi
