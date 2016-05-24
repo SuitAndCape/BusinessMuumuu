@@ -1,0 +1,328 @@
+#!/bin/sh
+# custom-osx-installs
+
+####= SuitAndCape Custom OS X Installation File
+##============================================================================##
+
+## Personalize OS X installation scripts here
+
+echo "Beginning custom OS X installations"
+
+## Require the administrator password
+sudo -v
+
+## Keep updating `sudo` timestamp until `custom-osx-installs` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+##== Homebrew Formulae ========================================================#
+
+## Ensure that Homebrew application casks are symlinked in /Applications
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+## Tapped Homebrew Formulae
+tapped_formulae=(
+  chktex
+  django-completion
+  rails-completion
+  rake-completion
+  suite-sparse
+)
+
+## Install tapped Homebrew Formulae
+echo "Installing tapped Homebrew Formulae"
+brew install "${tapped_formulae[@]}"
+
+##== NPM ======================================================================#
+
+## Global NPM packages
+global_packages=(
+  babel-core
+  bower
+  clean-css
+  coffee-script
+  compass
+  cordova
+  csslint
+  eslint
+  express
+  express-generator
+  html-minifier
+  ionic
+  js-beautify
+  jshint
+  jspm
+  jsxhint
+  minjson
+  node-gyp
+  svgo
+  tslint
+  typescript
+  uglify-js
+  uglifycss
+  uncss
+  wach
+)
+
+## Install global NPM packages
+echo "Installing global NPM packages"
+npm install -g "${global_packages[@]}"
+
+##== Java =====================================================================#
+
+## NOTE: Check Java version installed via configure/packages/Brewfile
+## @source http://www.oracle.com/technetwork/java/javase/downloads/index.html
+
+echo "Installing Java 8 via jEnv"
+
+## Add Java version 8.0.74 via jEnv
+jenv add /Library/Java/JavaVirtualMachines/jdk1.8.0_74.jdk/Contents/Home/
+
+## Have jEnv look for all known binaries and create the necessary shims
+jenv rehash
+
+## Select Java version 8.0.74 via jEnv
+jenv global oracle64-1.8.0.74
+
+##== Python ===================================================================#
+
+## Link Python 2 applications
+brew linkapps python
+
+## Link Python 3 applications
+brew linkapps python3
+
+## Pip and Setuptools
+pip_setup=(
+  pip
+  setuptools
+)
+
+## Update Pip and Setuptools
+echo "Updating Pip and setuptools for Python 2"
+pip install -U "${pip_setup[@]}"
+
+## Update Pip3 and Setuptools
+echo "Updating Pip3 and setuptools for Python 3"
+pip3 install -U "${pip_setup[@]}"
+
+## Local Pip packages
+pip_packages=(
+  awesome_print
+  cssselect
+  html5lib
+  ipython
+  lxml
+  matplotlib
+  nltk
+  nose
+  numpy
+  pandas
+  pep8
+  pillow
+  pylint
+  pyquery
+  q
+  scipy
+  simplejson
+  snakeviz
+  sympy
+  virtualenv
+)
+
+## Install local Pip packages
+echo "Installing local Pip packages"
+pip install "${pip_packages[@]}"
+
+## Install local Pip3 packages
+echo "Installing local Pip3 packages"
+pip3 install "${pip_packages[@]}"
+
+## Local Django packages
+django_packages=(
+  django
+)
+
+## Install local Django-Pip packages
+# echo "Installing local Django packages for Python 2"
+# pip install "${django_packages[@]}"
+
+## Install local Django-Pip3 packages
+# echo "Installing local Django packages for Python 3"
+# pip3 install "${django_packages[@]}"
+
+##== Ruby =====================================================================#
+
+## Select Ruby version 2.3.0 via chruby
+chruby ruby-2.3.0
+
+## Local Ruby Gems
+ruby_gems=(
+  awesome_print
+  bropages
+  bundler
+  cocoapods
+  compass
+  ghrepo
+  github
+  haml
+  jekyll
+  pry
+  pry-doc
+  rspec
+  rubocop
+  sass
+  scss_lint
+  t
+)
+
+## Install local Ruby Gems
+echo "Installing local Ruby Gems"
+gem install "${ruby_gems[@]}"
+
+## Local Rails Gems
+rails_gems=(
+  rails
+  better_errors
+  binding_of_caller
+  dotenv
+  foreman
+  guard
+  guard-livereload
+  guard-rspec
+  guard-spork
+  haml-rails
+  hirb
+  pry-byebug
+  pry-rails
+  rails-api
+  rspec-rails
+  sass-rails
+)
+
+## Install local Rails Gems
+# echo "Installing local Rails Gems"
+# gem install "${rails_gems[@]}"
+
+##== Homebrew Cask Applications ===============================================#
+
+## Homebrew Cask applications
+cask_apps=(
+  ## General Casks
+  alfred
+  dropbox
+  gpgtools
+  hipchat
+  jumpcut
+  openoffice
+  skype
+  slack
+  ## Browser Casks
+  chromium
+  firefox
+  firefoxdeveloperedition
+  google-chrome
+  google-chrome-canary
+  opera
+  opera-developer
+  vivaldi
+  ## Developer Casks
+  # atom        ## VS. 'sublime-text3' ##
+  imageoptim
+  iterm2
+  mactex
+  mysqlworkbench
+  skim
+  sublime-text3 ## VS. 'atom' ##            ### $70.00 ### <-"optional"
+  virtualbox
+  virtualbox-extension-pack
+  ## Quicklook plugin Casks
+  qlcolorcode
+  betterzipql
+  qlimagesize
+  qlmarkdown
+  qlprettypatch
+  qlstephen
+  quicklook-csv
+  quicklook-json
+  suspicious-package
+  webpquicklook
+)
+
+## Install Homebrew Cask applications
+echo "Installing Casks (Homebrew maintained applications)"
+brew cask install "${cask_apps[@]}"
+
+## Link Homebrew Cask applications to Alfred
+brew cask alfred link
+
+##== Databases ================================================================#
+
+## Install SQLite3 via Homebrew
+echo "Installing SQLite3"
+brew install sqlite3
+## Override the system copy of SQLite
+brew link sqlite3 --force
+## Install the SQLite3 Gem
+gem install sqlite3
+
+## Install MySQL via Homebrew
+echo "Installing MySQL"
+brew install mysql
+## Symlink the MySQL property list file to run PostgreSQL on startup
+ln -sfv /usr/local/opt/mysql/*.plist "${HOME}"/Library/LaunchAgents
+## Unload the MySQL property list file, in case it has errored
+launchctl unload "${HOME}"/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+## Reload the MySQL property list file
+launchctl load "${HOME}"/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+## Install the MySQL2 Gem
+gem install mysql2
+
+## Remove previously existing PostgreSQL directory
+echo "Installing PostgreSQL"
+## **** Remove current PostgreSQL database, in case of directory corruption ****
+# rm -rf /usr/local/var/postgres/
+## **** Set user permissions for /use/local/ once again, because PostgreSQL ****
+# sudo chown -R $USER /usr/local
+## Install PostgreSQL via Homebrew
+brew install postgresql
+## **** Create a new PostgreSQL database cluster, with an encoding of UTF-8 ****
+# initdb /usr/local/var/postgres -E utf8
+## Symlink the PostgreSQL property list file to run PostgreSQL on startup
+ln -sfv /usr/local/opt/postgresql/*.plist "${HOME}"/Library/LaunchAgents
+## Unload the PostgreSQL property list file, in case it has errored
+launchctl unload "${HOME}"/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+## Reload the PostgreSQL property list file
+launchctl load "${HOME}"/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+## Install the PG Gem
+gem install pg
+
+## Install MongoDB via Homebrew
+echo "Installing MongoDB"
+brew install mongodb
+## Create the MongoDB data database directory
+sudo mkdir -p /data/db
+## Set user permissions for the /data directory
+sudo chown -R "${USER}" /data/
+## Ensure the MongoDB database directory is readable and writable
+sudo chmod 777 /data/db
+## Symlink the MongoDB property list file to run MongoDB on startup
+ln -sfv /usr/local/opt/mongodb/*.plist "${HOME}"/Library/LaunchAgents
+## Unload the MongoDB property list file, in case it has errored
+launchctl unload "${HOME}"/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
+## Reload the MongoDB property list file
+launchctl load "${HOME}"/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
+## Install the Mongo Gem
+gem install mongo
+
+##== Clean Up =================================================================#
+
+echo "Initiating post custom installation clean up"
+
+## Remove outdated Formulae and casks from the cellar and the caskroom
+brew cleanup; brew cask cleanup
+
+## Remove data from the NPM cache folder
+npm cache clean
+
+## Remove outdated versions of Gems
+gem cleanup

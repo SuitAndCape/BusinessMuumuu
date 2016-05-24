@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<!--= SuitAndCape Sublime Text MarkdownEditing Marker Preferences
+=============================================================================-->
+<!-- @source https://packagecontrol.io/packages/MarkdownEditing -->
+  <dict>
+    <key>name</key>
+    <string>Bold and Italic Markers</string>
+    <key>scope</key>
+    <string>text.html.markdown</string>
+    <key>settings</key>
+    <dict>
+      <key>shellVariables</key>
+      <array>
+        <dict>
+          <key>name</key>
+          <string>MD_BOLD_MARKER</string>
+          <key>value</key>
+          <string>**</string>
+        </dict>
+        <dict>
+          <key>name</key>
+          <string>MD_ITALIC_MARKER</string>
+          <key>value</key>
+          <string>_</string>
+        </dict>
+      </array>
+    </dict>
+    <key>uuid</key>
+    <string>7AF5738F-262B-4DFD-8905-731B3445003A</string>
+  </dict>
+</plist>

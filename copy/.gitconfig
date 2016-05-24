@@ -1,0 +1,77 @@
+# .gitconfig
+
+####= SuitAndCape Git Configurations
+##============================================================================##
+
+[core]
+  ## Set a global list of things to ignore
+  excludesfile = ~/.gitignore_global
+  ## Don't show Windows end-of-line characters (`^M`)
+  whitespace = cr-at-eol
+
+[color]
+  status = auto
+  diff = auto
+
+[color "status"]
+  untracked = cyan
+  changed = green
+  added = yellow
+
+[commit]
+  template = ~/.git_commit_template
+
+[alias]
+  ## `aa` – Updates the index using the current content found in the working
+  #tree and stages new, modified, and deleted files (`all`)
+  aa = add --all
+  ## `amend` – Command for editing the last commit
+  amend = commit --verbose --amend
+  ## `ap` – Stage parts of a changed file instead of the whole file, making
+  #commits more concise and commit history more readable
+  ap = add --patch
+  ## `b` – List branches sorted by last modified
+  b = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
+  ## `c` – Enforces diff display in editor, then commits files
+  c = commit --verbose
+  ## `ca` – Automatically stage modified and deleted files (`all`) and enforces
+  #diff display in editor, then commits files (`verbose`)
+  ca = commit --all --verbose
+  cam = commit --all -m
+  cm = commit -m
+  cv = commit --amend --verbose
+  ## `co` – `checkout` command
+  co = checkout
+  cob = checkout -b
+  d = diff
+  ds = diff --stat
+  dc = diff --cached
+  ## `l` – One-line log
+  l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+  ## `la` – List aliases
+  la = "!git config -l | grep alias"
+  ## `lg` – Pretty log with short commit messages
+  ## See the log manpage for explanations of what these options do:
+  #https://www.kernel.org/pub/software/scm/git/docs/git-log.html
+  lg = log \
+    --graph \
+    --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' \
+    --abbrev-commit \
+    --date=relative
+  ## `pa` – Updates remote branch configured to the `alt` upstream, using the
+  #local branch as context
+  pa = push alt
+  ## `po` – Updates remote branch configured to the `origin` upstream, using
+  #the local branch as context
+  po = push origin
+  ## `ph` – Updates remote branch configured to the `heroku` upstream, using
+  #the local branch as context
+  ph = push heroku
+  ## `shh` – `commit` command, with a less noisy status
+  shh = commit --dry-run --short
+  ## `s` – Display the current git status
+  s = status
+  ## `stage` – Add files from the README
+  stage = add
+  ## `unstage` – Remove files from the README
+  unstage = reset HEAD

@@ -1,0 +1,54 @@
+#!/bin/sh
+# $HOME/shell-modules/.exports
+
+####= SuitAndCape Local Shell Environment Exports
+##============================================================================##
+
+## Stash local shell environment exports here
+
+## Preferred editor for local and remote sessions
+if IS_SSH; then
+  ## Set `vim` as the open default editor command for remote login
+  export OPEN_EDITOR="vim"
+  ## Set Vim as the default remote editor through the `vim` command
+  export EDITOR="${OPEN_EDITOR}"
+else
+  if USE_SUBL; then
+    ## Set `subl` as the open default editor command for local login
+    export OPEN_EDITOR="subl"
+    ## Set Sublime Text as the visual editor through the `subl --wait` command
+    export VISUAL="${OPEN_EDITOR} --wait"
+  elif USE_ATOM; then
+    ## Set `atom` as the open default editor command for local login
+    export OPEN_EDITOR="atom"
+    ## Set Atom as the visual editor through the `atom --wait` command
+    export VISUAL="${OPEN_EDITOR} --wait"
+  else
+    ## Set `vim` as the open default editor command for local login
+    export OPEN_EDITOR="vim"
+    ## Set Vim as the visual editor through the `vim` command
+    export VISUAL="${OPEN_EDITOR}"
+  fi
+  ## Set the default local editor through the visual editor
+  export EDITOR="${VISUAL}"
+  ## Set the default git editor through the visual editor
+  export GIT_EDITOR="${VISUAL}"
+fi
+
+## Set personal locale to US style English and using UTF-8
+export LANG="en_US.UTF-8"
+
+## Override all locale preferences to US style English and using UTF-8
+export LC_ALL="en_US.UTF-8"
+
+## Preferred output filtering command for terminal writing to the terminal
+if USE_MOST; then
+  ## Use `most` as the output filter, if it exists
+  export PAGER="most"
+else
+  ## Use `less` as the output filter, if `most` does not exist
+  export PAGER="less"
+fi
+
+## Make `less` repaint the screen/discard buffered input (`R`)
+export LESS="-R"

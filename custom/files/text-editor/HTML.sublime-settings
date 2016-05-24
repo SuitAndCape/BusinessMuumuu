@@ -1,0 +1,13 @@
+// $SUBLIME_DIR/Packages/User/HTML.sublime-settings
+
+////= SuitAndCape Sublime Text HTML Preferences
+//============================================================================//
+
+{
+  "extensions":
+  [
+    "html",
+    "htm",
+    "html.erb"
+  ]
+}

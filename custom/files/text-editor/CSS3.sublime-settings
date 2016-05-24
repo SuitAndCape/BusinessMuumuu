@@ -1,0 +1,15 @@
+// $SUBLIME_DIR/Packages/User/CSS3.sublime-settings
+
+////= SuitAndCape Sublime Text CSS3 Preferences
+//============================================================================//
+
+/// @source https://packagecontrol.io/packages/CSS3
+
+{
+	"extensions":
+	[
+		"css",
+    "css.erb",
+    "css.liquid"
+	]
+}

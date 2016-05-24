@@ -1,0 +1,118 @@
+#!/bin/sh
+# setup-helpers
+
+####= SuitAndCape Setup Helpers
+##============================================================================##
+
+## Helper shell functions, variables, etc. for the BusinessMuumuu setup process
+
+##== Function Helpers =========================================================#
+
+## Sources files in an efficient manner
+sourceinator() {
+  declare -a file_group=("${!1}")
+  for file in "${file_group[@]}"; do
+    file="${2}${file}"
+    [ -r "$file" ] && [ -f "$file" ] && source "$file"
+  done;
+}
+
+## Kills (`killall`) applications silently
+appkillinator() {
+  for application in "$@"; do
+    killall "${application}" &> /dev/null
+  done
+}
+
+## Picks a "package managed" version of Bash
+bashinator() {
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    ## Use the Homebrew maintained version Bash
+    if [ -f "/usr/local/bin/bash" ] && [[ -z `dscl . -read ${HOME} UserShell | grep /usr/local/bin/bash$` ]]; then
+      chsh -s /usr/local/bin/bash $USER
+    ## Use the system version of Bash
+    else
+      chsh -s /bin/bash $USER
+    fi
+  elif [[ "$OSTYPE" == "linux"* ]]; then
+    echo "No Linux Bash setup available at this time."
+  fi
+}
+
+## Picks a "package managed" version of Zsh
+zshinator() {
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    ## Use the Homebrew maintained version Zsh
+    if [ -f "/usr/local/bin/zsh" ] && [[ -z `dscl . -read ${HOME} UserShell | grep /usr/local/bin/zsh$` ]]; then
+      chsh -s /usr/local/bin/zsh $USER
+    ## Use the system version of Zsh
+    else
+      chsh -s /bin/zsh $USER
+    fi
+  elif [[ "$OSTYPE" == "linux"* ]]; then
+    echo "No Linux Zsh setup available at this time."
+  fi
+}
+
+## Adds application icons to the Dock
+dockappinator() {
+  ## Add each element of the input array to the dock
+  for app in "$@"; do
+    defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>${app}</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
+    echo "\"$app\" was added to the Dock"
+  done
+}
+
+## Adds directory and file icons to the Dock
+dockdirinator() {
+  ## Add each element of the input array to the dock
+  for dir in "$@"; do
+    defaults write com.apple.dock persistent-others -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>${dir}</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
+    echo "\"$dir\" was added to the Dock"
+  done
+}
+
+## Adds custom application shortcut sub-menus to the Keyboard shortcut menu
+shortcutinator() {
+  ## Add each element of the input array to the menu, if it doesn't already exist
+  for sub_menu in "$@"; do
+    [[ -n $(defaults read com.apple.universalaccess com.apple.custommenu.apps | sed -En "s/[^a-zA-Z0-9.-]+($sub_menu)[^a-zA-Z0-9.-]+/\1/p") ]] && continue
+    defaults write com.apple.universalaccess com.apple.custommenu.apps -array-add "$sub_menu"
+    echo "\"$sub_menu\" was added to the custom Keyboard shorcut menu"
+  done
+}
+
+##== Variable Helpers =========================================================#
+
+## Keyboard mapping symbols
+APOSTROPHE_KEY="\\U0027"
+ARROW_DOWN_KEY="\\U2193"
+ARROW_LEFT_KEY="\\U2190"
+ARROW_RIGHT_KEY="\\U2192"
+ARROW_UP_KEY="\\U2191"
+BACKSLASH_KEY="\\U005c"
+COMMAND_KEY="@"
+CONTROL_KEY="^"
+DELETE_BACKWARD_KEY="\\U232b"
+DELETE_FORWARD_KEY="\\U2326"
+FORWARD_SLASH_KEY="\\U002f"
+OPTION_KEY="~"
+QUOTATION_KEY="\\U0022"
+RETURN_KEY="\\U21a9"
+SHIFT_KEY="$"
+TAB_KEY="\\U21e5"
+
+## PlistBuddy command
+PLISTBUDDY=/usr/libexec/PlistBuddy
+
+## Screenshots directory
+FONTS_DIR=/Library/Fonts
+
+## Screenshots directory
+SCREENSHOTS_DIR="${HOME}"/Pictures/Screenshots
+
+## Shell assistance directories location
+SHELL_DIR="${HOME}"/shell
+
+## Sublime Text 3 directory
+SUBLIME_DIR="${HOME}"/Library/Application\ Support/Sublime\ Text\ 3

@@ -1,0 +1,32 @@
+// $SUBLIME_DIR/Packages/User/Ruby.sublime-settings
+
+////= SuitAndCape Sublime Text Ruby Preferences
+//============================================================================//
+
+{
+  "extensions":
+  [
+    "rb",
+    "jbuilder",
+    "podspec",
+    "rake",
+    "ru",
+    "Brewfile",
+    "Caskfile",
+    "Cheffile",
+    "Gemfile",
+    "Gemfile.lock",
+    "Guardfile",
+    "Podfile",
+    "Rakefile",
+    "Thorfile",
+    "Vagrantfile",
+    "Vagrantfile.all",
+    "Vagrantfile.lead_playback",
+    "Vagrantfile.ono_base",
+    ".irbrc",
+    ".pryrc"
+  ],
+  /// Include trailing `?` and `!` in word selections (improves DocDash)
+  "word_separators": "./\\()\"'-:,.;<>~@#$%^&*|+=[]{}`~"
+}

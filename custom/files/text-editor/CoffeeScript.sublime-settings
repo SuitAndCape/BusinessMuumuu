@@ -1,0 +1,11 @@
+// $SUBLIME_DIR/Packages/User/CoffeeScript.sublime-settings
+
+////= SuitAndCape Sublime Text CoffeeScript Preferences
+//============================================================================//
+
+{
+  "extensions":
+  [
+    "coffee"
+  ]
+}

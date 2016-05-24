@@ -1,0 +1,52 @@
+# .inputrc
+
+####= SuitAndCape Terminal Input Run Commands
+##============================================================================##
+
+## Use `[⌥]+[→]` to move forward by word
+# "\e[1;5C": forward-word
+
+## Use `[⌥]+[←]` to move backward by word
+# "\e[1;5D": backward-word
+
+## Use `[⌥]+[⌫]` to delete the preceding word
+"\e[3;3~": kill-word
+
+## Use `[↑]` to scroll backward through smart history (typed text as a prefix)
+"\e[A": history-search-backward
+
+## Use `[↓]` to scroll backward through smart history (typed text as a prefix)
+"\e[B": history-search-forward
+
+## Visualize the terminal bell
+set bell-style visible
+
+## Filename `[⇥]` autocompletion is case-insensitive
+set completion-ignore-case on
+
+## Ask to display all possibilities if more than two hundred completions exist
+set completion-query-items 200
+
+## Disable 8th bit stripping
+set convert-meta off
+
+## Enable UTF-8 input
+set input-meta on
+
+## Add trailing slash when autocompleting symlinks to directories
+set mark-symlinked-directories on
+
+## Enable UTF-8 output
+set output-meta on
+
+## Show all autocomplete results
+set page-completions off
+
+## List all matches if multiple completions are possible
+set show-all-if-ambiguous on
+
+## More intelligent autocompletion (takes text after the cursor into account)
+set skip-completed-text on
+
+## Annotate file types when autocompleting
+set visible-stats on

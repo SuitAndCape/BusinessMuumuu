@@ -1,0 +1,14 @@
+// $SUBLIME_DIR/Packages/User/Plain text.sublime-settings
+
+////= SuitAndCape Sublime Text Plain Text Preferences
+//============================================================================//
+
+{
+	"extensions":
+	[
+		"ini",
+    "txt",
+		"readme",
+		"changelog"
+	]
+}

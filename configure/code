@@ -1,0 +1,43 @@
+#!/bin/sh
+# code
+
+####= SuitAndCape Code Setup
+##============================================================================##
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  if (which python > /dev/null); then
+    ## Update Pip and Setuptools
+    pip install -U pip setuptools
+
+    ## Install Virtualenv (Pip)
+    pip install virtualenv
+  fi
+
+  if (which python3 > /dev/null); then
+    ## Update Pip3 and Setuptools
+    pip3 install -U pip setuptools
+
+    ## Install Virtualenv (Pip3)
+    pip3 install virtualenv
+  fi
+
+  if (which ruby-install > /dev/null); then
+    ## Install Ruby 2.0.0 via ruby-install
+    ruby-install ruby 2.0.0
+
+    ## Install Ruby 2.3.0 via ruby-install
+    ruby-install ruby 2.3.0
+
+    ## Update RubyGems and locally installed Gems
+    gem update --system; gem update
+
+    ## Install Bundler
+    gem install bundler
+
+    ## Remove outdated versions of Gems
+    gem cleanup
+  fi
+
+elif [[ "$OSTYPE" == "linux"* ]]; then
+  echo "No Linux Code setup available at this time."
+fi

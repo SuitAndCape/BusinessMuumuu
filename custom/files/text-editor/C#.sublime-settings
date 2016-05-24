@@ -1,0 +1,12 @@
+// $SUBLIME_DIR/Packages/User/C#.sublime-settings
+
+////= SuitAndCape Sublime Text C# Preferences
+//============================================================================//
+
+{
+  "extensions":
+  [
+    "cs"
+  ],
+  "tab_size": 4,
+}

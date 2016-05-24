@@ -1,0 +1,7 @@
+# .gemrc
+
+####= SuitAndCape Gem Run Commands
+##============================================================================##
+
+## Prevent Gem documentation from downloading by default
+gem: --no-document

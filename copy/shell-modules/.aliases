@@ -1,0 +1,384 @@
+#!/bin/sh
+# $HOME/shell-modules/.aliases
+
+####= SuitAndCape Shell Aliases
+##============================================================================##
+
+## Aliases named to improve workflow and help the user recall the full commands
+
+##== Transformed Aliases ======================================================#
+
+## Force `bc` to start with math support (`l`)
+alias bc="bc -l"
+## Force `cp` to prompt before overwriting an existing file (`i`), and
+#recursively copy files into existing folders and create new folders when the
+#destination folder is missing (`r`)
+alias cp="cp -ri"
+## Force `df` to output in a human readable format (`H`)
+alias df="df -H"
+## Force `du` to output a grand total (`c`) in a human readable format (`h`)
+alias du="du -ch"
+## Force `egrep`, fgrep`, `grep`, `zegrep`, `zfgrep`, and `zgrep` to output in
+#color unless the output is piped or redirected to a file (`--color=auto`)
+alias egrep="egrep --color=auto"
+alias fgrep="fgrep --color=auto"
+alias grep="grep --color=auto"
+alias zegrep="zegrep --color=auto"
+alias zfgrep="zfgrep --color=auto"
+alias zgrep="zgrep --color=auto"
+## Force `less` to exit if the entire file can be displayed at once (`F`),
+#prompt more verbosely than `more` (`M`), display ANSI color escape sequence
+#raw control characters (`R`), and mute the bell (`q`)
+alias less="less -FMRq"
+## Force `ln` to output unedited non-graphic characters (`v`)
+alias ln="ln -v"
+## Force `ls` to output the listing with human readable file sizes (`h`) and in
+#color (`${COLORFLAG}`)
+alias ls="ls -h ${COLORFLAG}"
+## Force `mkdir` to make any necessary parent directories (`p`) and output all
+#of the directories created (`v`)
+alias mkdir="mkdir -pv"
+## Force `mount` to output in a pretty, human readable format (`| column -t`)
+alias mount="mount | column -t"
+## Force `mv` to prompt before overwriting an existing file (`i`)
+alias mv="mv -i"
+## Force `nano` to convert typed tabs to spaces (`E`), show the cursor
+#location (`c`), and autoindent to match the previous line (`i`)
+alias nano="nano -Eci"
+## Force `rm` to prompt before erasing file (`i`)
+alias rm="rm -i"
+
+##== Variant Aliases ==========================================================#
+
+## `clr` – Variant of `clear`; clear the terminal emulator screen
+alias clr="clear"
+## `e` – Open (with) primary editor, found in $HOME/shell-modules/.exports
+alias e="${OPEN_EDITOR}"
+## `egrepc`, fgrepc`, or `grepc` – Variants of `egrep`, `fgrep`, `grep`,
+#`zegrep`, `zfgrep`, and `zgrep`; always output in color (`--color=always`)
+alias egrepc="egrep --color=always"
+alias fgrepc="fgrep --color=always"
+alias grepc="grep --color=always"
+alias zegrepc="zegrep --color=always"
+alias zfgrepc="zfgrep --color=always"
+alias zgrepc="zgrep --color=always"
+## `gurl` – Variant of `curl`; enable gzip (`--compressed`) for `curl`
+alias gurl="curl --compressed"
+## `ping!` – Variant of `ping`; send ICMP ECHO_REQUEST packets to network
+#hosts until five ECHO_RESPONSE packets are received (`c 5`)
+alias ping!="ping -c 5"
+## `psaux` – Variant of `ps aux | grep`; search files for the occurrence of a
+#string of characters that matches a specified pattern (`| grep`) and output the
+#active processes info (`ps`) showing processes of all users (`a`), each
+#process's user/owner (`u`), and processes not attached to a terminal (`x`)
+alias psaux="ps aux | grep"
+## `v` – Variant of `vim`; launch Vim
+alias v="vim"
+
+##== Change Directory Aliases =================================================#
+
+## `cd-` – Change to the previous working directory
+## (also see function: `-`)
+alias cd-="cd -"
+## `cd~` or `~` – Change to the $HOME/ directory
+alias cd~="cd ~"
+alias ~="cd ~"
+## `..`, `...`, `....`, `.....`, or `......` – Go up one to five directories
+## (also see function: `up`)
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ......="cd ../../../../.."
+## `apps` – Change to the Applications/ directory
+alias apps="cd ~/Applications"
+## `code` – Change to the Code/ directory
+alias code="cd ~/Code"
+## `desi` – Change to the Design/ directory
+alias desi="cd ~/Design"
+## `desk` – Change to the Desktop/ directory
+alias desk="cd ~/Desktop"
+## `docs` – Change to the Documents/ directory
+alias docs="cd ~/Documents"
+## `down` – Change to the Downloads/ directory
+alias down="cd ~/Downloads"
+## `drop` – Change to the Dropbox/ directory
+alias drop="cd ~/Dropbox"
+## `movi` – Change to the Movies/ directory
+alias movi="cd ~/Movies"
+## `musi` – Change to the Music/ directory
+alias musi="cd ~/Music"
+## `pics` – Change to the Pictures/ directory
+alias pics="cd ~/Pictures"
+## `proj` – Change to the Projects/ directory
+alias proj="cd ~/Projects"
+
+##== List Contents Aliases ====================================================#
+
+## `hella` – Output the listing in long format (`l`) displaying the following:
+#hidden files (`a`), non-printable characters (`b`), the number of file system
+#blocks actually used by each file in units of 512 bytes (`s`), annotated file
+#types (`F`), file flags (`O`), and complete time information (`T`)
+alias hella="ls -labsFOT"
+## `l.` – Output only hidden items, listed in long format (`l`)
+alias l.="find . \( -flags +hidden -or -name \".*\" \) -maxdepth 1 | sed \"s/^\.\/*//\" | xargs ls -ladhFO ${COLORFLAG}"
+## `ld` – Output only directories (`d */`), listed in long format (`l`)
+alias ld="ls -ld */"
+## `ll` – Output the listing in long format (`l`), annotate file types (`F`),
+#and include hidden files (`a`)
+alias ll="ls -laF"
+## `lo` – Output the listing in long format (`l`), annotate file types (`F`),
+#and include hidden files (`a`) and permissions converted to octals (`sed …`)
+alias lo="ls -laF | sed -e \"s/--x/1/g\" -e \"s/-w-/2/g\" -e \"s/-wx/3/g\" -e \"s/r--/4/g\" -e \"s/r-x/5/g\" -e \"s/rw-/6/g\" -e \"s/rwx/7/g\" -e \"s/---/0/g\""
+## `t100` – Output the last one hundred lines (`n 100`) of the input
+alias t100="tail -n 100"
+## `t200` – Output the last two hundred lines (`n 200`) of the input
+alias t200="tail -n 200"
+## `t500` – Output the last five hundred lines (`n 500`) of the input
+alias t500="tail -n 500"
+## `t1000` – Output the last one thousand lines (`n 1000`) of the input
+alias t1000="tail -n 1000"
+## `t2000` – Output the last two thousand lines (`n 2000`) of the input
+alias t2000="tail -n 2000"
+## `t5000` – Output the last five thousand lines (`n 5000`) of the input
+alias t5000="tail -n 5000"
+
+##== Display Aliases ==========================================================#
+
+if OS_OSX; then
+
+  ## `afk` – Lock the screen
+  alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+  ## `hide` – Conceal hidden files
+  alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder; echo \"Hidden files concealed\""
+  ## `hidedesk` – Conceal desktop files
+  alias hidedesk="defaults write com.apple.finder CreateDesktop -bool false && killall Finder; echo \"Desktop files concealed\""
+  ## `show` – Reveal hidden files
+  alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder; echo \"Hidden files revealed\""
+  ## `showdesk` – Reveal desktop files
+  alias showdesk="defaults write com.apple.finder CreateDesktop -bool true && killall Finder; echo \"Desktop files revealed\""
+
+# elif OS_LINUX; then
+
+  ## `afk` – Lock the screen
+  # alias afk=""
+  ## `hide` – Conceal hidden files
+  # alias hide=""
+  ## `hidedesk` – Conceal desktop files
+  # alias hidedesk=""
+  ## `show` – Reveal hidden files
+  # alias show=""
+  ## `showdesk` – Reveal desktop files
+  # alias showdesk=""
+
+fi
+
+##== Audio Aliases ============================================================#
+
+if OS_OSX; then
+
+  ## `calm` – Turn the volume low
+  alias calm="osascript -e \"set volume 1\"; echo \"Volume: min\""
+  ## `chill` – Turn the volume halfway up
+  alias chill="osascript -e \"set volume 4\"; echo \"Volume: mid\""
+  ## `party` – Turn the volume all the way up
+  alias party="osascript -e \"set volume 7\"; echo \"Volume: max\""
+  ## `saywhat` – Restore the volume
+  alias saywhat="osascript -e \"set volume output muted false\"; echo \"Sound restored\""
+  ## `shush` – Mute the volume
+  alias shush="osascript -e \"set volume output muted true\"; echo \"Sound muted\""
+
+# elif OS_LINUX; then
+
+  ## `calm` – Turn the volume low
+  # alias calm=""
+  ## `chill` – Turn the volume halfway up
+  # alias chill=""
+  ## `party` – Turn the volume all the way up
+  # alias party=""
+  ## `saywhat` – Restore the volume
+  # alias saywhat=""
+  ## `shush` – Mute the volume
+  # alias shush=""
+
+fi
+
+##== Application and System Aliases ===========================================#
+
+## `cobang` – Open the Code/, Design/, Documents/, Dropbox/, and Projects/
+#directories in the primary editor
+alias cobang="e ~/Code ~/Design ~/Documents ~/Dropbox ~/Projects"
+## `codeit` – Open the Code/ directory in the primary editor
+alias codeit="e ~/Code"
+## `codocs` – Open the Code/ and Documents/ directories in the primary editor
+alias codocs="e ~/Code ~/Documents"
+## `cosign` – Open the Code/ and Design/ directories in the primary editor
+alias cosign="e ~/Code ~/Design"
+## `codrop` – Open the Code/ and Dropbox/ directories in the primary editor
+alias codrop="e ~/Code ~/Dropbox"
+## `coproj` – Open the Code/ and Projects/ directories in the primary editor
+alias coproj="e ~/Code ~/Projects"
+## `myip` – Get the device's IP address from a server (`curl http://ipecho.net`)
+#in plain text (`/plain`) and output it
+alias myip="curl http://ipecho.net/plain; echo"
+## `now` – Output the date (`date`) as the year-month-day (`%Y-%m-%d`), day of
+#the week (`%a`), time (`%T`), and time zone (`%Z`)
+alias now="date +\"%Y-%m-%d %a %T %Z\""
+## `path` – Pretty print Path
+alias path="echo ${PATH} | tr -s \":\" \"\n\""
+## `resh` – Reload the current shell (invoke as a login shell)
+alias resh="exec ${SHELL} -l"
+## `rete` – Clear the terminal emulator screen and reload the current shell
+#(invoke as a login shell)
+alias rete="clear; exec ${SHELL} -l"
+
+if OS_OSX; then
+
+  ## `battery` – Output OS X battery info
+  ## @source http://blog.justingreer.com/post/45839440/a-tale-of-two-batteries
+  alias battery="ioreg -w0 -l | grep Capacity | cut -d \" \" -f 17-50"
+  ## `osup` – Install available system updates (`ia`) and output verbosely (`v`)
+  alias osup="sudo softwareupdate -iav"
+
+# elif OS_LINUX; then
+
+  ## `battery` –
+  # alias battery=""
+  ## `osup` –
+  # alias osup=""
+
+fi
+
+##== Package Manager Aliases ==================================================#
+
+## `npmclean` – Remove data from the NPM cache directory
+alias npmclean="echo \"Cleaning NPM's cache directory\" && npm cache clean; echo"
+## `npmin` – Update or install to the latest version of NPM globally
+alias npmin="echo \"Updating/installing NPM Globally\" && npm install npm@latest -g; echo"
+## `npmout` – Output all outdated local and global NPM packages
+alias npmout="echo \"Outdated local NPM packages\" && npm outdated --depth=0; echo; echo \"Outdated global NPM packages\" && npm outdated -g --depth=0; echo"
+## `npmoutg` – Output all outdated global NPM packages
+alias npmoutg="echo \"Outdated global NPM packages\" && npm outdated -g --depth=0; echo"
+## `npmoutl` – Output all outdated local NPM packages
+alias npmoutl="echo \"Outdated local NPM packages\" && npm outdated --depth=0; echo"
+## `npms` – Output all local and global NPM packages
+alias npms="echo \"Local NPM packages\" && npm ls --depth=0; echo \"Global NPM packages\" && npm ls -g --depth=0"
+## `npmsg` – Output all global NPM packages
+alias npmsg="echo \"Global NPM packages\" && npm ls -g --depth=0"
+## `npmsl` – Output all local NPM packages
+alias npmsl="echo \"Local NPM packages\" && npm ls --depth=0"
+## `npmup` – Update all outdated local and global NPM packages
+alias npmup="echo \"Updating locally and globally installed NPM packages\" && npm update; npm update -g npm; npm update -g"
+## `npmupg` – Update all outdated global NPM packages
+alias npmupg="echo \"Updating global NPM packages\" && npm update -g npm; npm update -g"
+## `npmupl` – Update all outdated local NPM packages
+alias npmupl="echo \"Updating local NPM packages\" && npm update"
+
+if OS_OSX; then
+
+  ## `brewclean` – Remove outdated and replaced Homebrew Formulae and Casks
+  alias brewclean="echo \"Cleaning Homebrew's Cellar and Caskroom\" && brew cleanup; brew cask cleanup; echo"
+  ## `brews` – Output all Homebrew Formulae and Casks
+  alias brews="echo \"Current environment's Homebrew Formulae\" && brew ls; echo; echo \"Current environment's Homebrew Casks\" && brew cask ls; echo"
+  ## `brewsc` – Output all Homebrew Casks
+  alias brewsc="echo \"Current environment's Homebrew Casks\" && brew cask ls; echo"
+  ## `brewsf` – Output all Homebrew Formulae
+  alias brewsf="echo \"Current environment's Homebrew Formulae\" && brew ls; echo"
+  ## `brewup` – Update and upgrade all outdated Homebrew Formulae and Casks
+  alias brewup="echo \"Updating and upgrading current environment's Homebrew Formulae and Casks\" && brew update; brew upgrade --all; echo"
+  ## `caskup` – Update and upgrade all outdated Casks
+  ## !!!TEMPORARY!!! ##
+  alias caskup="echo \"Updating and upgrading current environment's Homebrew Casks\" && brew cask list | xargs brew cask install --force; echo"
+  ## `drbrew` – Check for Homebrew warnings and issues
+  alias drbrew="echo \"Brew Doctor diagnoses\" && brew doctor; echo"
+
+# elif OS_LINUX; then
+
+  ## `pkgsrcclean` –
+  # alias pkgsrcclean=""
+  ## `pkgsrcout` –
+  # alias pkgsrcout=""
+  ## `pkgsrcs` –
+  # alias pkgsrcs=""
+  ## `pkgsrcup` –
+  # alias pkgsrcup=""
+
+fi
+
+##== Bundler Aliases ==========================================================#
+
+## `be` – Run a Gem executable within the context of the Bundle
+alias be="bundle exec"
+## `brails` – Run a Rails executable within the context of the Bundle
+alias brails="bundle exec rails"
+## `brailscon` – Run the Rails console within the context of the Bundle
+alias brailscon="bundle exec rails console"
+## `brailsdbc` – Run the Rails dbconsole within the context of the Bundle
+alias brailsdbc="bundle exec rails dbconsole"
+## `brailsgen` – Run the Rails generator within the context of the Bundle
+alias brailsgen="bundle exec rails generate"
+## `brailsser` – Run the Rails server within the context of the Bundle
+alias brailsser="bundle exec rails server"
+## `brake` – Run a Rake executable within the context of the Bundle
+alias brake="bundle exec rake"
+## `brspec` – Run an RSpec executable within the context of the Bundle
+alias brspec="bundle exec rspec"
+## `bundlein` – Update or install all Gems dependencies within the Gemfile
+alias bundlein="echo \"Updating/installing the current Bundle's Gem dependencies\" && bundle install; echo"
+## `bundles` – Output all Gems installed within the context of the Bundle
+alias bundles="echo \"Current Bundle's Gems\" && bundle list; echo"
+## `bundlepack` – Lock and cache the current bundle's Gems into ./vendor/cache
+alias bundlepack="echo \"Locking and caching the current Bundle's Gems\" && bundle package; echo"
+## `bundleup` – Update all Gems installed within the context of the Bundle
+alias bundleup="echo \"Updating the current Bundle's Gems\" && bundle update; echo"
+
+##== Gem Aliases ==============================================================#
+
+## `gemclean` – Remove outdated and replaced Gems
+alias gemclean="echo \"Cleaning current environment's Gemset\" && gem cleanup; echo"
+## `gemout` – Output all outdated Gems
+alias gemout="echo \"Outdated Gems in current environment\" && gem outdated; echo"
+## `gems` – Output all installed Gems
+alias gems="echo \"Current environment's Gemset\" && gem list; echo"
+## `gemup` – Update RubyGems and all installed Gems
+alias gemup="echo \"Updating RubyGems\" && gem update --system; echo; gem update; echo"
+
+##== Pip Aliases ==============================================================#
+
+## `pipout` – Output all outdated Pip packages
+alias pipout="echo \"Outdated Pip packages in current environment\" && pip list -o; echo"
+## `pips` – Output all installed Pip packages
+alias pips="echo \"Current environment's Pip packages\" && pip list; echo"
+## `pipup` – Update Pip, Setuptools, and Pip packages
+alias pipup="echo \"Updating Pip\" && pip install -U pip; echo; echo \"Updating Setuptools\" && pip install -U setuptools; echo; echo \"Updating current environment's Pip packages\" && pip list -o | cut -d ' ' -f1 | xargs -n1 pip install -U; echo"
+
+##== Pip3 Aliases =============================================================#
+
+## `pip3out` – Output all outdated Pip3 packages
+alias pip3out="echo \"Outdated Pip3 packages in current environment\" && pip3 list -o; echo"
+## `pip3s` – Output all installed Pip3 packages
+alias pip3s="echo \"Current environment's Pip3 packages\" && pip3 list; echo"
+## `pip3up` – Update Pip3, Setuptools, and Pip3 packages
+alias pip3up="echo \"Updating Pip3\" && pip3 install -U pip; echo; echo \"Updating Setuptools\" && pip3 install -U setuptools; echo; echo \"Updating current environment's Pip3 packages\" && pip3 list -o | cut -d ' ' -f1 | xargs -n1 pip3 install -U; echo"
+
+##== Ruby on Rails Aliases ====================================================#
+
+## `railscon` – Run the Rails console
+alias railscon="rails console"
+## `railsdbc` – Run the Rails dbconsole
+alias railsdbc="rails dbconsole"
+## `railsgen` – Run the Rails generator
+alias railsgen="rails generate"
+## `railsser` – Run the Rails server
+alias railsser="rails server"
+## `rakec` – Create the Rails database
+alias rakec="rake db:create"
+## `raked` – Drop the Rails database
+alias raked="rake db:drop"
+## `rakem` – Migrate the Rails database
+alias rakem="rake db:migrate"
+## `rakes` – Load the Rails seed data from db/seeds.rb
+alias rakes="rake db:seed"
+## `rerake` – Drop, create, and migrate the Rails database, then load the seed
+#data from db/seeds.rb
+alias rerake="rake db:drop db:create db:migrate db:seed"

@@ -1,0 +1,18 @@
+// $SUBLIME_DIR/Packages/User/Python.sublime-settings
+
+////= SuitAndCape Sublime Text Python Preferences
+//============================================================================//
+
+{
+  "extensions":
+  [
+    "py",
+    "pyw",
+    "pyc",
+    "pyd",
+    "pyo",
+    "py3",
+    "pt"
+  ],
+  "tab_size": 4,
+}

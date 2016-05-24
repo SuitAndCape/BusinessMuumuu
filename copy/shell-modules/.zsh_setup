@@ -1,0 +1,237 @@
+#!/usr/bin/env zsh
+# $HOME/shell-modules/.zsh_setup
+
+####= SuitAndCape Zsh Setup
+##============================================================================##
+
+## Zsh specific setup functions, variables, etc.
+
+##== Zsh Autoloads ============================================================#
+
+## `atld` – Variant for `autoload`; mark the function for autoloading and
+#suppress alias expansion (`U`), in zsh style (`z`) not ksh style
+alias atld="autoload -Uz"
+
+## Call colors
+atld colors
+colors
+
+## Call initialize prompt
+atld promptinit
+promptinit
+
+## Call completions list
+zmodload -i zsh/complist
+atld compinit
+compinit
+
+##== Zsh Options ==============================================================#
+
+## @how-to-use-zsh-options http://linux.die.net/man/1/zshoptions
+## Comments describe how the option behaves when it is enabled (`setopt`)
+
+## Changing Directories Options
+
+## If a command cannot be executed, and is the name of a directory, `cd` there
+setopt AUTO_CD
+
+## Resolve the path to a directory containing the `..` path segment in `cd`
+# setopt CHASE_DOTS  ## ?MAYBE? ##
+
+## Resolve symbolic links to their true values in `cd`
+# setopt CHASE_LINKS  ## ?MAYBE? ##
+
+## Completion Options
+
+## If completing from the middle of a word, move the cursor to the word's end
+setopt ALWAYS_TO_END
+
+## Use menu completion after the second consecutive request for completion
+setopt AUTO_MENU
+
+## Prevent aliases from expanding before completion has finished
+setopt COMPLETE_ALIASES  ## ?MAYBE? ##
+
+## Allow the cursor to hold position and completion is done from both ends
+setopt COMPLETE_IN_WORD
+
+## If the completions have an ambiguous prefix or suffix, the shell will beep
+unsetopt LIST_BEEP
+
+## List ambiguous completion possibilities, cycling matches alphabetically
+unsetopt MENU_COMPLETE
+
+## Expansion and Globbing Options
+
+## Make filename generation case sensitive
+unsetopt CASE_GLOB
+
+## Include `=` in filename expansion
+setopt EQUALS
+
+## Treat `~`, `#`, and `^` as part of patterns for filename generation
+setopt EXTENDED_GLOB
+
+## Allow filename generation, commonly referred to as globbing
+setopt GLOB
+
+## When explicitly matiching filenames, do not require a leading `.`
+setopt GLOB_DOTS
+
+## Brace expansion will be ignored
+unsetopt IGNORE_BRACES
+
+## History Options
+
+## Allow multiple parallel Zsh sessions to append to one Zsh command history
+setopt APPEND_HISTORY
+
+## Save each command's execution timestamp and running duration
+setopt EXTENDED_HISTORY
+
+## When attempting to access a non-existent history entry, the shell will beep
+unsetopt HIST_BEEP
+
+## When trimming history, trim the oldest duplicates first
+setopt HIST_EXPIRE_DUPS_FIRST
+
+## When searching history, do not display duplicates of previously found lines
+setopt HIST_FIND_NO_DUPS
+
+## Duplicate (old) events written in the history are replaced by the new event
+unsetopt HIST_IGNORE_ALL_DUPS
+
+## Do not write new events in the history if a duplicate (old) event exists
+unsetopt HIST_IGNORE_DUPS
+
+## Do not write new events in the history if they begin with a space
+setopt HIST_IGNORE_SPACE
+
+## Remove superfluous blanks from each command line being added to history
+setopt HIST_REDUCE_BLANKS
+
+## Perform history expansion and reload the added line into the editing buffer
+setopt HIST_VERIFY
+
+## Commands added to the history file incrementally, rather than on shell exit
+setopt INC_APPEND_HISTORY
+
+## Imports new commands from, and appends typed commands to, the history file
+setopt SHARE_HISTORY
+
+## Initialisation Options
+
+## Runs global startup files (/etc/zshenv, /etc/zprofile, etc.)
+setopt GLOBAL_RCS
+##### XXXXX
+## Runs global and local startup files (/etc/zshenv, ~/.zshenv, etc.)
+setopt GLOBAL_RCS
+
+## Input/Output Options
+
+## Attempt to correct the spelling of commands
+setopt CORRECT
+
+## Note command location when first executed to avoid subsequent path searches
+setopt HASH_CMDS
+
+## Use `exit`, `logout`, or ten consecutive EOFs instead of exiting on EOF
+setopt IGNORE_EOF
+
+## Allow comments (`#`) in interactive shells
+setopt INTERACTIVE_COMMENTS
+
+## Job Control Options
+
+## Run background jobs at a lower priority
+unsetopt BG_NICE
+
+## Send the Hangup Signal to running jobs when the shell exits
+unsetopt HUP
+
+## List jobs in the long format by default
+setopt LONG_LIST_JOBS
+
+## Prompting Options
+
+## Perform prompt parameter and arithmetic expansion, and command substitution
+setopt PROMPT_SUBST
+
+## Right prompt is only displayed on current (accepting commands line) prompt
+setopt TRANSIENT_RPROMPT
+
+## Scripts and Functions Options
+
+## Output hexadecimal numbers in the standard C format (0x)
+setopt C_BASES
+
+## Allow functions to have local options – options reset on function return
+setopt LOCAL_OPTIONS
+
+## Allow functions to have local traps – traps reset on function return
+setopt LOCAL_TRAPS
+
+## Implicitly perform `tee` or `cat` when multiple redirections are attempted
+setopt MULTIOS
+
+## Shell Emulation Options
+
+## Matches involving the `=~` operator set the BASH_REMATCH array variable
+unsetopt BASH_REMATCH
+
+## Make `echo` compatible with BSD `echo` (escape sequences require `-e`)
+unsetopt BSD_ECHO
+
+## Shell State Options
+
+## The shell is an interactive shell
+# unsetopt INTERACTIVE
+
+## The shell is a login shell
+# unsetopt LOGIN
+
+## Enables privileged mode – special behaviors on SETUID/SETGID
+# unsetopt PRIVILEGED
+
+## Enables restricted mode – the shell has restricted capabilities
+# unsetopt RESTRICTED
+
+## The shell input (commands) is being read from STDIN
+# unsetopt SHIN_STDIN
+
+## If the shell is reading from STDIN, exit after executing one command
+# unsetopt SINGLE_COMMAND
+
+## ZLE Options
+
+## When an error occurs in ZLE, the shell will beep
+unsetopt BEEP
+
+## Punctuation characters following alphanumeric characters act as modifiers
+# unsetopt COMBINING_CHARS
+
+## Enables Emacs mode bindings and unsets VI – equivalent to `bindkey -e`
+# unsetopt EMACS  ## ?MAYBE? ##
+
+## Start editor in overstrike mode – characters overwrite the one there before
+# unsetopt OVERSTRIKE
+
+## Instead of multi-line, use single-line command line editing (bad tty)
+# unsetopt SINGLE_LINE_ZLE
+
+## Enables vi mode bindings and unsets EMACS – equivalent to `bindkey -v`
+# unsetopt VI  ## ?MAYBE? ##
+
+## Use Zsh Line Editor to input lines
+# unsetopt ZLE  ## ?MAYBE? ##
+
+##== Zsh Bindkeys =============================================================#
+
+## Use `[⌃]+[A]` to move cursor to the beginning of the current line
+bindkey "^A" beginning-of-line
+
+## Use `[⌦]` to delete the following character
+bindkey "^[[3~" delete-char
+
+## Use `[⌃]+[E]` to move cursor to the end of the current line
+bindkey "^E" end-of-line

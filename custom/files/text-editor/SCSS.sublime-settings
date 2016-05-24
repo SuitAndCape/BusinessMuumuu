@@ -1,0 +1,15 @@
+// $SUBLIME_DIR/Packages/User/SCSS.sublime-settings
+
+////= SuitAndCape Sublime Text SCSS Preferences
+//============================================================================//
+
+/// @source https://packagecontrol.io/packages/SCSS
+
+{
+  "extensions":
+  [
+    "scss",
+    "scss.erb",
+    "scss.liquid"
+  ]
+}

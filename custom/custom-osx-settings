@@ -1,0 +1,542 @@
+#!/bin/sh
+# custom-osx-settings
+
+####= SuitAndCape Custom OS X Settings File
+##============================================================================##
+
+## Personalize OS X settings scripts here
+
+echo "Beginning custom OS X setup"
+
+## Require the administrator password
+sudo -v
+
+## Keep updating `sudo` timestamp until `custom-osx-settings` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+echo "NOTE: If appkillinator() is not removed from the iTerm2 section of the custom-osx-settings file, use the Terminal application during this setup process"
+
+##== General Settings =========================================================#
+
+echo "Adjusting General settings"
+
+## Reveal the hidden /Volumes/ directory
+sudo chflags nohidden /Volumes
+
+## Reveal the current user's hidden Library/ directory
+sudo chflags nohidden "${HOME}"/Library
+
+## Hide the current user's binary (bin/) directory
+chflags -h hidden "${HOME}"/bin
+
+## Hide the current user's shell-modules/ directory
+# chflags -h hidden "${SHELL_DIR}"-modules
+
+## Hide the current user's shell-schemes/ directory
+# chflags -h hidden "${SHELL_DIR}"-schemes
+
+## Hide the current user's shell-themes/ directory
+# chflags -h hidden "${SHELL_DIR}"-themes
+
+## Remove default/current application icons from the Dock
+defaults write com.apple.dock persistent-apps -array ""
+
+## Applications to add to the Dock
+dock_applications=(
+  "/Applications/System Preferences.app"
+  # "/Applications/Utilities/Activity Monitor.app"
+  "/Applications/App Store.app"
+  "/Applications/Launchpad.app"
+  "/Applications/Dashboard.app"
+  "${HOME}/Applications/Chrome Apps.localized/app_list.app"
+  # "${HOME}/Applications/Chrome Canary Apps.localized/app_list.app"
+  # "/Applications/iTerm.app"
+  # "/Applications/Sublime Text.app"
+  # "/Applications/Google Chrome.app"
+  # "/Applications/Google Chrome Canary.app"
+  # "/Applications/Chromium.app"
+  # "/Applications/Firefox.app"
+  # "/Applications/FirefoxDeveloperEdition.app"
+  # "/Applications/Opera.app"
+  # "/Applications/Opera Developer.app"
+  # "/Applications/Vivaldi.app"
+  # "/Applications/Safari.app"
+  # "/Applications/iTunes.app"
+  # "/Applications/Messages.app"
+  # "/Applications/Skype.app"
+  # "/Applications/Slack.app"
+  # "/Applications/HipChat.app"
+)
+
+## Add applications to the Dock
+dockappinator "${dock_applications[@]}"
+
+## Remove all other default/current icons from the Dock
+defaults write com.apple.dock persistent-others -array ""
+
+## Directories to add to the Dock
+dock_directories=(
+  "/Applications/"
+  "${HOME}/Code"
+  "${HOME}/Design"
+  "${HOME}/Documents"
+  "${HOME}/Downloads"
+  "${HOME}/Projects"
+)
+
+## Add directories to the Dock
+dockdirinator "${dock_directories[@]}"
+
+## Menu bar icons to add
+menu_icons_to_add=(
+  # "/System/Library/CoreServices/Menu Extras/iChat.menu"
+  # "/System/Library/CoreServices/Menu Extras/UniversalAccess.menu"
+  # "/System/Library/CoreServices/Menu Extras/Displays.menu"
+  # "/System/Library/CoreServices/Menu Extras/Volume.menu"
+  "/System/Library/CoreServices/Menu Extras/Bluetooth.menu"
+  # "/System/Library/CoreServices/Menu Extras/VPN.menu"
+  "/System/Library/CoreServices/Menu Extras/AirPort.menu"
+  "/System/Library/CoreServices/Menu Extras/Battery.menu"
+  "/System/Library/CoreServices/Menu Extras/Clock.menu"
+  "/System/Library/CoreServices/Menu Extras/User.menu"
+  "/System/Library/CoreServices/Menu Extras/TimeMachine.menu"
+)
+
+## Add menu bar icons
+defaults write com.apple.systemuiserver menuExtras -array "${menu_icons_to_add[@]}"
+
+##== General OS X Shortcuts ===================================================#
+
+echo "Adjusting general OS X shortcuts"
+
+## Use `[⌘]+[']` to show/hide the sidebar in all applications
+defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Hide Sidebar" "${COMMAND_KEY}${APOSTROPHE_KEY}"
+defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Show Sidebar" "${COMMAND_KEY}${APOSTROPHE_KEY}"
+
+## Use `[⌥]+[⌘]+[→]` to select the following tab in all applications
+defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Select Next Tab" "${OPTION_KEY}${COMMAND_KEY}${ARROW_RIGHT_KEY}"
+defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Show Next Tab" "${OPTION_KEY}${COMMAND_KEY}${ARROW_RIGHT_KEY}"
+defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Next Tab" "${OPTION_KEY}${COMMAND_KEY}${ARROW_RIGHT_KEY}"
+
+## Use `[⌥]+[⌘]+[←]` to select the previous tab in all applications
+defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Select Previous Tab" "${OPTION_KEY}${COMMAND_KEY}${ARROW_LEFT_KEY}"
+defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Show Previous Tab" "${OPTION_KEY}${COMMAND_KEY}${ARROW_LEFT_KEY}"
+defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Previous Tab" "${OPTION_KEY}${COMMAND_KEY}${ARROW_LEFT_KEY}"
+
+## Use `[⌘]+[']` to show/hide the groups sidebar in Contacts
+defaults write com.apple.AddressBook NSUserKeyEquivalents -dict-add "Hide Groups" "${COMMAND_KEY}${APOSTROPHE_KEY}"
+defaults write com.apple.AddressBook NSUserKeyEquivalents -dict-add "Show Groups" "${COMMAND_KEY}${APOSTROPHE_KEY}"
+
+## Use `[⇧]+[⌘]+[R]` to restore the window to its default size in Terminal
+defaults write com.apple.Terminal NSUserKeyEquivalents -dict-add "Return to Default Size" "${SHIFT_KEY}${COMMAND_KEY}r"
+
+## Use `[⌘]+[⌦]` to move an item to the Trash in Finder
+defaults write com.apple.finder NSUserKeyEquivalents -dict-add "Move to Trash" "${COMMAND_KEY}${DELETE_FORWARD_KEY}"
+
+## Use `[⌃]+[⌘]+[O]` to show the contents of a package in Finder
+defaults write com.apple.finder NSUserKeyEquivalents -dict-add "Show Package Contents" "${CONTROL_KEY}${COMMAND_KEY}o"
+
+## Use `[⌥]+[A]` to archive messages in Mail
+defaults write com.apple.mail NSUserKeyEquivalents -dict-add "Archive" "${OPTION_KEY}a"
+
+## Use `[⌥]+[M]` to mark messages as read/unread in Mail
+defaults write com.apple.mail NSUserKeyEquivalents -dict-add "As Read" "${OPTION_KEY}m"
+defaults write com.apple.mail NSUserKeyEquivalents -dict-add "As Unread" "${OPTION_KEY}m"
+
+## Use `[⌘]+[⏎]` to send messages in Mail
+defaults write com.apple.mail NSUserKeyEquivalents -dict-add "Send" "${COMMAND_KEY}${RETURN_KEY}"
+
+## Application shortcut sub-menus to add to the Keyboard shortcut menu
+keyboard_hotkey_submenus=(
+  "NSGlobalDomain"
+  "com.apple.AddressBook"
+  "com.apple.finder"
+  "com.apple.mail"
+  "com.apple.Terminal"
+)
+
+## Add application shortcut sub-menus to the Keyboard shortcut menu
+shortcutinator "${keyboard_hotkey_submenus[@]}"
+
+##== General Symlinks =========================================================#
+
+echo "Adjusting general symbolic links"
+
+## Create an Xcode iOS Simulator symlink in the /Applications/ directory
+sudo ln -sf /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app /Applications/Simulator.app
+
+## Create an Xcode Watch Simulator symlink in the /Applications/ directory
+sudo ln -sf /Applications/Xcode.app/Contents/Developer/Applications/Simulator\ \(Watch\).app /Applications/Simulator\ \(Watch\).app
+
+## Create an Archive Utility symlink in the /Applications/Utilities/ directory
+sudo ln -sf /System/Library/CoreServices/Applications/Archive\ Utility.app /Applications/Utilities/Archive\ Utility.app
+
+## Create a Directory Utility symlink in the /Applications/Utilities/ directory
+sudo ln -sf /System/Library/CoreServices/Applications/Directory\ Utility.app /Applications/Utilities/Directory\ Utility.app
+
+## Create a Screen Sharing symlink in the /Applications/Utilities/ directory
+sudo ln -sf /System/Library/CoreServices/Applications/Screen\ Sharing.app /Applications/Utilities/Screen\ Sharing.app
+
+##== Chromium =================================================================#
+
+echo "Adjusting Chromium settings"
+
+## Disable Chromium's "two-finger back/forward-swipe" Magic Mouse navigation
+# defaults write org.chromium.Chromium AppleEnableMouseSwipeNavigateWithScrolls -bool false
+
+## Disable Chromium's "two-finger back/forward-swipe" Trackpad navigation
+# defaults write org.chromium.Chromium AppleEnableSwipeNavigateWithScrolls -bool false
+
+## Disable Chromium's print preview in favor of the system-native print preview
+defaults write org.chromium.Chromium DisablePrintPreview -bool true
+
+## Allow user script installation via GitHub Gist or Userscripts.org
+defaults write org.chromium.Chromium ExtensionInstallSources -array "https://gist.githubusercontent.com/" "http://userscripts.org/*"
+
+## Expand Chromium's print dialog box by default
+defaults write org.chromium.Chromium PMPrintingExpandedStateForPrint2 -bool true
+
+## Kill Chromium
+appkillinator "Chromium"
+
+##== Dropbox ==================================================================#
+
+# echo "Adjusting Dropbox settings"
+
+## Disable green checkmark icons next to Dropbox files and directories in Finder
+# dbcons=/Applications/Dropbox.app/Contents/Resources/emblem-dropbox-uptodate.icns
+# [ -e "${dbcons}" ] && mv -f "${dbcons}" "${dbcons}.bak"
+
+## Kill Dropbox
+# appkillinator "Dropbox"
+
+##== Firefox ==================================================================#
+
+echo "Adjusting Firefox settings"
+
+## Expand Firefox's print dialog box by default
+defaults write org.mozilla.firefox PMPrintingExpandedStateForPrint2 -bool true
+
+## Kill Firefox
+appkillinator "Firefox"
+
+##== FirefoxDeveloperEdition ==================================================#
+
+echo "Adjusting FirefoxDeveloperEdition settings"
+
+## Expand FirefoxDeveloperEdition's print dialog box by default
+defaults write org.mozilla.firefoxdeveloperedition PMPrintingExpandedStateForPrint2 -bool true
+
+## Kill FirefoxDeveloperEdition
+appkillinator "FirefoxDeveloperEdition"
+
+##== Google Chrome ============================================================#
+
+echo "Adjusting Google Chrome settings"
+
+## Disable Chrome's "two-finger back/forward-swipe" Magic Mouse navigation
+# defaults write com.google.Chrome AppleEnableMouseSwipeNavigateWithScrolls -bool false
+
+## Disable Chrome's "two-finger back/forward-swipe" Trackpad navigation
+# defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
+
+## Disable Chrome's print preview in favor of the system-native print preview
+defaults write com.google.Chrome DisablePrintPreview -bool true
+
+## Allow user script installation via GitHub Gist or Userscripts.org
+defaults write com.google.Chrome ExtensionInstallSources -array "https://gist.githubusercontent.com/" "http://userscripts.org/*"
+
+## Expand Chrome's print dialog box by default
+defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
+
+## Kill Google Chrome
+appkillinator "Google Chrome"
+
+##== Google Chrome Canary =====================================================#
+
+echo "Adjusting Google Chrome Canary settings"
+
+## Disable Chrome's "two-finger back/forward-swipe" Magic Mouse navigation
+# defaults write com.google.Chrome.canary AppleEnableMouseSwipeNavigateWithScrolls -bool false
+
+## Disable Chrome's "two-finger back/forward-swipe" Trackpad navigation
+# defaults write com.google.Chrome.canary AppleEnableSwipeNavigateWithScrolls -bool false
+
+## Disable Chrome's print preview in favor of the system-native print preview
+defaults write com.google.Chrome.canary DisablePrintPreview -bool true
+
+## Allow user script installation via GitHub Gist or Userscripts.org
+defaults write com.google.Chrome.canary ExtensionInstallSources -array "https://gist.githubusercontent.com/" "http://userscripts.org/*"
+
+## Expand Chrome's print dialog box by default
+defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool true
+
+## Kill Google Chrome Canary
+appkillinator "Google Chrome Canary"
+
+##== GPGTools =================================================================#
+
+# echo "Adjusting GPGTools settings"
+
+## Disable signing new emails by default in GPGMail 2
+# defaults write "${HOME}"/Library/Preferences/org.gpgtools.gpgmail SignNewEmailsByDefault -bool false
+
+##== ImageOptim ===============================================================#
+
+# echo "Adjusting ImageOptim settings"
+
+## Disable ImageOptim dock icon animation
+# defaults write net.pornel.imageoptim BounceDock -bool false
+
+## Kill ImageOptim
+# appkillinator "ImageOptim"
+
+##== iTerm2 ===================================================================#
+
+echo "Adjusting iTerm2 shortcuts and settings"
+
+## Copy over "Launch iTerm" Workflow
+cp custom/files/Launch\ iTerm.workflow /Library/Services/Launch\ iTerm.workflow
+
+## Use `[⌘]+[\]` to run the "Launch iTerm" Workflow as a Service
+# $PLISTBUDDY -c "Delete :NSServicesStatus:\"(null) - Launch iTerm - runWorkflowAsService\"" "${HOME}/Library/Preferences/pbs.plist" 2>/dev/null
+defaults write pbs NSServicesStatus -dict-add "\"(null) - Launch iTerm - runWorkflowAsService\"" "{key_equivalent = \"${COMMAND_KEY}${BACKSLASH_KEY}\";}"
+
+## Copy over iTerm2 preferences
+## !!!TEMPORARY!!! ##
+cp custom/files/com.googlecode.iterm2.plist "${HOME}"/Library/Preferences/com.googlecode.iterm2.plist
+
+## Set font smoothing and anti-aliasing strength to Weak in iTerm2
+## (range: 0=Off–3=Strong)
+defaults write com.googlecode.iterm2 AppleFontSmoothing -int 1
+
+## Set iTerm's autocomplete entries maximum to one hundred seventy five
+# defaults write com.googlecode.iterm2 AutocompleteMaxOptions -int 175
+
+## Set iTerm's number of recently used coprocess commands remebered to fifty
+# defaults write com.googlecode.iterm2 "Coprocess MRU" -int 50
+
+## Do not copy the trailing newline when text is copied in iTerm2
+defaults write com.googlecode.iterm2 CopyLastNewline -bool false
+
+## Enable focus follows mouse for iTerm2
+defaults write com.googlecode.iterm2 FocusFollowsMouse -bool true
+
+## Enable iTerm2's main hotkey (focus/show/hide iTerm2)
+defaults write com.googlecode.iterm2 Hotkey -bool true
+defaults write com.googlecode.iterm2 HotkeyChar -int 92
+defaults write com.googlecode.iterm2 HotkeyCode -int 42
+
+## Use `[⌘]+[\]` as iTerm2's main hotkey
+defaults write com.googlecode.iterm2 HotkeyModifiers -int 1048840
+
+## Disable pinch to change font size in iTerm2
+defaults write com.googlecode.iterm2 PinchToChangeFontSizeDisabled -bool true
+
+## Do not display the iTerm2 quitting dialog box
+defaults write com.googlecode.iterm2 PromptOnQuit -bool false
+
+## Do not quit iTerm2 when all windows have closed
+defaults write com.googlecode.iterm2 QuitWhenAllWindowsClosed -bool false
+
+## Do not trim trailing whitespace when copying text from iTerm2
+# defaults write com.googlecode.iterm2 TrimWhitespaceOnCopy -bool false
+
+## Use simple fullscreen mode, instead of fancy fullscreen mode in iTerm2
+# defaults write com.googlecode.iterm2 UseLionStyleFullscreen -bool false
+
+## Set the list of characters considered part of words iTerm2 word selection
+defaults write com.googlecode.iterm2 WordCharacters -string "/-+\~_."
+
+## Kill iTerm2
+appkillinator "iTerm"
+
+##== Jumpcut ==================================================================#
+
+echo "Adjusting Jumpcut settings"
+
+## Check for Jumpcut software updates on launch
+defaults write net.sf.Jumpcut SUCheckAtStartup -bool true
+
+## Set Jumpcut's main hotkey to...
+  ## `[⌃]+[⌥]+[V]`
+defaults write net.sf.Jumpcut "ShortcutRecorder mainHotkey" -dict keyCode -int 9 modifierFlags -int 786432
+  ## `[⇧]+[⌘]+[V]`
+# defaults write net.sf.Jumpcut "ShortcutRecorder mainHotkey" -dict keyCode -int 9 modifierFlags -int 1179648
+  ## `[⌃]+[⌘]+[V]`
+# defaults write net.sf.Jumpcut "ShortcutRecorder mainHotkey" -dict keyCode -int 9 modifierFlags -int 1310720
+  ## `[⌥]+[⌘]+[V]`
+# defaults write net.sf.Jumpcut "ShortcutRecorder mainHotkey" -dict keyCode -int 9 modifierFlags -int 1572864
+
+## Slightly lighten the Jumpcut bezel transparency
+defaults write net.sf.Jumpcut bezelAlpha -float 0.42000000000000000
+
+## Set the recently picked dropdown limit to thirty five clippings in Jumpcut
+defaults write net.sf.Jumpcut displayNum -int 35
+
+## Load Jumpcut on startup
+defaults write net.sf.Jumpcut loadOnStartup -bool true
+
+## Set the remembered clippings limit to ninety clippings in Jumpcut
+defaults write net.sf.Jumpcut rememberNum -int 90
+
+## Disable sticky bezel mode in Jumpcut
+defaults write net.sf.Jumpcut stickyBezel -bool false
+
+## Enable wraparound bezel mode in Jumpcut
+defaults write net.sf.Jumpcut wraparoundBezel -bool true
+
+## Kill Jumpcut
+appkillinator "Jumpcut"
+
+##== Opera ====================================================================#
+
+echo "Adjusting Opera settings"
+
+## Expand Opera's print dialog box by default
+defaults write com.operasoftware.Opera PMPrintingExpandedStateForPrint2 -bool true
+
+## Kill Opera
+appkillinator "Opera"
+
+##== Opera Developer ==========================================================#
+
+echo "Adjusting Opera Developer settings"
+
+## Expand Opera Developer's print dialog box by default
+defaults write com.operasoftware.OperaDeveloper PMPrintingExpandedStateForPrint2 -bool true
+
+## Kill Opera Developer
+appkillinator "Opera Developer"
+
+##== QLColorCode ==============================================================#
+
+echo "Adjusting QLColorCode settings"
+
+## Make QLColorCode print line numbers (`l`) and wrap long lines (`W`)
+defaults write org.n8gray.QLColorCode extraHLFlags -string "-lW"
+
+## Set the QLColorCode font to Inconsolata
+## NOTE: Install the Google Font "Inconsolata" before using this method
+defaults write org.n8gray.QLColorCode font -string "Inconsolata-Regular"
+
+## Set the QLColorCode font size to thirteen and a half points
+defaults write org.n8gray.QLColorCode fontSizePoints -float 13.5
+
+## @color-schemes http://www.andre-simon.de/dokuwiki/doku.php?id=theme_examples
+
+## Set the QLColorCode color scheme to Acid
+defaults write org.n8gray.QLColorCode hlTheme -string "acid"
+
+## Set the QLColorCode thumbnail color scheme to Acid
+defaults write org.n8gray.QLColorCode hlThumbTheme -string "acid"
+
+##== Skim =====================================================================#
+
+echo "Adjusting Skim settings"
+
+## Expand Skim's print dialog box by default
+defaults write net.sourceforge.skim-app.skim PMPrintingExpandedStateForPrint2 -bool true
+
+## Disable automatic checking for file changes in Skim
+defaults write net.sourceforge.skim-app.skim SKAutoCheckFileUpdate -bool false
+
+## Use Sublime Text as the PDF-TeX Sync editor preset for Skim
+defaults write net.sourceforge.skim-app.skim SKTeXEditorPreset -string "Sublime Text"
+defaults write net.sourceforge.skim-app.skim SKTeXEditorCommand -string "subl"
+defaults write net.sourceforge.skim-app.skim SKTeXEditorArguments -string "\"%file\":%line"
+
+## Check for Skim software updates automatically
+# defaults write net.sourceforge.skim-app.skim SUEnableAutomaticChecks -bool true
+
+## Kill Skim
+appkillinator "Skim"
+
+##== Slack ====================================================================#
+
+echo "Adjusting Slack settings"
+
+## Disable automatic spelling correction (auto-correct) in Slack
+defaults write com.tinyspeck.slackmacgap WebAutomaticSpellingCorrectionEnabled -bool false
+
+## Enable continuous spell checking in Slack
+defaults write com.tinyspeck.slackmacgap WebContinuousSpellCheckingEnabled -bool true
+
+## Disable smart dashes Slack
+defaults write com.tinyspeck.slackmacgap NSAutomaticDashSubstitutionEnabled -bool false
+
+## Disable smart quotes Slack
+defaults write com.tinyspeck.slackmacgap NSAutomaticQuoteSubstitutionEnabled -bool false
+
+## Kill Slack
+appkillinator "Slack"
+
+##== Sublime Text 3 ===========================================================#
+
+echo "Adjusting Sublime Text 3 shortcuts, symbolic links, and settings"
+
+## Copy over "Launch Sublime Text" Workflow
+cp custom/files/Launch\ Sublime\ Text.workflow /Library/Services/Launch\ Sublime\ Text.workflow
+
+## Use `[⌃]+[\]` to run the "Launch Sublime Text" Workflow as a Service
+# $PLISTBUDDY -c "Delete :NSServicesStatus:\"(null) - Launch Sublime Text - runWorkflowAsService\"" "${HOME}/Library/Preferences/pbs.plist" 2>/dev/null
+defaults write pbs NSServicesStatus -dict-add "\"(null) - Launch Sublime Text - runWorkflowAsService\"" "{key_equivalent = \"${CONTROL_KEY}${BACKSLASH_KEY}\";}"
+
+## Create Sublime Text 3 symlink and `subl` shortcut in user's binary directory
+# test -d /Applications/Sublime\ Text.app/ && {
+#   test /usr/local/bin/subl && rm /usr/local/bin/subl
+#   ln -sf /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl "${HOME}"/bin/subl
+# }
+
+## Install Package Control in Sublime Text 3
+curl "https://packagecontrol.io/Package Control.sublime-package" > "${SUBLIME_DIR}"/Installed\ Packages/Package\ Control.sublime-package
+
+## Copy over Sublime Text 3 color scheme, SpaceBabe, into SublimeLinter
+cp -r custom/directories/SublimeLinter "${SUBLIME_DIR}"/Packages/User/SublimeLinter
+
+## Copy over Sublime Text 3 preferences, keybindings, and syntax settings
+cp -r custom/files/text-editor/* "${SUBLIME_DIR}"/Packages/User
+
+## Use Sublime Text 3 as default editor for plain text files
+defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add "{LSHandlerContentType=public.plain-text;LSHandlerRoleAll=com.sublimetext.3;}"
+
+## Set font smoothing and anti-aliasing strength to Weak in Sublime Text 3
+## (range: 0=Off–3=Strong)
+# defaults write com.sublimetext.3 AppleFontSmoothing -int 1
+
+##== Vivaldi ==================================================================#
+
+echo "Adjusting Vivaldi shortcuts and settings"
+
+## Use `[⌘]+[']` to show/hide the panel in Vivaldi
+defaults write com.vivaldi.Vivaldi NSUserKeyEquivalents -dict-add "Toggle Panel" "${COMMAND_KEY}${APOSTROPHE_KEY}"
+
+## Disable Vivaldi's print preview in favor of the system-native print preview
+defaults write com.vivaldi.Vivaldi DisablePrintPreview -bool true
+
+## Expand Vivaldi's print dialog box by default
+defaults write com.vivaldi.Vivaldi PMPrintingExpandedStateForPrint2 -bool true
+
+## Add Vivaldi shortcut sub-menu to the Keyboard shortcut menu
+shortcutinator "com.vivaldi.Vivaldi"
+
+## Kill Vivaldi
+appkillinator "Vivaldi"
+
+##== Reset ====================================================================#
+
+## Reset Quick Look server and Quick Look generator cache
+qlmanage -r
+
+## Kill the dock
+appkillinator -HUP "Dock"
+
+## General applications to kill
+general_apps_to_kill=(
+  "Finder"
+  "SystemUIServer"
+  "cfprefsd"
+)
+
+## Kill general application list
+appkillinator "${general_apps_to_kill[@]}"

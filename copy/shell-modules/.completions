@@ -1,0 +1,91 @@
+#!/bin/sh
+# $HOME/shell-modules/.completions
+
+####= SuitAndCape Completions
+##============================================================================##
+
+## Shell `[⇥]` autocompletion settings for Bash and Zsh
+
+##== Bash Autocompletions =====================================================#
+
+if SHELL_BASH; then
+  ## Autocompletion for Homebrew, if it exists
+  brew_comp=$(brew --repository)/Library/Contributions/brew_bash_completion.sh
+  test -f $brew_comp && source $brew_comp
+
+  ## Autocompletion for Bash via Homebrew (bash-completion), if it exists
+  # bash_comp_brew=$(brew --prefix)/etc/bash_completion
+  # test -f $bash_comp_brew && source $bash_comp_brew
+
+  ## Autocompletion for Bash 4 via Homebrew (bash-completion2), if it exists
+  bash_comp_2_brew=$(brew --prefix)/share/bash-completion/bash_completion
+  test -f $bash_comp_2_brew && source $bash_comp_2_brew
+
+  ## Bash autocompletion for Git via Homebrew (git), if it exists
+  git_comp_brew=$(brew --prefix)/etc/bash_completion.d/git-completion.bash
+  test -s $git_comp_brew && source $git_comp_brew
+
+  ## Bash autocompletion for Grunt, if it exists
+  USE_GRUNT && eval "$(grunt --completion=bash)"
+
+  ## Bash autocompletion for Gulp, if it exists
+  USE_GULP && eval "$(gulp --completion=bash)"
+
+##== Zsh Autocompletions ======================================================#
+
+elif SHELL_ZSH; then
+  ## Activate autocompletion graphical menu selection
+  zstyle ':completion:*:*:*:*:*' menu select
+
+  ## List of autocompletion completers to use
+  zstyle ':completion:*' completer _complete _match _approximate
+  zstyle ':completion:*:match:*' original only
+  zstyle ':completion:*:approximate:*' max-errors 1 numeric
+
+  ## Fallback to use built in `ls` colors for autocompletion
+  zstyle ':completion:*:default' list-colors ''
+
+  ## Use `ls` colors for autocompletion
+  zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+  ## Case-insensitive and inside filenames autocompletion matcher
+  zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[.,_-]=** r:|=**' 'l:|=* r:|=*'
+
+  ## Improved autocompletion for `cd`
+  zstyle ':completion::complete:cd:' tag-order local-directories path-directories
+
+  ## Improved autocompletion for `kill`
+  zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+  zstyle ':completion:*:kill:*' force-list always
+  zstyle ':completion:*:*:kill:*' menu yes select
+  zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=1;31'
+
+  ## Improved autocompletion for `killall`
+  zstyle ':completion:*:killall:*' command 'ps -u $USER -o cmd'
+  zstyle ':completion:*:killall:*' force-list always
+  zstyle ':completion:*:*:killall:*' menu yes select
+
+  ## Display autocompletion results in verbose form
+  zstyle ':completion:*' verbose yes
+
+  ## Autocompletion `corrections` response formatting
+  zstyle ':completion:*:corrections' format "${ZC_CORRECTIONS}Errors [${COLOR_RESET}${ZC_EVAL_DEPTH}%e${COLOR_RESET}${ZC_CORRECTIONS}]:${COLOR_RESET} ${ZC_YIELD}%d${COLOR_RESET}"
+
+  ## Autocompletion `descriptions` response formatting
+  zstyle ':completion:*:descriptions' format "${ZC_DESCRIPTIONS}Completion Type:${COLOR_RESET} ${ZC_YIELD}%d${COLOR_RESET}"
+
+  ## Autocompletion `messages` response formatting
+  zstyle ':completion:*:messages' format "${ZC_MESSAGES}––––${COLOR_RESET} ${ZC_YIELD}%d${COLOR_RESET}"
+
+  ## Autocompletion `warnings` response formatting
+  zstyle ':completion:*:warnings' format "${ZC_WARNINGS}No Matches Found:${COLOR_RESET} ${ZC_YIELD}%d${COLOR_RESET}"
+
+  ## Display autocompletion matches by type grouping
+  zstyle ':completion:*' group-name ''
+
+  ## Zsh autocompletion for Grunt, if it exists
+  USE_GRUNT && eval "$(grunt --completion=zsh)"
+
+  ## Zsh autocompletion for Gulp, if it exists
+  USE_GULP && eval "$(gulp --completion=zsh)"
+fi

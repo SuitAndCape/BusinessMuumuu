@@ -1,0 +1,12 @@
+// $SUBLIME_DIR/Packages/User/PHP.sublime-settings
+
+////= SuitAndCape Sublime Text PHP Preferences
+//============================================================================//
+
+{
+  "extensions":
+  [
+    "php"
+  ],
+  "tab_size": 4,
+}

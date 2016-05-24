@@ -1,0 +1,16 @@
+// $SUBLIME_DIR/Packages/User/YAML.sublime-settings
+
+////= SuitAndCape Sublime Text YAML Preferences
+//============================================================================//
+
+{
+  "extensions":
+  [
+    "yaml",
+    "yml",
+    "Procfile",
+    ".foreman",
+    ".gemrc",
+    ".rspec"
+  ]
+}

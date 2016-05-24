@@ -1,0 +1,14 @@
+#!/bin/sh
+# muumuu
+
+## Use setup helpers for the BusinessMuumuu copy stage
+source support/setup-helpers
+
+## Require the administrator password
+sudo -v
+
+## Keep updating `sudo` timestamp until `muumuu` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+## Copy dotfiles and directories
+rsync -av --exclude=".DS_Store" --exclude="ReadMe.md" ./copy/ $HOME

@@ -1,0 +1,12 @@
+// $SUBLIME_DIR/Packages/User/Java.sublime-settings
+
+////= SuitAndCape Sublime Text Java Preferences
+//============================================================================//
+
+{
+  "extensions":
+  [
+    "java"
+  ],
+  "tab_size": 4,
+}

@@ -1,0 +1,15 @@
+// $SUBLIME_DIR/Packages/User/Git.sublime-settings
+
+////= SuitAndCape Sublime Text Git Preferences
+//============================================================================//
+
+/// @source https://packagecontrol.io/packages/Git
+
+{
+  /// if present, use this command instead of plain "git"
+  /// e.g. "/Users/kemayo/bin/git" or "C:\bin\git.exe"
+  "git_command": "/usr/local/bin/git",
+
+  /// How many commit messages to store in the history. Set to 0 to disable.
+  "history_size": 10
+}

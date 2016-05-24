@@ -1,0 +1,14 @@
+// $SUBLIME_DIR/Packages/User/Objective-C.sublime-settings
+
+////= SuitAndCape Sublime Text Objective-C Preferences
+//============================================================================//
+
+{
+  "extensions":
+  [
+    "h",
+    "m",
+    "mm"
+  ],
+  "tab_size": 4,
+}

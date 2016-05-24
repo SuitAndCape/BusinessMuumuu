@@ -1,0 +1,21 @@
+// $SUBLIME_DIR/Packages/User/C++.sublime-settings
+
+////= SuitAndCape Sublime Text C++ Preferences
+//============================================================================//
+
+{
+  "extensions":
+  [
+    "cpp",
+    "cc",
+    "cxx",
+    "c++",
+    "hh",
+    "hpp",
+    "hxx",
+    "h++",
+    "inl",
+    "ipp"
+  ],
+  "tab_size": 4,
+}

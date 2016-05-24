@@ -1,0 +1,95 @@
+# Brewfile
+
+####= SuitAndCape Homebrew Formulae
+##============================================================================##
+
+## Ensure that Homebrew application casks are symlinked in /Applications
+cask_args appdir: '/Applications'
+
+## Homebrew Taps
+tap 'caskroom/versions'
+tap 'homebrew/completions'
+tap 'homebrew/dupes'
+tap 'homebrew/science'
+tap 'homebrew/services'
+tap 'homebrew/tex'
+tap 'homebrew/versions'
+
+## Homebrew development Casks
+cask 'xquartz'
+
+## Homebrew dependency and generally useful Formulae
+brew 'cairo'
+brew 'cmake'
+brew 'gcc'
+brew 'gdbm'
+brew 'giflib'
+brew 'go', args: ['cross-compile-common']
+brew 'graphviz', args: ['with-librsvg', 'with-x11']
+brew 'freetype'
+brew 'icu4c'
+brew 'imagemagick', args: ['with-fftw', 'with-librsvg', 'with-webp', 'with-x11']
+brew 'libffi'
+brew 'libjpeg'
+brew 'libpng'
+brew 'libtiff'
+brew 'libxml2'
+brew 'libyaml'
+brew 'little-cms2'
+brew 'lua'
+brew 'readline'
+brew 'scons'
+brew 'swig'
+brew 'zeromq'
+
+## Homebrew development Formulae
+brew 'git'
+brew 'heroku-toolbelt'
+brew 'jenv'
+brew 'node', args: ['without-npm']
+brew 'openssl'
+brew 'p7zip'
+brew 'qt'
+brew 'shellcheck'
+brew 'tidy-html5'
+brew 'tree'
+brew 'unrar'
+brew 'xz'
+
+## Homebrew Python Formulae
+# brew 'chpython'
+brew 'py3cairo'
+brew 'python'
+brew 'python3'
+brew 'pyqt'
+
+## Homebrew Ruby Formulae
+brew 'chruby'       ## w/ 'ruby-install' ##
+# brew 'rbenv'      ## w/ 'ruby-build' ##
+# brew 'ruby-build' ## w/ 'rbenv' ##
+brew 'ruby-install' ## w/ 'chruby' ##
+
+## Homebrew terminal and shell Formulae
+brew 'ack'
+brew 'bash'
+brew 'most'
+brew 'nano'
+brew 'tmux'
+brew 'vim'#, args: ['python3']
+brew 'zsh'
+brew 'zsh-syntax-highlighting'
+
+## Homebrew tapped Formulae
+# brew 'bash-completion'
+brew 'bash-completion2'
+brew 'brew-cask-completion'
+brew 'bundler-completion'
+brew 'gem-completion'
+brew 'pip-completion'
+brew 'ruby-completion'
+brew 'tmuxinator-completion'
+brew 'zsh-completions'
+
+## Homebrew Java Casks
+cask 'java'
+cask 'java7'

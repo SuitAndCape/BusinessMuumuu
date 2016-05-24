@@ -1,0 +1,17 @@
+// $SUBLIME_DIR/Packages/User/XML.sublime-settings
+
+////= SuitAndCape Sublime Text XML Preferences
+//============================================================================//
+
+{
+  "extensions":
+  [
+    "xml",
+    "rdf",
+    "svg",
+    "tmTheme",
+    "xsd",
+    "xslt",
+    "xul"
+  ]
+}

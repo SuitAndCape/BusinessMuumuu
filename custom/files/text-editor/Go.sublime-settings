@@ -1,0 +1,10 @@
+// $SUBLIME_DIR/Packages/User/Go.sublime-settings
+
+////= SuitAndCape Sublime Text Go Preferences
+//============================================================================//
+
+{
+  "extensions":
+  [],
+  "tab_size": 4,
+}

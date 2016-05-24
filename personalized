@@ -1,0 +1,33 @@
+#!/bin/sh
+# personalized
+
+## Personalize setup scripts here
+
+## Use setup helpers for the BusinessMuumuu custom stage
+source support/setup-helpers
+
+## Require the administrator password
+sudo -v
+
+## Keep updating `sudo` timestamp until `personalized` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+##== Run Custom Setup =========================================================#
+
+## Run custom OS X installation file
+source custom/custom-osx-installs
+
+## Run custom OS X settings file
+source custom/custom-osx-settings
+
+##== Copy Custom Resources ====================================================#
+
+## Copy over custom dotfiles
+rsync -av --exclude=".DS_Store" ./custom/dots/ $HOME
+
+## Copy over custom files
+cp custom/files/Application-Goals.md $HOME/Code/Application-Goals.md
+
+## Copy over custom directories
+cp -r custom/directories/AndTheTemplateOfDoom $HOME/Code/AndTheTemplateOfDoom
+cp -r custom/directories/OS-X-Directory-Icons $HOME/Design/OS-X-Directory-Icons

@@ -1,0 +1,67 @@
+# .screenrc
+
+####= SuitAndCape Screen Run Commands
+##============================================================================##
+
+## Enable alternate Screen (fix for "residual" text editor)
+altscreen on
+
+## Enable bold/intense colors
+attrcolor b ".I"
+
+## Unbind dangerous key bindings
+bind "."
+bind "^h"
+bind "h"
+
+## Use `[⌃]+[A] [⇧]+[I]` and `[⌃]+[A] [⇧]+[O]` to toggle the window's login
+bind "L"
+bind "I" login on
+bind "O" login off
+
+## Use `[⌃]+[A] [\] [\]` to kill all windows and terminate Screen
+bind '^\'
+bind '\\' quit
+
+## Use `[⌃]+[A] [⇧]+[K]` to destroy the current window
+bind "^k"
+bind "k"
+bind "K" kill
+
+## Use `[⌃]+[A] [V]` to send the copy buffer to pbcopy/the system clipboard
+bind "v" eval "writebuf" "exec sh -c 'pbcopy < /tmp/screen-exchange'"
+
+## Use `[⌃]+[A] [F]` and `[⌃]+[A] [⇧]+[F]` to toggle hardstatus
+bind "f" eval "hardstatus ignore"
+bind "F" eval "hardstatus alwayslastline"
+
+## Use `[⌃]+[A] [}]` to attempt smart history (typed text as a prefix)
+bind "}" history
+
+## Cache ten thousand Screen scrollback buffer lines, instead of one hundred
+defscrollback 10000
+
+## Enable UTF-8 at the start of Screen – equivalent to `screen -U`
+defutf8 on
+
+## Enable Screen hardstatus and reserve the last line of the display for it
+hardstatus on
+hardstatus alwayslastline
+
+## Use GNU Screen style hardstatus
+hardstatus string " %{= kC}%-w%{.rW}%n %t%{-}%+w %=%{..C} %H %{..C} %m/%d "
+
+## Begin with Screen 1
+screen 1
+
+## Disable the Screen startup copyright page
+startup_message off
+
+## Visualize the Screen bell
+vbell on
+
+## Enable 256 color terminal
+term xterm-256color
+
+## Force xterm to allow scrolling while the alternate text buffer is selected
+termcapinfo xterm* ti@:te@

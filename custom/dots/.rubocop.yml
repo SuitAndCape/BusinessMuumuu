@@ -1,0 +1,23 @@
+# .rubocop.yml
+
+####= SuitAndCape rubocop Configurations
+##============================================================================##
+
+## Remove characters-per-line limit, allow ASCII symbols in comments, allow
+#"unnecessary" spacing, don't require a leading space in a comment, and allow
+#space before comments
+
+Metrics/LineLength:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/ExtraSpacing:
+  Enabled: false
+
+Style/LeadingCommentSpace:
+  Enabled: false
+
+Style/SpaceBeforeComment:
+  Enabled: false

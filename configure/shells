@@ -1,0 +1,23 @@
+#!/bin/sh
+# shells
+
+####= SuitAndCape Shells Setup
+##============================================================================##
+
+## Menu-select style shell selector
+echo -e "Select a default shell:"
+echo -e "\tUse Bash as the default shell [b/B]"
+echo -e "\tUse Zsh as the default shell [z/Z]"
+while true; do
+  read user_selection
+  case $user_selection in
+    b|B)
+      ## Set shell to Bash
+      bashinator ; echo "The default shell is now Bash" ; break ;;
+    z|Z)
+      ## Set shell to Zsh
+      zshinator ; echo "The default shell is now Zsh" ; break ;;
+    *)
+      echo "Invalid option, please try again" ;;
+  esac
+done

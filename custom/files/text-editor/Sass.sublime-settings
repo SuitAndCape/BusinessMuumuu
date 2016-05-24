@@ -1,0 +1,15 @@
+// $SUBLIME_DIR/Packages/User/Sass.sublime-settings
+
+////= SuitAndCape Sublime Text Sass Preferences
+//============================================================================//
+
+/// @source https://packagecontrol.io/packages/Sass
+
+{
+  "extensions":
+  [
+    "sass",
+    "sass.erb",
+    "sass.liquid"
+  ]
+}

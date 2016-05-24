@@ -1,0 +1,11 @@
+#!/bin/sh
+# settings
+
+####= SuitAndCape Settings Setup
+##============================================================================##
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  ./configure/system/osx-settings
+elif [[ "$OSTYPE" == "linux"* ]]; then
+  ./configure/system/linux-settings
+fi

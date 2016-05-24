@@ -1,0 +1,135 @@
+#!/bin/sh
+# $HOME/shell-modules/.extra
+
+####= SuitAndCape Local Shell Environment Extras
+##============================================================================##
+
+## Stash local shell environment user settings, commands, and overrides here
+
+##== Local Zsh Autoloads ======================================================#
+
+if SHELL_ZSH; then
+  ## Call Bash word selection style in Zsh
+  atld select-word-style
+  select-word-style bash
+
+##== Local Zsh Homebrew Extras ================================================#
+
+  ## If the Homebrew zsh-completions/ directory exists...
+  zsh_complete=/usr/local/share/zsh-completions
+  if [ -d "${zsh_complete}" ]; then
+    ## Add the Homebrew maintained Zsh completions to the Zsh fpath
+    fpath=(
+      /usr/local/share/zsh-completions
+      $fpath
+    )
+  fi
+
+  ## Activate the Hombrew maintained Zsh Syntax Highlighting, if it exists
+  zsh_highlight=/usr/local/share/zsh-syntax-highlighting
+  [ -d $zsh_highlight ] && source $zsh_highlight/zsh-syntax-highlighting.zsh
+
+##== Local Zsh Autocompletions ================================================#
+
+  ## Improved autocompletion for `functions`/ignore functions beginning with `_`
+  zstyle ':completion:*:functions' ignored-patterns '_*'
+  zstyle '*' single-ignored show
+fi
+
+##== Local Transformed Aliases ================================================#
+
+## `sudo` – Force `sudo` to use alias expansion (` `) it can work with aliases
+alias sudo="sudo "
+## Force `tmux` to use two hundred fifty six colors (`2`) and enable UTF-8 in
+#the status line (`u`)
+alias tmux="tmux -2u"
+
+##== Local Variant Aliases ====================================================#
+
+## `javas` – Variant of `jenv`; output all available Java versions (`versions`)
+alias javas="jenv versions"
+## `pythons` – Variant of ``; output all available Python versions
+# alias pythons=""
+## `rubies` – Variant of `chruby`; output all available Ruby versions
+alias rubies="chruby"
+
+##== Local Audio Aliases ======================================================#
+
+if OS_OSX; then
+
+  ## `hikaren` – Select "Karen" as the System Voice
+  ## NOTE: Must have English (Australia) voice "Karen" installed
+  alias hikaren="defaults write com.apple.speech.voice.prefs SelectedVoiceCreator -int 1886745202; defaults write com.apple.speech.voice.prefs SelectedVoiceID -int 100827421; defaults write com.apple.speech.voice.prefs SelectedVoiceName -string \"Karen\"; echo \"Karen is now your System Voice\"; say \"Hello.  My name is Karen.\"; echo;"
+  ## `himoira` – Select "Moira" as the System Voice
+  ## NOTE: Must have English (Ireland) voice "Moira" installed
+  alias himoira="defaults write com.apple.speech.voice.prefs SelectedVoiceCreator -int 1886745202; defaults write com.apple.speech.voice.prefs SelectedVoiceID -int 117644429; defaults write com.apple.speech.voice.prefs SelectedVoiceName -string \"Moira\"; echo \"Moira is now your System Voice\"; say \"Hello.  My name is Moira.\"; echo;"
+  ## `mtnking` – Have "Cellos" perform "In the Hall of the Mountain King"
+  ## NOTE: Must have English (Novelty) voice "Cellos" installed
+  alias mtnking="say -v cellos \"di di di di di di di di di di di di di di di di di di di di di di di di di di\""
+
+# elif OS_LINUX; then
+
+  ##
+
+fi
+
+##== Local Application and System Aliases =====================================#
+
+## `canary` – Open (with) Google Chrome Canary
+alias canary="${OPEN_APP} Google\ Chrome\ Canary"
+## `chrome` – Open (with) Google Chrome
+alias chrome="${OPEN_APP} Google\ Chrome"
+## `chromium` – Open (with) Chromium
+alias chromium="${OPEN_APP} Chromium"
+## `firedev` – Open (with) FirefoxDeveloperEdition
+alias firedev="${OPEN_APP} FirefoxDeveloperEdition"
+## `firefox` – Open (with) Firefox
+alias firefox="${OPEN_APP} Firefox"
+## `opera` – Open (with) Opera
+alias opera="${OPEN_APP} Opera"
+## `operadev` – Open (with) Opera Developer
+alias operadev="${OPEN_APP} Opera\ Developer"
+## `vivaldi` – Open (with) Vivaldi
+alias vivaldi="${OPEN_APP} Vivaldi"
+
+if OS_OSX; then
+
+  ## `safari` – Open (with) Safari
+  alias safari="${OPEN_APP} Safari"
+
+# elif OS_LINUX; then
+
+  ##
+
+fi
+
+##== Local Random Aliases =====================================================#
+
+## `badhorse` – Print the "Bad Horse Chorus" route packets/lyrics
+alias badhorse="traceroute bad.horse"
+## `colors` – Displays the various colors and color codes
+## @source http://askubuntu.com/a/279014
+alias colors='for x in 0 1 4 5 7 8; do for i in {30..37}; do for a in {40..47}; do echo -ne "\e[$x;$i;$a""m\\\e[$x;$i;$a""m\e[0;37;40m "; done; echo; done; done; echo "";'
+## `gitit` – Loads `AndTheTemplateOfDoom` default local Git repo files
+## NOTE: Requires the repo scaffold directory – $HOME/Code/AndTheTemplateOfDoom/
+alias gitit="rsync -av --exclude=\".DS_Store\" $HOME/Code/AndTheTemplateOfDoom/ $PWD/"
+## `redb` – Reload all databases
+alias redb="res3; remy; repg; remd"
+## `remd` – Reload MongoDB
+alias remd="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist; launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist"
+## `remy` – Reload MySQL
+alias remy="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist; launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist"
+## `repg` – Reload PostgreSQL
+alias repg="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist; launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
+
+if OS_OSX; then
+
+  ## `res3` – Reload (re-symlink) SQLite3
+  alias res3="brew link sqlite3 --force"
+
+# elif OS_LINUX; then
+
+  ## `res3` –
+  # alias res3=""
+
+fi

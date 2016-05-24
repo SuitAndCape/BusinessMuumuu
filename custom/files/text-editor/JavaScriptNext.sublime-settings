@@ -1,0 +1,14 @@
+// $SUBLIME_DIR/Packages/User/JavaScriptNext.sublime-settings
+
+////= SuitAndCape Sublime Text JavaScript(Next) Preferences
+//============================================================================//
+
+/// @source https://packagecontrol.io/packages/JavaScriptNext%20-%20ES6%20Syntax
+
+{
+  "extensions":
+  [
+    "js",
+    "jsx"
+  ]
+}

@@ -1,0 +1,15 @@
+#!/bin/sh
+# gnu-settings
+
+####= SuitAndCape Linux System Settings
+##============================================================================##
+
+## Require the administrator password
+sudo -v
+
+## Keep updating `sudo` timestamp until `linux-settings` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+##== Miscellany ===============================================================#
+
+echo "No Linux Settings setup available at this time."

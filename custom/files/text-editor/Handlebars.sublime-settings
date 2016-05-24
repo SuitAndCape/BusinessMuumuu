@@ -1,0 +1,14 @@
+// $SUBLIME_DIR/Packages/User/Handlebars.sublime-settings
+
+////= SuitAndCape Sublime Text Handlebars Preferences
+//============================================================================//
+
+/// @source https://packagecontrol.io/packages/Handlebars
+
+{
+  "extensions":
+  [
+    "handlebars",
+    "hbs"
+  ]
+}
