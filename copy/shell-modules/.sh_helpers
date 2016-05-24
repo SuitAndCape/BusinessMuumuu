@@ -108,6 +108,11 @@ USE_NPM() {
   [[ -x $(which npm) ]]
 }
 
+## Existence of pkgsrc executable
+USE_PKGSRC() {
+  [[ -x $(which pkgsrc) ]]
+}
+
 ## Existence of rbenv executable
 USE_RBENV() {
   [[ -x $(which rbenv) ]]
