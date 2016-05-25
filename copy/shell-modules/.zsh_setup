@@ -27,19 +27,12 @@ compinit
 
 ##== Zsh Options ==============================================================#
 
-## @how-to-use-zsh-options http://linux.die.net/man/1/zshoptions
-## Comments describe how the option behaves when it is enabled (`setopt`)
+## Comments describe option behaviors when enabled (`setopt` or `set -o`)
 
 ## Changing Directories Options
 
 ## If a command cannot be executed, and is the name of a directory, `cd` there
 setopt AUTO_CD
-
-## Resolve the path to a directory containing the `..` path segment in `cd`
-# setopt CHASE_DOTS  ## ?MAYBE? ##
-
-## Resolve symbolic links to their true values in `cd`
-# setopt CHASE_LINKS  ## ?MAYBE? ##
 
 ## Completion Options
 
@@ -49,8 +42,8 @@ setopt ALWAYS_TO_END
 ## Use menu completion after the second consecutive request for completion
 setopt AUTO_MENU
 
-## Prevent aliases from expanding before completion has finished
-setopt COMPLETE_ALIASES  ## ?MAYBE? ##
+## Prevent aliases from expanding/Resolve aliases before completion has finished
+setopt COMPLETE_ALIASES
 
 ## Allow the cursor to hold position and completion is done from both ends
 setopt COMPLETE_IN_WORD
@@ -63,7 +56,7 @@ unsetopt MENU_COMPLETE
 
 ## Expansion and Globbing Options
 
-## Make filename generation case sensitive
+## Make filename generation case-sensitive
 unsetopt CASE_GLOB
 
 ## Include `=` in filename expansion
@@ -75,15 +68,15 @@ setopt EXTENDED_GLOB
 ## Allow filename generation, commonly referred to as globbing
 setopt GLOB
 
-## When explicitly matiching filenames, do not require a leading `.`
+## When explicitly matching filenames, do not require a leading `.`
 setopt GLOB_DOTS
 
-## Brace expansion will be ignored
+## Do Not perform brace expansion
 unsetopt IGNORE_BRACES
 
 ## History Options
 
-## Allow multiple parallel Zsh sessions to append to one Zsh command history
+## Allow parallel Zsh sessions to append to $HISTFILE sequentially upon exit
 setopt APPEND_HISTORY
 
 ## Save each command's execution timestamp and running duration
@@ -123,9 +116,9 @@ setopt SHARE_HISTORY
 
 ## Runs global startup files (/etc/zshenv, /etc/zprofile, etc.)
 setopt GLOBAL_RCS
-##### XXXXX
+
 ## Runs global and local startup files (/etc/zshenv, ~/.zshenv, etc.)
-setopt GLOBAL_RCS
+setopt RCS
 
 ## Input/Output Options
 
@@ -171,7 +164,7 @@ setopt LOCAL_OPTIONS
 ## Allow functions to have local traps – traps reset on function return
 setopt LOCAL_TRAPS
 
-## Implicitly perform `tee` or `cat` when multiple redirections are attempted
+## Perform `tee` or `cat` implicitly when multiple redirections are attempted
 setopt MULTIOS
 
 ## Shell Emulation Options
@@ -182,48 +175,10 @@ unsetopt BASH_REMATCH
 ## Make `echo` compatible with BSD `echo` (escape sequences require `-e`)
 unsetopt BSD_ECHO
 
-## Shell State Options
-
-## The shell is an interactive shell
-# unsetopt INTERACTIVE
-
-## The shell is a login shell
-# unsetopt LOGIN
-
-## Enables privileged mode – special behaviors on SETUID/SETGID
-# unsetopt PRIVILEGED
-
-## Enables restricted mode – the shell has restricted capabilities
-# unsetopt RESTRICTED
-
-## The shell input (commands) is being read from STDIN
-# unsetopt SHIN_STDIN
-
-## If the shell is reading from STDIN, exit after executing one command
-# unsetopt SINGLE_COMMAND
-
 ## ZLE Options
 
 ## When an error occurs in ZLE, the shell will beep
 unsetopt BEEP
-
-## Punctuation characters following alphanumeric characters act as modifiers
-# unsetopt COMBINING_CHARS
-
-## Enables Emacs mode bindings and unsets VI – equivalent to `bindkey -e`
-# unsetopt EMACS  ## ?MAYBE? ##
-
-## Start editor in overstrike mode – characters overwrite the one there before
-# unsetopt OVERSTRIKE
-
-## Instead of multi-line, use single-line command line editing (bad tty)
-# unsetopt SINGLE_LINE_ZLE
-
-## Enables vi mode bindings and unsets EMACS – equivalent to `bindkey -v`
-# unsetopt VI  ## ?MAYBE? ##
-
-## Use Zsh Line Editor to input lines
-# unsetopt ZLE  ## ?MAYBE? ##
 
 ##== Zsh Bindkeys =============================================================#
 

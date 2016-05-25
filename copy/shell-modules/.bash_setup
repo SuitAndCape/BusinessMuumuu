@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # $HOME/shell-modules/.bash_setup
 
 ####= SuitAndCape Bash Setup
@@ -8,7 +8,55 @@
 
 ##== Bash Options =============================================================#
 
+## Comments describe option behaviors when enabled (`set -o` or `shopt -s`)
 
+## Changing Directories Options
+
+## If a command cannot be executed, and is the name of a directory, `cd` there
+shopt -s autocd
+
+## Completion Options
+
+## When a word containing `@` is being completed, perform hostname completion
+shopt -s hostcomplete
+
+## Expansion and Globbing Options
+
+## Perform brace expansion
+set -o braceexpand
+
+## When explicitly matching filenames, do not require a leading `.`
+shopt -s dotglob
+
+## Make filename generation case-insensitive
+shopt -s nocaseglob
+
+## History Options
+
+## Attempt to store multi-line commands as one history entry
+shopt -s cmdhist
+
+## Allow parallel Bash sessions to append to $HISTFILE sequentially upon exit
+shopt -s histappend
+
+## Perform history expansion and reload the added line into the editing buffer
+shopt -s histverify
+
+## Input/Output Options
+
+## Note command location when first executed to avoid subsequent path searches
+set -o hashall
+
+## Attempt to correct the spelling when using `cd`
+shopt -s cdspell
+
+## Allow comments (`#`) in interactive shells
+shopt -s interactive_comments
+
+## Prompting Options
+
+## Perform prompt parameter and arithmetic expansion, and command substitution
+shopt -s promptvars
 
 ##== Bash Bindkeys ============================================================#
 
