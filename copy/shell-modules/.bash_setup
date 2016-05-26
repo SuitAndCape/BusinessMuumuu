@@ -58,6 +58,77 @@ shopt -s interactive_comments
 ## Perform prompt parameter and arithmetic expansion, and command substitution
 shopt -s promptvars
 
-##== Bash Bindkeys ============================================================#
+##== Bash Inputs ==============================================================#
 
+## Use `[⌘]+[⌫]` to delete the preceding characters on the current line    {iT2}
+bind '"\C-x\C-?": backward-kill-line'
 
+## Use `[⌥]+[⌫]` to delete the preceding word
+bind '"\e\C-?": backward-kill-word'
+
+## Use `[⌥]+[←]` to move backward one word
+bind '"\e[1;9D": backward-word'
+
+## Use `[⌃]+[A]` to move cursor to the beginning of the current line
+bind '"\C-a": beginning-of-line'
+
+## Use `[⌦]` to delete the following character
+bind '"\e[3~": delete-char'
+
+## Use `[⌃]+[E]` to move cursor to the end of the current line
+bind '"\C-e": end-of-line'
+
+## Use `[⌥]+[→]` to move forward one word
+bind '"\e[1;9C": forward-word'
+
+## Use `[↑]` to scroll backward through smart history (typed text prefix)
+bind '"\e[A": history-search-backward'
+
+## Use `[↓]` to scroll forward through smart history (typed text prefix)
+bind '"\e[B": history-search-forward'
+
+## Use `[⌘]+[⌦]` to delete the following characters on the current line    {iT2}
+bind '"\C-x\e[3~": kill-line'
+
+## Use `[⌥]+[D]` or `[⌥]+[⌦]` to delete the following word                 {iT2}
+bind '"\ed": kill-word'
+bind '"\e\e[3~": kill-word'
+
+## Use `[⇧]+[⌘]+[Z]` or `[⌘]+[Y]` to redo the last edit                    {iT2}
+bind '"\C-x\C-_": redo'
+
+## Use `[⌘]+[Z]` to undo the last edit                                     {iT2}
+bind '"\C-_": undo'
+
+## Visualize the terminal bell
+bind "set bell-style visible"
+
+## Filename `[⇥]` autocompletion is case-insensitive
+bind "set completion-ignore-case on"
+
+## Ask to display all possibilities if more than three hundred completions exist
+bind "set completion-query-items 300"
+
+## Disable 8th bit stripping
+bind "set convert-meta off"
+
+## Enable UTF-8 input
+bind "set input-meta on"
+
+## Add trailing slash when autocompleting symlinks to directories
+bind "set mark-symlinked-directories on"
+
+## Enable UTF-8 output
+bind "set output-meta on"
+
+## Show all autocomplete results
+bind "set page-completions off"
+
+## List all matches if multiple completions are possible
+bind "set show-all-if-ambiguous on"
+
+## More intelligent autocompletion (takes text after the cursor into account)
+bind "set skip-completed-text on"
+
+## Annotate file types when autocompleting
+bind "set visible-stats on"
