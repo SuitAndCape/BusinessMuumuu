@@ -180,7 +180,14 @@ unsetopt BSD_ECHO
 ## When an error occurs in ZLE, the shell will beep
 unsetopt BEEP
 
-##== Zsh Bindkeys =============================================================#
+##== Zsh Inputs ===============================================================#
+
+## Use `[⌥]+[⌫]` to delete the preceding word
+bindkey "^[^?" backward-kill-word
+bindkey "^[^H" backward-kill-word
+
+## Use `[⌥]+[←]` to move backward one word
+bindkey "^[[1;9D" backward-word
 
 ## Use `[⌃]+[A]` to move cursor to the beginning of the current line
 bindkey "^A" beginning-of-line
@@ -190,3 +197,16 @@ bindkey "^[[3~" delete-char
 
 ## Use `[⌃]+[E]` to move cursor to the end of the current line
 bindkey "^E" end-of-line
+
+## Use `[⌥]+[→]` to move forward one word
+bindkey "^[[1;9C" forward-word
+
+## Use `[↑]` to scroll backward through smart history (typed text as a prefix)
+bindkey "^[[A" history-search-backward
+
+## Use `[↓]` to scroll forward through smart history (typed text as a prefix)
+bindkey "^[[B" history-search-forward
+
+## Use `[⌥]+[⌦]` to delete the following word
+bindkey "^[^[[3~" kill-word
+bindkey "^[d" kill-word
