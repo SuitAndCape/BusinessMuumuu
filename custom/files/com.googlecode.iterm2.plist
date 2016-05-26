@@ -810,6 +810,13 @@
 					<key>Text</key>
 					<string>[24;2~</string>
 				</dict>
+				<key>0xf728-0x100000</key>
+				<dict>
+					<key>Action</key>
+					<integer>11</integer>
+					<key>Text</key>
+					<string>0x0b</string>
+				</dict>
 				<key>0xf728-0x80000</key>
 				<dict>
 					<key>Action</key>
