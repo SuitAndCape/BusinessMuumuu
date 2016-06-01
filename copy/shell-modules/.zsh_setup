@@ -180,7 +180,7 @@ unsetopt BSD_ECHO
 ## When an error occurs in ZLE, the shell will beep
 unsetopt BEEP
 
-##== Zsh Inputs ===============================================================#
+##== Zsh Bindkeys =============================================================#
 
 ## "{iT2}" label means entry is tied to the iTerm2 profile shortcut keys
 
@@ -207,12 +207,6 @@ bindkey "^E" end-of-line
 ## Use `[⌥]+[→]` to move forward one word
 bindkey "^[[1;9C" forward-word
 
-## Use `[↑]` to scroll backward through smart history (typed text prefix)
-bindkey "^[[A" history-search-backward
-
-## Use `[↓]` to scroll forward through smart history (typed text prefix)
-bindkey "^[[B" history-search-forward
-
 ## Use `[⌘]+[⌦]` to delete the following characters on the current line    {iT2}
 bindkey "^X^[[3~" kill-line
 
@@ -225,3 +219,58 @@ bindkey "^X^_" redo
 
 ## Use `[⌘]+[Z]` to undo the last edit                                     {iT2}
 bindkey "^_" undo
+
+##== Zsh Autocompletions ======================================================#
+
+## Activate autocompletion graphical menu selection
+zstyle ':completion:*:*:*:*:*' menu select
+
+## List of autocompletion completers to use
+zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*:match:*' original only
+zstyle ':completion:*:approximate:*' max-errors 1 numeric
+
+## Fallback to use built in `ls` colors for autocompletion
+zstyle ':completion:*:default' list-colors ''
+
+## Use `ls` colors for autocompletion
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+## Case-insensitive and inside filenames autocompletion matcher
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[.,_-]=** r:|=**' 'l:|=* r:|=*'
+
+## Improved autocompletion for `cd`
+zstyle ':completion::complete:cd:' tag-order local-directories path-directories
+
+## Improved autocompletion for `kill`
+zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+zstyle ':completion:*:kill:*' force-list always
+zstyle ':completion:*:*:kill:*' menu yes select
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=1;31'
+
+## Improved autocompletion for `killall`
+zstyle ':completion:*:killall:*' command 'ps -u $USER -o cmd'
+zstyle ':completion:*:killall:*' force-list always
+zstyle ':completion:*:*:killall:*' menu yes select
+
+## Display autocompletion results in verbose form
+zstyle ':completion:*' verbose yes
+
+## Display autocompletion matches by type grouping
+zstyle ':completion:*' group-name ''
+
+## If the Homebrew zsh-completions/ directory exists...
+zsh_complete=/usr/local/share/zsh-completions
+if [ -d "${zsh_complete}" ]; then
+  ## Add the Homebrew maintained Zsh completions to the Zsh fpath
+  fpath=(
+    /usr/local/share/zsh-completions
+    $fpath
+  )
+fi
+
+## Zsh autocompletion for Grunt, if it exists
+USE_GRUNT && eval "$(grunt --completion=zsh)"
+
+## Zsh autocompletion for Gulp, if it exists
+USE_GULP && eval "$(gulp --completion=zsh)"

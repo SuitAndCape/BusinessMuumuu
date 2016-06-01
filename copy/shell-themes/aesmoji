@@ -1,5 +1,5 @@
 #!/bin/sh
-# $HOME/shell-aesthetics/aesmoji
+# $HOME/shell-themes/aesmoji
 
 ####= SuitAndCape Shell Visual Aesthetics (w/ Git Emoji)
 ##============================================================================##
@@ -16,7 +16,6 @@ su=32;47:sg=37;42:tw=34;47:ow=37;44:"
 ##== Git Prompt Stylization ===================================================#
 
 ## Git branch status prompt
-## OPTIONAL: uncomment all instances of `git_state` to use emojis
 function git_prompt() {
   local git_ahead="$(git log --oneline @{u}.. 2> /dev/null | wc -l | tr -d ' ')"
   local git_behind="$(git log --oneline ..@{u} 2> /dev/null | wc -l | tr -d ' ')"
@@ -115,14 +114,19 @@ fi
 
 ##== Output Hook Definitions ==================================================#
 
-## Zsh completion colors
+## Zsh autocompletion responses
 if SHELL_ZSH; then
-  ZC_CORRECTIONS=$B_U_INTENSE_MAGENTA
-  ZC_DESCRIPTIONS=$B_U_INTENSE_BLUE
-  ZC_EVAL_DEPTH=$B_U_INTENSE_WHITE
-  ZC_MESSAGES=$B_YELLOW
-  ZC_WARNINGS=$B_U_INTENSE_RED
-  ZC_YIELD=$INTENSE_WHITE
+  ## Autocompletion `corrections` response formatting
+  zstyle ':completion:*:corrections' format "${B_U_INTENSE_MAGENTA}Errors [${COLOR_RESET}${B_U_INTENSE_WHITE}%e${COLOR_RESET}${B_U_INTENSE_MAGENTA}]:${COLOR_RESET} ${INTENSE_WHITE}%d${COLOR_RESET}"
+
+  ## Autocompletion `descriptions` response formatting
+  zstyle ':completion:*:descriptions' format "${B_U_INTENSE_BLUE}Completion Type:${COLOR_RESET} ${INTENSE_WHITE}%d${COLOR_RESET}"
+
+  ## Autocompletion `messages` response formatting
+  zstyle ':completion:*:messages' format "${B_YELLOW}––––${COLOR_RESET} ${INTENSE_WHITE}%d${COLOR_RESET}"
+
+  ## Autocompletion `warnings` response formatting
+  zstyle ':completion:*:warnings' format "${B_U_INTENSE_RED}No Matches Found:${COLOR_RESET} ${INTENSE_WHITE}%d${COLOR_RESET}"
 fi
 
 ##== Print Hook Definitions ===================================================#

@@ -60,46 +60,6 @@ shopt -s promptvars
 
 ##== Bash Inputs ==============================================================#
 
-## Use `[⌘]+[⌫]` to delete the preceding characters on the current line    {iT2}
-bind '"\C-x\C-?": backward-kill-line'
-
-## Use `[⌥]+[⌫]` to delete the preceding word
-bind '"\e\C-?": backward-kill-word'
-
-## Use `[⌥]+[←]` to move backward one word
-bind '"\e[1;9D": backward-word'
-
-## Use `[⌃]+[A]` to move cursor to the beginning of the current line
-bind '"\C-a": beginning-of-line'
-
-## Use `[⌦]` to delete the following character
-bind '"\e[3~": delete-char'
-
-## Use `[⌃]+[E]` to move cursor to the end of the current line
-bind '"\C-e": end-of-line'
-
-## Use `[⌥]+[→]` to move forward one word
-bind '"\e[1;9C": forward-word'
-
-## Use `[↑]` to scroll backward through smart history (typed text prefix)
-bind '"\e[A": history-search-backward'
-
-## Use `[↓]` to scroll forward through smart history (typed text prefix)
-bind '"\e[B": history-search-forward'
-
-## Use `[⌘]+[⌦]` to delete the following characters on the current line    {iT2}
-bind '"\C-x\e[3~": kill-line'
-
-## Use `[⌥]+[D]` or `[⌥]+[⌦]` to delete the following word                 {iT2}
-bind '"\ed": kill-word'
-bind '"\e\e[3~": kill-word'
-
-## Use `[⇧]+[⌘]+[Z]` or `[⌘]+[Y]` to redo the last edit                    {iT2}
-bind '"\C-x\C-_": redo'
-
-## Use `[⌘]+[Z]` to undo the last edit                                     {iT2}
-bind '"\C-_": undo'
-
 ## Visualize the terminal bell
 bind "set bell-style visible"
 
@@ -132,3 +92,65 @@ bind "set skip-completed-text on"
 
 ## Annotate file types when autocompleting
 bind "set visible-stats on"
+
+##== Bash Bindkeys ============================================================#
+
+## "{iT2}" label means entry is tied to the iTerm2 profile shortcut keys
+
+## Use `[⌘]+[⌫]` to delete the preceding characters on the current line    {iT2}
+bind '"\C-x\C-?": backward-kill-line'
+
+## Use `[⌥]+[⌫]` to delete the preceding word
+bind '"\e\C-?": backward-kill-word'
+
+## Use `[⌥]+[←]` to move backward one word
+bind '"\e[1;9D": backward-word'
+
+## Use `[⌃]+[A]` to move cursor to the beginning of the current line
+bind '"\C-a": beginning-of-line'
+
+## Use `[⌦]` to delete the following character
+bind '"\e[3~": delete-char'
+
+## Use `[⌃]+[E]` to move cursor to the end of the current line
+bind '"\C-e": end-of-line'
+
+## Use `[⌥]+[→]` to move forward one word
+bind '"\e[1;9C": forward-word'
+
+## Use `[⌘]+[⌦]` to delete the following characters on the current line    {iT2}
+bind '"\C-x\e[3~": kill-line'
+
+## Use `[⌥]+[D]` or `[⌥]+[⌦]` to delete the following word                 {iT2}
+bind '"\ed": kill-word'
+bind '"\e\e[3~": kill-word'
+
+## Use `[⇧]+[⌘]+[Z]` or `[⌘]+[Y]` to redo the last edit                    {iT2}
+bind '"\C-x\C-_": redo'
+
+## Use `[⌘]+[Z]` to undo the last edit                                     {iT2}
+bind '"\C-_": undo'
+
+##== Bash Autocompletions =====================================================#
+
+## Autocompletion for Homebrew, if it exists
+brew_comp=$(brew --repository)/Library/Contributions/brew_bash_completion.sh
+test -f $brew_comp && source $brew_comp
+
+## Autocompletion for Bash via Homebrew (bash-completion), if it exists
+# bash_comp_brew=$(brew --prefix)/etc/bash_completion
+# test -f $bash_comp_brew && source $bash_comp_brew
+
+## Autocompletion for Bash 4 via Homebrew (bash-completion2), if it exists
+bash_comp_2_brew=$(brew --prefix)/share/bash-completion/bash_completion
+test -f $bash_comp_2_brew && source $bash_comp_2_brew
+
+## Bash autocompletion for Git via Homebrew (git), if it exists
+git_comp_brew=$(brew --prefix)/etc/bash_completion.d/git-completion.bash
+test -s $git_comp_brew && source $git_comp_brew
+
+## Bash autocompletion for Grunt, if it exists
+USE_GRUNT && eval "$(grunt --completion=bash)"
+
+## Bash autocompletion for Gulp, if it exists
+USE_GULP && eval "$(gulp --completion=bash)"

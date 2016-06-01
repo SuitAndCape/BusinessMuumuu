@@ -16,21 +16,22 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 ##== Homebrew Formulae ========================================================#
 
-## Ensure that Homebrew application casks are symlinked in /Applications
-export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-
-## Tapped Homebrew Formulae
-tapped_formulae=(
+## Additional Homebrew Formulae
+additional_formulae=(
+  ## General Homebrew Formulae
+  zsh-syntax-highlighting
+  ## Tapped Homebrew Formulae
   chktex
   django-completion
   rails-completion
   rake-completion
   suite-sparse
+  t-completion
 )
 
-## Install tapped Homebrew Formulae
-echo "Installing tapped Homebrew Formulae"
-brew install "${tapped_formulae[@]}"
+## Install additional Homebrew Formulae
+echo "Installing additional Homebrew Formulae"
+brew install "${additional_formulae[@]}"
 
 ##== NPM ======================================================================#
 
@@ -69,19 +70,20 @@ npm install -g "${global_packages[@]}"
 
 ##== Java =====================================================================#
 
-## NOTE: Check Java version installed via configure/packages/Brewfile
+## NOTE: Check Java version installed via configure/packages/Brewfile by using
+#the command `brew cask info java`
 ## @source http://www.oracle.com/technetwork/java/javase/downloads/index.html
 
 echo "Installing Java 8 via jEnv"
 
-## Add Java version 8.0.74 via jEnv
-jenv add /Library/Java/JavaVirtualMachines/jdk1.8.0_74.jdk/Contents/Home/
+## Add Java version 8.0.92 via jEnv
+jenv add /Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home/
 
 ## Have jEnv look for all known binaries and create the necessary shims
 jenv rehash
 
-## Select Java version 8.0.74 via jEnv
-jenv global oracle64-1.8.0.74
+## Select Java version 8.0.92 via jEnv
+jenv global oracle64-1.8.0.92
 
 ##== Python ===================================================================#
 
@@ -165,6 +167,7 @@ ruby_gems=(
   ghrepo
   github
   haml
+  hirb
   jekyll
   pry
   pry-doc
@@ -191,7 +194,6 @@ rails_gems=(
   guard-rspec
   guard-spork
   haml-rails
-  hirb
   pry-byebug
   pry-rails
   rails-api
@@ -203,10 +205,10 @@ rails_gems=(
 # echo "Installing local Rails Gems"
 # gem install "${rails_gems[@]}"
 
-##== Homebrew Cask Applications ===============================================#
+##== Homebrew Casks ===========================================================#
 
-## Homebrew Cask applications
-cask_apps=(
+## Additional Homebrew Casks
+additional_casks=(
   ## General Casks
   alfred
   dropbox
@@ -248,12 +250,9 @@ cask_apps=(
   webpquicklook
 )
 
-## Install Homebrew Cask applications
-echo "Installing Casks (Homebrew maintained applications)"
-brew cask install "${cask_apps[@]}"
-
-## Link Homebrew Cask applications to Alfred
-brew cask alfred link
+## Install additional Homebrew Casks
+echo "Installing additional Casks (Homebrew maintained applications)"
+brew cask install "${additional_casks[@]}"
 
 ##== Databases ================================================================#
 

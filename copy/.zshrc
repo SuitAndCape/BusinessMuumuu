@@ -20,7 +20,6 @@ test -f "${SHELL_THEMES}"/aesm && source "${SHELL_THEMES}"/aesm
 
 test -f "${ZSH_MODULES}"/.exports && source "${ZSH_MODULES}"/.exports
 test -f "${ZSH_MODULES}"/.envrc && source "${ZSH_MODULES}"/.envrc
-test -f "${ZSH_MODULES}"/.completions && source "${ZSH_MODULES}"/.completions
 test -f "${ZSH_MODULES}"/.aliases && source "${ZSH_MODULES}"/.aliases
 test -f "${ZSH_MODULES}"/.functions && source "${ZSH_MODULES}"/.functions
 test -f "${ZSH_MODULES}"/.extra && source "${ZSH_MODULES}"/.extra

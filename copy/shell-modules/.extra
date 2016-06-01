@@ -6,34 +6,49 @@
 
 ## Stash local shell environment user settings, commands, and overrides here
 
+##== Local Exports ============================================================#
+
+## Set personal locale to US style English and using UTF-8
+export LANG="en_US.UTF-8"
+
+## Override all locale preferences to US style English and using UTF-8
+export LC_ALL="en_US.UTF-8"
+
+##== Local Bash Bindkeys ======================================================#
+
+if SHELL_BASH; then
+  ## Use `[↑]` to scroll backward through smart history (typed text prefix)
+  bind '"\e[A": history-search-backward'
+
+  ## Use `[↓]` to scroll forward through smart history (typed text prefix)
+  bind '"\e[B": history-search-forward'
+
 ##== Local Zsh Autoloads ======================================================#
 
-if SHELL_ZSH; then
+elif SHELL_ZSH; then
   ## Call Bash word selection style in Zsh
   atld select-word-style
   select-word-style bash
 
-##== Local Zsh Homebrew Extras ================================================#
+##== Local Zsh Bindkeys =======================================================#
 
-  ## If the Homebrew zsh-completions/ directory exists...
-  zsh_complete=/usr/local/share/zsh-completions
-  if [ -d "${zsh_complete}" ]; then
-    ## Add the Homebrew maintained Zsh completions to the Zsh fpath
-    fpath=(
-      /usr/local/share/zsh-completions
-      $fpath
-    )
-  fi
+  ## Use `[↑]` to scroll backward through smart history (typed text prefix)
+  bindkey "^[[A" history-search-backward
 
-  ## Activate the Hombrew maintained Zsh Syntax Highlighting, if it exists
-  zsh_highlight=/usr/local/share/zsh-syntax-highlighting
-  [ -d $zsh_highlight ] && source $zsh_highlight/zsh-syntax-highlighting.zsh
+  ## Use `[↓]` to scroll forward through smart history (typed text prefix)
+  bindkey "^[[B" history-search-forward
 
 ##== Local Zsh Autocompletions ================================================#
 
   ## Improved autocompletion for `functions`/ignore functions beginning with `_`
   zstyle ':completion:*:functions' ignored-patterns '_*'
   zstyle '*' single-ignored show
+
+##== Local Zsh Homebrew Extras ================================================#
+
+  ## Activate Zsh Syntax Highlighting (Fish style highlighting), if it exists
+  zsh_highlight=/usr/local/share/zsh-syntax-highlighting
+  [ -d $zsh_highlight ] && source $zsh_highlight/zsh-syntax-highlighting.zsh
 fi
 
 ##== Local Random Aliases =====================================================#

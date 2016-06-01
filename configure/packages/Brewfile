@@ -3,9 +3,6 @@
 ####= SuitAndCape Homebrew Formulae
 ##============================================================================##
 
-## Ensure that Homebrew application casks are symlinked in /Applications
-cask_args appdir: '/Applications'
-
 ## Homebrew Taps
 tap 'caskroom/versions'
 tap 'homebrew/completions'
@@ -15,7 +12,7 @@ tap 'homebrew/services'
 tap 'homebrew/tex'
 tap 'homebrew/versions'
 
-## Homebrew development Casks
+## Homebrew dependency and generally useful Casks
 cask 'xquartz'
 
 ## Homebrew dependency and generally useful Formulae
@@ -44,7 +41,7 @@ brew 'zeromq'
 
 ## Homebrew development Formulae
 brew 'git'
-brew 'heroku-toolbelt'
+brew 'heroku'
 brew 'jenv'
 brew 'node', args: ['without-npm']
 brew 'openssl'
@@ -77,7 +74,6 @@ brew 'nano'
 brew 'tmux'
 brew 'vim'#, args: ['python3']
 brew 'zsh'
-brew 'zsh-syntax-highlighting'
 
 ## Homebrew tapped Formulae
 # brew 'bash-completion'

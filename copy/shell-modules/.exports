@@ -4,8 +4,6 @@
 ####= SuitAndCape Local Shell Environment Exports
 ##============================================================================##
 
-## Stash local shell environment exports here
-
 ## Preferred editor for local and remote sessions
 if IS_SSH; then
   ## Set `vim` as the open default editor command for remote login
@@ -35,12 +33,6 @@ else
   export GIT_EDITOR="${VISUAL}"
 fi
 
-## Set personal locale to US style English and using UTF-8
-export LANG="en_US.UTF-8"
-
-## Override all locale preferences to US style English and using UTF-8
-export LC_ALL="en_US.UTF-8"
-
 ## Preferred output filtering command for terminal writing to the terminal
 if USE_MOST; then
   ## Use `most` as the output filter, if it exists
@@ -50,5 +42,6 @@ else
   export PAGER="less"
 fi
 
-## Make `less` repaint the screen/discard buffered input (`R`)
-export LESS="-R"
+## Force `less` to repaint the screen/discard buffered input (`R`) and prevent
+#the screen from clearing upon exit (`X`)
+export LESS="-RX"
