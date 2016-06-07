@@ -14,8 +14,8 @@ alias bc="bc -l"
 #recursively copy files into existing folders and create new folders when the
 #destination folder is missing (`r`)
 alias cp="cp -ri"
-## Force `df` to output in a human readable format (`H`)
-alias df="df -H"
+## Force `df` to output in a human readable format (`h`)
+alias df="df -h"
 ## Force `du` to output a grand total (`c`) in a human readable format (`h`)
 alias du="du -ch"
 ## Force `egrep`, fgrep`, `grep`, `zegrep`, `zfgrep`, and `zgrep` to output in
@@ -56,7 +56,7 @@ alias tmux="tmux -2u"
 
 ## `clr` – Variant of `clear`; clear the terminal emulator screen
 alias clr="clear"
-## `e` – Open (with) primary editor, found in $HOME/shell-modules/.exports
+## `e` – Open (with) the primary editor (`${OPEN_EDITOR}`)
 alias e="${OPEN_EDITOR}"
 ## `egrepc`, fgrepc`, or `grepc` – Variants of `egrep`, `fgrep`, `grep`,
 #`zegrep`, `zfgrep`, and `zgrep`; always output in color (`--color=always`)
@@ -120,20 +120,20 @@ alias proj="cd ~/Projects"
 ##== List Contents Aliases ====================================================#
 
 ## `hella` – Output the listing in long format (`l`) displaying the following:
-#hidden files (`a`), non-printable characters (`b`), the number of file system
-#blocks actually used by each file in units of 512 bytes (`s`), annotated file
-#types (`F`), file flags (`O`), and complete time information (`T`)
-alias hella="ls -labsFOT"
+#annotated file types (`F`), hidden files (`a`), non-printable characters (`b`),
+#the number of file system blocks actually used by each file in units of 512
+#bytes (`s`), and complete time information (`${TIMEFLAG}`)
+alias hella="ls -lFabs ${TIMEFLAG}"
 ## `l.` – Output only hidden items, listed in long format (`l`)
-alias l.="find . \( -flags +hidden -or -name \".*\" \) -maxdepth 1 | sed \"s/^\.\/*//\" | xargs ls -ladhFO ${COLORFLAG}"
+alias l.="find . \( -flags +hidden -or -name \".*\" \) -maxdepth 1 | sed \"s/^\.\/*//\" | xargs ls -lFadh ${COLORFLAG}"
 ## `ld` – Output only directories (`d */`), listed in long format (`l`)
 alias ld="ls -ld */"
 ## `ll` – Output the listing in long format (`l`), annotate file types (`F`),
 #and include hidden files (`a`)
-alias ll="ls -laF"
+alias ll="ls -lFa"
 ## `lo` – Output the listing in long format (`l`), annotate file types (`F`),
 #and include hidden files (`a`) and permissions converted to octals (`sed …`)
-alias lo="ls -laF | sed -e \"s/--x/1/g\" -e \"s/-w-/2/g\" -e \"s/-wx/3/g\" -e \"s/r--/4/g\" -e \"s/r-x/5/g\" -e \"s/rw-/6/g\" -e \"s/rwx/7/g\" -e \"s/---/0/g\""
+alias lo="ls -lFa | sed -e \"s/--x/1/g\" -e \"s/-w-/2/g\" -e \"s/-wx/3/g\" -e \"s/r--/4/g\" -e \"s/r-x/5/g\" -e \"s/rw-/6/g\" -e \"s/rwx/7/g\" -e \"s/---/0/g\""
 ## `t100` – Output the last one hundred lines (`n 100`) of the input
 alias t100="tail -n 100"
 ## `t200` – Output the last two hundred lines (`n 200`) of the input
@@ -151,12 +151,14 @@ alias t5000="tail -n 5000"
 
 if OS_OSX; then
 
-  ## `afk` – Lock the screen
-  alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+  ## `afk` – Activate the screen saver
+  alias afk="${OPEN_APP} ScreenSaverEngine"
   ## `hide` – Conceal hidden files
   alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder; echo \"Hidden files concealed\""
   ## `hidedesk` – Conceal desktop files
   alias hidedesk="defaults write com.apple.finder CreateDesktop -bool false && killall Finder; echo \"Desktop files concealed\""
+  ## `lock` – Lock the screen
+  alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
   ## `show` – Reveal hidden files
   alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder; echo \"Hidden files revealed\""
   ## `showdesk` – Reveal desktop files
@@ -164,12 +166,14 @@ if OS_OSX; then
 
 # elif OS_LINUX; then
 
-  ## `afk` – Lock the screen
+  ## `afk` – Activate the screen saver
   # alias afk=""
   ## `hide` – Conceal hidden files
   # alias hide=""
   ## `hidedesk` – Conceal desktop files
   # alias hidedesk=""
+  ## `lock` – Lock the screen
+  # alias lock=""
   ## `show` – Reveal hidden files
   # alias show=""
   ## `showdesk` – Reveal desktop files
@@ -240,6 +244,10 @@ if OS_OSX; then
   alias battery="ioreg -w0 -l | grep Capacity | cut -d \" \" -f 17-50"
   ## `osup` – Install available OS X updates (`ia`) and output verbosely (`v`)
   alias osup="sudo softwareupdate -iav"
+  ## `spotoff` – Disable Spotlight
+  alias spotoff="sudo mdutil -a -i off; echo \"Spotlight disabled\""
+  ## `spoton` – Enable Spotlight
+  alias spoton="sudo mdutil -a -i on; echo \"Spotlight enabled\""
 
 # elif OS_LINUX; then
 

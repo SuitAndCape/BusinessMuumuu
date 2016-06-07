@@ -5,3 +5,5 @@
 
 ## Prevent Gem documentation from downloading by default
 gem: --no-document
+## Give the Gem command output in the verbose format
+:verbose: true

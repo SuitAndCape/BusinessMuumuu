@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # custom-osx-installs
 
 ####= SuitAndCape Custom OS X Installation File
@@ -13,25 +13,6 @@ sudo -v
 
 ## Keep updating `sudo` timestamp until `custom-osx-installs` has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
-##== Homebrew Formulae ========================================================#
-
-## Additional Homebrew Formulae
-additional_formulae=(
-  ## General Homebrew Formulae
-  zsh-syntax-highlighting
-  ## Tapped Homebrew Formulae
-  chktex
-  django-completion
-  rails-completion
-  rake-completion
-  suite-sparse
-  t-completion
-)
-
-## Install additional Homebrew Formulae
-echo "Installing additional Homebrew Formulae"
-brew install "${additional_formulae[@]}"
 
 ##== NPM ======================================================================#
 
@@ -74,16 +55,18 @@ npm install -g "${global_packages[@]}"
 #the command `brew cask info java`
 ## @source http://www.oracle.com/technetwork/java/javase/downloads/index.html
 
+echo "Installing Java 7 via jEnv"
+
+## Add Homebrew Cask maintained Java 7 via jEnv
+jenv add /Library/Java/JavaVirtualMachines/jdk1.7*/Contents/Home/
+
 echo "Installing Java 8 via jEnv"
 
-## Add Java version 8.0.92 via jEnv
-jenv add /Library/Java/JavaVirtualMachines/jdk1.8.0_92.jdk/Contents/Home/
+## Add Homebrew Cask maintained Java 8 via jEnv
+jenv add /Library/Java/JavaVirtualMachines/jdk1.8*/Contents/Home/
 
 ## Have jEnv look for all known binaries and create the necessary shims
 jenv rehash
-
-## Select Java version 8.0.92 via jEnv
-jenv global oracle64-1.8.0.92
 
 ##== Python ===================================================================#
 
@@ -157,16 +140,15 @@ django_packages=(
 ## Select Ruby version 2.3.0 via chruby
 chruby ruby-2.3.0
 
+## Update RubyGems and locally installed Gems
+gem update --system; gem update
+
 ## Local Ruby Gems
 ruby_gems=(
   awesome_print
-  bropages
   bundler
   cocoapods
-  compass
-  ghrepo
   github
-  haml
   hirb
   jekyll
   pry
@@ -185,33 +167,45 @@ gem install "${ruby_gems[@]}"
 ## Local Rails Gems
 rails_gems=(
   rails
-  better_errors
-  binding_of_caller
-  dotenv
-  foreman
-  guard
-  guard-livereload
-  guard-rspec
-  guard-spork
-  haml-rails
-  pry-byebug
-  pry-rails
   rails-api
-  rspec-rails
-  sass-rails
+  foreman
 )
 
 ## Install local Rails Gems
 # echo "Installing local Rails Gems"
 # gem install "${rails_gems[@]}"
 
-##== Homebrew Casks ===========================================================#
+##== Homebrew Formulae and Casks ==============================================#
+
+## Additional Homebrew Formulae
+additional_formulae=(
+  ## General Formulae
+  shellcheck
+  tidy-html5
+  zsh-syntax-highlighting
+  ## Tapped "completions" Formulae
+  django-completion
+  rails-completion
+  rake-completion
+  t-completion
+  ## Tapped "science" Formulae
+  homebrew/science/suite-sparse
+  ## Tapped "tex" Formulae
+  homebrew/tex/chktex
+  ## Tapped "x11" Formulae
+  # homebrew/x11/xpdf
+)
+
+## Install additional Homebrew Formulae
+echo "Installing additional Homebrew Formulae"
+brew install "${additional_formulae[@]}"
 
 ## Additional Homebrew Casks
 additional_casks=(
   ## General Casks
   alfred
   dropbox
+  gimp
   gpgtools
   hipchat
   jumpcut

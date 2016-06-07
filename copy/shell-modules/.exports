@@ -4,31 +4,42 @@
 ####= SuitAndCape Local Shell Environment Exports
 ##============================================================================##
 
-## Preferred editor for local and remote sessions
+## Preferred editor for remote and local sessions
 if IS_SSH; then
   ## Set `vim` as the open default editor command for remote login
   export OPEN_EDITOR="vim"
+
   ## Set Vim as the default remote editor through the `vim` command
   export EDITOR="${OPEN_EDITOR}"
 else
+  ## If the `subl` command exists...
   if USE_SUBL; then
     ## Set `subl` as the open default editor command for local login
     export OPEN_EDITOR="subl"
+
     ## Set Sublime Text as the visual editor through the `subl --wait` command
     export VISUAL="${OPEN_EDITOR} --wait"
+
+  ## If the `subl` command does not exist and the `atom` command does exist...
   elif USE_ATOM; then
     ## Set `atom` as the open default editor command for local login
     export OPEN_EDITOR="atom"
+
     ## Set Atom as the visual editor through the `atom --wait` command
     export VISUAL="${OPEN_EDITOR} --wait"
+
+  ## If the `subl` and `atom` commands do not exist...
   else
     ## Set `vim` as the open default editor command for local login
     export OPEN_EDITOR="vim"
+
     ## Set Vim as the visual editor through the `vim` command
     export VISUAL="${OPEN_EDITOR}"
   fi
+
   ## Set the default local editor through the visual editor
   export EDITOR="${VISUAL}"
+
   ## Set the default git editor through the visual editor
   export GIT_EDITOR="${VISUAL}"
 fi

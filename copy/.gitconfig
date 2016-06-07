@@ -3,75 +3,206 @@
 ####= SuitAndCape Git Configurations
 ##============================================================================##
 
-[core]
-  ## Set a global list of things to ignore
-  excludesfile = ~/.gitignore_global
-  ## Don't show Windows end-of-line characters (`^M`)
-  whitespace = cr-at-eol
+[apply]
+ ## When attempting to apply a patch, Git apply will detect and output warnings
+ #for whitespace errors, then apply the patch after tbe errors are fixed
+ whitespace = fix
 
 [color]
-  status = auto
   diff = auto
+  status = auto
+  ## Git commands that can output in color when written to the terminal do so
+  ui = auto
+
+[color "diff"]
+  ## Set Git diff color for the hunk header
+  frag = magenta bold
+  ## Set Git diff color for metainformation
+  meta = yellow bold
+  ## Set Git diff color for added lines
+  new = green bold
+  ## Set Git diff color for removed lines
+  old = red bold
 
 [color "status"]
-  untracked = cyan
-  changed = green
+  ## Set Git status color for files added but not committed
   added = yellow
+  ## Set Git status color for files changed but not added in the index
+  changed = green
+  ## Set Git status color for files with unmerged changes
+  unmerged = magenta
+  ## Set Git status color for files not tracked by Git
+  untracked = cyan
 
 [commit]
+  ## Custom Git commit message template
   template = ~/.git_commit_template
 
+[core]
+  ## Custom list of things for Git to ignore globally
+  excludesfile = ~/.gitignore_global
+  ## A carriage-return at the end of line is treated as part of the line
+  #terminator
+  whitespace = cr-at-eol
+  ## The editor Git will default to using if $GIT_EDITOR has not been defined
+  editor = vim
+
+[credential]
+  ## External helper credentials to be called upon by Git when needed
+
+[diff]
+  ## Allow Git to detect file renames and copies
+  renames = copies
+
+[merge]
+  ## Populate the newly created/merged Git commit message with branch names and
+  #one-line summaries of commits that are being merged
+  log = true
+
+[push]
+  ## If no refspec is explicitly given when using the `git push` command, push
+  #all branches having the same name on both ends (the repository being pushed
+  #remembers the set of branches that will be pushed out, so make sure all the
+  #branches you would push out are ready to be pushed out)
+  default = matching
+  ## Push the default refs and the relevant annotated tags in refs/tags
+  followTags = true
+
+[url "git@github.com:"]
+  ## URLs beginning with "gh:" that are passed to Git, will be rewritten to
+  #start with "git@github.com:"
+  insteadOf = "gh:"
+  ## URLs beginning with "github:" that are passed to Git, will be pushed to
+  #"git@github.com:" instead of being pushed to "github:"
+  pushInsteadOf = "github:"
+  ## URLs beginning with "git://github.com/" that are passed to Git, will be
+  #pushed to "git@github.com:" instead of being pushed to "git://github.com/"
+  pushInsteadOf = "git://github.com/"
+
+[url "git://github.com/"]
+  ## URLs beginning with "github:" that are passed to Git, will be rewritten to
+  #start with "git://github.com/"
+  insteadOf = "github:"
+
+[url "git@gist.github.com:"]
+  ## URLs beginning with "gst:" that are passed to Git, will be rewritten to
+  #start with "git@gist.github.com:"
+  insteadOf = "gst:"
+  ## URLs beginning with "gist:" that are passed to Git, will be pushed to
+  #"git@gist.github.com:" instead of being pushed to "gist:"
+  pushInsteadOf = "gist:"
+  ## URLs beginning with "git://gist.github.com/" that are passed to Git, will
+  #be pushed to "git@gist.github.com:" instead of being pushed to
+  #"git://gist.github.com/"
+  pushInsteadOf = "git://gist.github.com/"
+
+[url "git://gist.github.com/"]
+  ## URLs beginning with "gist:" that are passed to Git, will be rewritten to
+  #start with "git://gist.github.com/"
+  insteadOf = "gist:"
+
+[user]
+  ## Git user credentials
+
 [alias]
-  ## `aa` – Updates the index using the current content found in the working
-  #tree and stages new, modified, and deleted files (`all`)
-  aa = add --all
-  ## `amend` – Command for editing the last commit
-  amend = commit --verbose --amend
-  ## `ap` – Stage parts of a changed file instead of the whole file, making
-  #commits more concise and commit history more readable
-  ap = add --patch
-  ## `b` – List branches sorted by last modified
-  b = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
-  ## `c` – Enforces diff display in editor, then commits files
-  c = commit --verbose
-  ## `ca` – Automatically stage modified and deleted files (`all`) and enforces
-  #diff display in editor, then commits files (`verbose`)
-  ca = commit --all --verbose
-  cam = commit --all -m
-  cm = commit -m
-  cv = commit --amend --verbose
-  ## `co` – `checkout` command
-  co = checkout
-  cob = checkout -b
-  d = diff
-  ds = diff --stat
-  dc = diff --cached
-  ## `l` – One-line log
-  l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
-  ## `la` – List aliases
-  la = "!git config -l | grep alias"
-  ## `lg` – Pretty log with short commit messages
-  ## See the log manpage for explanations of what these options do:
-  #https://www.kernel.org/pub/software/scm/git/docs/git-log.html
-  lg = log \
-    --graph \
-    --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' \
-    --abbrev-commit \
-    --date=relative
-  ## `pa` – Updates remote branch configured to the `alt` upstream, using the
-  #local branch as context
-  pa = push alt
-  ## `po` – Updates remote branch configured to the `origin` upstream, using
-  #the local branch as context
-  po = push origin
-  ## `ph` – Updates remote branch configured to the `heroku` upstream, using
-  #the local branch as context
-  ph = push heroku
-  ## `shh` – `commit` command, with a less noisy status
-  shh = commit --dry-run --short
-  ## `s` – Display the current git status
-  s = status
-  ## `stage` – Add files from the README
+## Miscellaneous commands
+  ## `git alias` – Output a listing of Git aliases
+  alias = "!git config -l | grep alias"
+## Add commands
+  ## `git a` or `git stage` – Update the Git index
+  a = add
   stage = add
-  ## `unstage` – Remove files from the README
-  unstage = reset HEAD
+  ## `git aa` – Update the Git index with the working tree's current content and
+  #stage new, modified, and deleted files (`all`)
+  aa = add --all
+  ## `git ap` – Update the Git index through interactive patch selection,
+  #staging chosen parts of a changed file instead of the whole file
+  ap = add --patch
+## Branch commands
+  ## `git b` – Output a listing of Git branches sorted by the modified dates
+  b = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
+  ## `git branches` – Output a listing of all Git tracked-remote and local
+  #branches (`all`)
+  branches = branch --all
+## Checkout commands
+  ## `git co` – Checkout a Git branch or paths to the working tree
+  co = checkout
+  ## `git cob` – Create a new Git branch (`b`)
+  cob = checkout -b
+  ## `git ditch` – Undo Git local branch changes
+  ditch = checkout --
+## Commit commands
+  ## `git amend` – Enforce diff display in primary editor then record changes to
+  #the Git repository (`verbose`), replacing the last commit (`amend`)
+  amend = commit --verbose --amend
+  ## `git ca` – Stage modified and deleted files (`all`) and diff display in
+  #primary editor then record changes to the Git repository (`verbose`)
+  ca = commit --all --verbose
+  ## `git cam` – Stage modified and deleted files (`all`) and use the input that
+  #follows as the Git commit message (`message`)
+  cam = commit --all --message
+  ## `git cm` – Use the input that follows as the Git commit message (`message`)
+  cm = commit --message
+  ## `git cv` – Enforce diff display in primary editor then record changes to
+  #the Git repository (`verbose`)
+  cv = commit --verbose
+  ## `git shh` – Output a listing of Git paths to be committed, paths with local
+  #changes to be left uncommitted, and paths that are untracked (`dry-run`) in
+  #short format (`short`)
+  shh = commit --dry-run --short
+## Diff commands
+  ## `git d` – Output differences/changes between Git points
+  d = diff
+  ## `git `dc – Output changes staged for the next commit relative to a given
+  #Git commit (`cached`)
+  dc = diff --cached
+  ## `git df` – Output a Git word diff using colors to delimit changed words
+  df = diff --color-words="[^[:space:]]"
+  ## `git ds` – Output a Git diffstat (`stat`)
+  ds = diff --stat
+## Push commands
+  ## `git pa` – Update the remote Git branch configured to the `alt` upstream
+  #using the local branch as context
+  pa = push alt
+  ## `git po` – Update the remote Git branch configured to the `origin` upstream
+  #using the local branch as context
+  po = push origin
+  ## `git ph` – Update the remote Git branch configured to the `heroku` upstream
+  #using the local branch as context
+  ph = push heroku
+## Reset commands
+  ## `git undo` – Undo the last Git commit and unstage those changes
+  undo = reset HEAD~1
+  ## `git unstage` – Remove staged changes from the Git index
+  unstage = reset HEAD --
+## Status commands
+  ## `git s` – Output the Git working tree status
+  s = status
+  ## `git ss` – Output the Git working tree branch name (`branch`) and status in
+  #the short format (`short`)
+  ss = status --branch --short
+## Log commands
+  ## `git ahead` – Pretty print the Git local branch log "ahead" information
+  ahead = log @{u}...HEAD --abbrev-commit --boundary --date=relative \
+    --decorate --graph --left-right \
+    --pretty=format:"%C(yellow)%h%C(reset) %C(red)%d%C(reset) %s %C(green)(%cr)%C(reset) %C(blue)[%an]%C(reset)"
+  ## `git l` – Pretty print the Git log in a custom short format
+  l = log --date=short --decorate=short \
+    --pretty=format:"%C(yellow)%h%C(reset)\\ %C(cyan)%ad%C(reset)%C(red)%d%C(reset)\\ %s\\ %C(blue)[%cn]%C(reset)"
+  ## `git lg`, `git lg0`, `git lg1`, or `git lg2` – Various pretty prints of the
+  #Git log in custom verbose formats
+  lg = log --graph --oneline --decorate=short --branches="*"
+  lg0 = log --abbrev-commit --date=relative --decorate=short --graph \
+    --pretty=format:'%C(yellow)%h%C(reset)%C(red)%d%C(reset) %s %C(green)(%cr)%C(reset) %C(blue)[%an]%C(reset)'
+  lg1 = log --abbrev-commit --date=relative --decorate=short --graph \
+    --pretty=format:'%C(yellow)%h%C(reset)%C(red)%d%C(reset) %C(green)(%cr)%C(reset)%n''          %s %C(blue)[%an]%C(reset)' --all
+  lg2 = log --abbrev-commit --date=relative --decorate=short --graph \
+    --pretty=format:'%C(yellow)%h%C(reset) %C(cyan)%aD%C(reset)%n''         %C(red)%d%C(reset) %C(green)(%cr)%C(reset)%n''          %s%n''         %C(blue)%an%C(reset)%n' --all
+## Remote commands
+  ## `git remotes` – Output a listing of all Git tracked-repositories in the
+  #verbose format (`verbose`)
+  remotes = remote --verbose
+## Tag commands
+  ## `git tags` – Output a listing of all Git tags, or the instances that
+  #match a specified pattern (`list`)
+  tags = tag --list

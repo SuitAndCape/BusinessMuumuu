@@ -35,25 +35,25 @@ function git_prompt() {
 
   ## Check if ahead in commits
   if [ "$git_ahead" -gt 0 ]; then
-    git_color=$MAGENTA
+    git_color=$INTENSE_MAGENTA
     git_state="🚀"
   fi
 
   ## Check if behind in commits
   if [ "$git_behind" -gt 0 ]; then
-    git_color=$CYAN
+    git_color=$INTENSE_CYAN
     git_state="🐌"
   fi
 
   ## Check if merge conflicts exist
   if [ -n $git_directory ] && test -r $git_merge_conflict; then
-    git_color=$INTENSE_MAGENTA
+    git_color=$MAGENTA
     git_state="💥"
   fi
 
   ## Check if untracked
   if [[ -n $git_untracked ]]; then
-    git_color=$INTENSE_CYAN
+    git_color=$CYAN
     git_state="🐾"
   fi
 

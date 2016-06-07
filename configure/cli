@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # cli
 
 ####= SuitAndCape Command Line Interface Setup
@@ -10,7 +10,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
   ## Install Xcode, if it isn't installed already
   if ! $(xcode-select -p &>/dev/null); then
-    xcode-select --install &>/dev/null
+    xcode-select --install
 
     ## Suspend execution for three seconds
     while ! xcode-select -p &> /dev/null; do

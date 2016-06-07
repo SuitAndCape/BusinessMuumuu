@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # muumuu
 
 ## Use setup helpers for the BusinessMuumuu copy stage
@@ -11,4 +11,4 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 ## Copy dotfiles and directories
-rsync -av --exclude=".DS_Store" --exclude="ReadMe.md" ./copy/ $HOME
+rsync -av --exclude=".DS_Store" --exclude="ReadMe.md" ./copy/ "${HOME}"

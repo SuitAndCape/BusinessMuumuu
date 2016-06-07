@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # osx-settings
 
 ####= SuitAndCape OS X System Settings
@@ -718,7 +718,7 @@ defaults write com.apple.dock mineffect -string "genie"
 ## Do not minimize windows into Dock application icon
 defaults write com.apple.dock minimize-to-application -bool false
 
-## Enable hover over Dock icon to reveal the grid view of the stack
+## Enable highlighting in the grid view of Dock stacks
 defaults write com.apple.dock mouse-over-hilite-stack -bool true
 
 ## Set the Dock's screen position to the Right
@@ -741,8 +741,8 @@ defaults write com.apple.dock showhidden -bool true
 ## Lock the size of the Dock
 # defaults write com.apple.dock size-immutable -bool true
 
-## Show applications in Dock, whether they are open or closed
-defaults write com.apple.dock static-only -bool false
+## Only show open applications in the Dock
+# defaults write com.apple.dock static-only -bool true
 
 ## Set the Dock icon size to Semi-Small
 ## (range: 16=Small–128=Large)
@@ -822,8 +822,8 @@ defaults write com.apple.dock wvous-bl-cxorner -int 10
 defaults write com.apple.dock wvous-bl-modifier -int 0
 
 ## Bottom right of screen/Hot Corner => Start screen saver
-# defaults write com.apple.dock wvous-br-corner -int 5
-# defaults write com.apple.dock wvous-br-modifier -int 0
+defaults write com.apple.dock wvous-br-corner -int 5
+defaults write com.apple.dock wvous-br-modifier -int 0
 
 ##== Images and Pictures ======================================================#
 
@@ -1034,8 +1034,8 @@ sudo pmset -a sms 0
 ## Set standby delay timer to thirty six thousand seconds (ten hours)
 sudo pmset -a standbydelay 36000
 
-## Set sleep timer to thirty five minutes, when battery powered
-sudo pmset -b sleep 35
+## Set sleep timer to thirty minutes, when battery powered
+sudo pmset -b sleep 30
 
 ## Set sleep timer to sixty minutes (one hour), when charger powered
 sudo pmset -c sleep 60
@@ -1051,8 +1051,8 @@ sudo systemsetup -setcomputersleep Off > /dev/null
 ## Set automatic restart after computer freeze
 sudo systemsetup -setrestartfreeze on
 
-## Set screen saver timer to one thousand eight hundred seconds (thirty minutes)
-defaults -currentHost write com.apple.screensaver idleTime -int 1800
+## Set screen saver timer to six hundred seconds (ten minutes)
+defaults -currentHost write com.apple.screensaver idleTime -int 600
 
 ## Show clock while the screen saver is active
 # defaults -currentHost write com.apple.screensaver showClock -int 1

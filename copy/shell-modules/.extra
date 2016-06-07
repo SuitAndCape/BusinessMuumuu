@@ -46,9 +46,11 @@ elif SHELL_ZSH; then
 
 ##== Local Zsh Homebrew Extras ================================================#
 
-  ## Activate Zsh Syntax Highlighting (Fish style highlighting), if it exists
-  zsh_highlight=/usr/local/share/zsh-syntax-highlighting
-  [ -d $zsh_highlight ] && source $zsh_highlight/zsh-syntax-highlighting.zsh
+  if USE_BREW; then
+    ## Activate the Homebrew maintained Zsh Syntax Highlighting, if it exists
+    zsh_highlight=/usr/local/share/zsh-syntax-highlighting
+    [ -d $zsh_highlight ] && source $zsh_highlight/zsh-syntax-highlighting.zsh
+  fi
 fi
 
 ##== Local Random Aliases =====================================================#
@@ -65,8 +67,7 @@ alias emojis="open http://www.emoji-cheat-sheet.com/"
 ## `gitit` – Loads `AndTheTemplateOfDoom` default local Git repo files
 ## NOTE: Requires the repo scaffold directory – $HOME/Code/AndTheTemplateOfDoom/
 alias gitit="rsync -av --exclude=\".DS_Store\" ~/Code/AndTheTemplateOfDoom/ $PWD/"
-## `myip` – Get the device's IP address from a server (`curl http://ipecho.net`)
-#in plain text (`/plain`) and output it
+## `myip` – Acquire and output the device's IP address from http://ipecho.net/
 alias myip="curl http://ipecho.net/plain; echo"
 
 ##== Local Variant Aliases ====================================================#
@@ -244,6 +245,11 @@ alias gemout="echo \"Outdated Gems in current environment\" && gem outdated; ech
 alias gems="echo \"Current environment's Gemset\" && gem list; echo"
 ## `gemup` – Update RubyGems and all installed Gems
 alias gemup="echo \"Updating RubyGems\" && gem update --system; echo; gem update; echo"
+
+##== Git Aliases ==============================================================#
+
+## `branches` – Output a listing of Git remote-tracking and local branches
+alias branches="git branch --all"
 
 ##== Pip Aliases ==============================================================#
 

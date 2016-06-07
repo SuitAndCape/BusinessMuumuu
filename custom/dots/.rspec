@@ -3,11 +3,9 @@
 ####= SuitAndCape RSpec Configurations
 ##============================================================================##
 
-## Tests display in color
+## Display tests in color
 --color
-
 ## Output pass-fail-pending progress bar
 --format progress
-
 ## Output the documentation strings passed to methods
 --format documentation
