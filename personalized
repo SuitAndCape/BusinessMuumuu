@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # personalized
 
 ## Personalize setup scripts here
@@ -23,11 +23,15 @@ source custom/custom-osx-settings
 ##== Copy Custom Resources ====================================================#
 
 ## Copy over custom dotfiles
-rsync -av --exclude=".DS_Store" ./custom/dots/ $HOME
+rsync -av --exclude=".DS_Store" ./custom/dots/ "${HOME}"
 
 ## Copy over custom files
-cp custom/files/Application-Goals.md $HOME/Code/Application-Goals.md
+cp custom/files/Application-Goals.md "${HOME}"/Code/Application-Goals.md
 
 ## Copy over custom directories
-cp -r custom/directories/AndTheTemplateOfDoom $HOME/Code/AndTheTemplateOfDoom
-cp -r custom/directories/OS-X-Directory-Icons $HOME/Design/OS-X-Directory-Icons
+cp -r custom/directories/AndTheTemplateOfDoom "${HOME}"/Code/AndTheTemplateOfDoom
+cp -r custom/directories/OS-X-Directory-Icons "${HOME}"/Design/OS-X-Directory-Icons
+
+##== Notifications ============================================================#
+
+echo "NOTE: To select the version of Java to use via jEnv, use the command \`jenv versions\`, identify the version of choice, and select the version with a command similar to \`jenv global oracle64-1.8.0.92\`"

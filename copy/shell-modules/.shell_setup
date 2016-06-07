@@ -1,137 +1,10 @@
 #!/bin/sh
-# $HOME/shell-modules/.sh_helpers
+# $HOME/shell-modules/.shell_setup
 
-####= SuitAndCape Local Shell Helpers
+####= SuitAndCape Shell Helpers
 ##============================================================================##
 
 ## Reusable helper shell functions, variables, etc.
-
-##== Inspectors ===============================================================#
-
-## Example 01
-#
-# if OS_OSX; then
-#   # Do stuff when the user IS on the operating system OS X
-# fi
-
-## Example 02
-#
-# TERM_ITERM && # Do stuff when the user's current session IS through iTerm.app
-
-## Example 03
-#
-# if ! (USE_RVM); then
-#   # Do stuff when the user DOES NOT have an rvm executable installed
-# fi
-
-## Example 04
-#
-# ! (IS_SSH) && # Do stuff when the user IS NOT remotely logged in via SSH
-
-## Logged in remotely (SSH)
-IS_SSH() {
-  [[ -n "$SSH_CONNECTION" ]]
-}
-
-## OS X operating System
-OS_OSX() {
-  [[ "$OSTYPE" == "darwin"* ]]
-}
-
-## Linux operating System
-OS_LINUX() {
-  [[ "$OSTYPE" == "linux"* ]]
-}
-
-## Bash shell environment
-SHELL_BASH() {
-  [[ -n "$($SHELL -c 'echo $BASH_VERSION')" ]]
-}
-
-## Zsh shell environment
-SHELL_ZSH() {
-  [[ -n "$($SHELL -c 'echo $ZSH_VERSION')" ]]
-}
-
-## Session through Apple's Terminal.app
-TERM_OSX() {
-  [[ "$TERM_PROGRAM" == "Apple_Terminal" ]]
-}
-
-## Session through iTerm.app
-TERM_ITERM() {
-  [[ "$TERM_PROGRAM" == "iTerm.app" ]]
-}
-
-## Existence of apt-get executable
-USE_APT() {
-  [[ -x $(which apt-get) ]]
-}
-
-## Existence of atom executable
-USE_ATOM() {
-  [[ -x $(which atom) ]]
-}
-
-## Existence of brew executable
-USE_BREW() {
-  [[ -x $(which brew) ]]
-}
-
-## Existence of grunt executable
-USE_GRUNT() {
-  [[ -x $(which grunt) ]]
-}
-
-## Existence of gulp executable
-USE_GULP() {
-  [[ -x $(which gulp) ]]
-}
-
-## Existence of a jenv function
-USE_JENV() {
-  [[ $(which jenv) != "" ]] && [[ $(which jenv) != "jenv not found" ]]
-}
-
-## Existence of most executable
-USE_MOST() {
-  [[ -x $(which most) ]]
-}
-
-## Existence of node executable
-USE_NODE() {
-  [[ -x $(which node) ]]
-}
-
-## Existence of npm executable
-USE_NPM() {
-  [[ -x $(which npm) ]]
-}
-
-## Existence of pkgsrc executable
-USE_PKGSRC() {
-  [[ -x $(which pkgsrc) ]]
-}
-
-## Existence of rbenv executable
-USE_RBENV() {
-  [[ -x $(which rbenv) ]]
-}
-
-## Existence of an rvm function
-USE_RVM() {
-  [[ -s "${HOME}"/.rvm/scripts/rvm ]]
-}
-
-## Existence of subl executable
-USE_SUBL() {
-  [[ -x $(which subl) ]]
-}
-
-## Existence of virtualenv executable
-USE_VENV() {
-  [[ -x $(which virtualenv) ]]
-}
 
 ##== OS X Shell Colors ========================================================#
 
@@ -432,18 +305,290 @@ if OS_OSX; then
 
 ## Linux Output colors
 
-# elif OS_LINUX; then
+elif OS_LINUX; then
   ## Linux Bash output colors
-  # if SHELL_BASH; then
-    ##
+  if SHELL_BASH; then
+    ## Output color reset (Bash – Linux)
+    export COLOR_RESET="\[\e[0m\]"
+
+    ## Output standard colors (Bash – Linux)
+    export BLACK="\[\e[0;30m\]"
+    export RED="\[\e[0;31m\]"
+    export GREEN="\[\e[0;32m\]"
+    export YELLOW="\[\e[0;33m\]"
+    export BLUE="\[\e[0;34m\]"
+    export MAGENTA="\[\e[0;35m\]"
+    export CYAN="\[\e[0;36m\]"
+    export WHITE="\[\e[0;37m\]"
+    export INTENSE_BLACK="\[\e[0;90m\]"
+    export INTENSE_RED="\[\e[0;91m\]"
+    export INTENSE_GREEN="\[\e[0;92m\]"
+    export INTENSE_YELLOW="\[\e[0;93m\]"
+    export INTENSE_BLUE="\[\e[0;94m\]"
+    export INTENSE_MAGENTA="\[\e[0;95m\]"
+    export INTENSE_CYAN="\[\e[0;96m\]"
+    export INTENSE_WHITE="\[\e[0;97m\]"
+
+    ## Output bold colors (Bash – Linux)
+    export B_BLACK="\[\e[1;30m\]"
+    export B_RED="\[\e[1;31m\]"
+    export B_GREEN="\[\e[1;32m\]"
+    export B_YELLOW="\[\e[1;33m\]"
+    export B_BLUE="\[\e[1;34m\]"
+    export B_MAGENTA="\[\e[1;35m\]"
+    export B_CYAN="\[\e[1;36m\]"
+    export B_WHITE="\[\e[1;37m\]"
+    export B_INTENSE_BLACK="\[\e[1;90m\]"
+    export B_INTENSE_RED="\[\e[1;91m\]"
+    export B_INTENSE_GREEN="\[\e[1;92m\]"
+    export B_INTENSE_YELLOW="\[\e[1;93m\]"
+    export B_INTENSE_BLUE="\[\e[1;94m\]"
+    export B_INTENSE_MAGENTA="\[\e[1;95m\]"
+    export B_INTENSE_CYAN="\[\e[1;96m\]"
+    export B_INTENSE_WHITE="\[\e[1;97m\]"
+
+    ## Output underlined colors (Bash – Linux)
+    export U_BLACK="\[\e[4;30m\]"
+    export U_RED="\[\e[4;31m\]"
+    export U_GREEN="\[\e[4;32m\]"
+    export U_YELLOW="\[\e[4;33m\]"
+    export U_BLUE="\[\e[4;34m\]"
+    export U_MAGENTA="\[\e[4;35m\]"
+    export U_CYAN="\[\e[4;36m\]"
+    export U_WHITE="\[\e[4;37m\]"
+    export U_INTENSE_BLACK="\[\e[4;90m\]"
+    export U_INTENSE_RED="\[\e[4;91m\]"
+    export U_INTENSE_GREEN="\[\e[4;92m\]"
+    export U_INTENSE_YELLOW="\[\e[4;93m\]"
+    export U_INTENSE_BLUE="\[\e[4;94m\]"
+    export U_INTENSE_MAGENTA="\[\e[4;95m\]"
+    export U_INTENSE_CYAN="\[\e[4;96m\]"
+    export U_INTENSE_WHITE="\[\e[4;97m\]"
+
+    ## Output bold and underlined colors (Bash – Linux)
+    export B_U_BLACK="\[\e[1;4;30m\]"
+    export B_U_RED="\[\e[1;4;31m\]"
+    export B_U_GREEN="\[\e[1;4;32m\]"
+    export B_U_YELLOW="\[\e[1;4;33m\]"
+    export B_U_BLUE="\[\e[1;4;34m\]"
+    export B_U_MAGENTA="\[\e[1;4;35m\]"
+    export B_U_CYAN="\[\e[1;4;36m\]"
+    export B_U_WHITE="\[\e[1;4;37m\]"
+    export B_U_INTENSE_BLACK="\[\e[1;4;90m\]"
+    export B_U_INTENSE_RED="\[\e[1;4;91m\]"
+    export B_U_INTENSE_GREEN="\[\e[1;4;92m\]"
+    export B_U_INTENSE_YELLOW="\[\e[1;4;93m\]"
+    export B_U_INTENSE_BLUE="\[\e[1;4;94m\]"
+    export B_U_INTENSE_MAGENTA="\[\e[1;4;95m\]"
+    export B_U_INTENSE_CYAN="\[\e[1;4;96m\]"
+    export B_U_INTENSE_WHITE="\[\e[1;4;97m\]"
+
+    ## Output background colors (Bash – Linux)
+    export BG_BLACK="\[\e[40m\]"
+    export BG_RED="\[\e[41m\]"
+    export BG_GREEN="\[\e[42m\]"
+    export BG_YELLOW="\[\e[43m\]"
+    export BG_BLUE="\[\e[44m\]"
+    export BG_MAGENTA="\[\e[45m\]"
+    export BG_CYAN="\[\e[46m\]"
+    export BG_WHITE="\[\e[47m\]"
+    export BG_INTENSE_BLACK="\[\e[0;100m\]"
+    export BG_INTENSE_RED="\[\e[0;101m\]"
+    export BG_INTENSE_GREEN="\[\e[0;102m\]"
+    export BG_INTENSE_YELLOW="\[\e[0;103m\]"
+    export BG_INTENSE_BLUE="\[\e[0;104m\]"
+    export BG_INTENSE_MAGENTA="\[\e[0;105m\]"
+    export BG_INTENSE_CYAN="\[\e[0;106m\]"
+    export BG_INTENSE_WHITE="\[\e[0;107m\]"
 
   ## Linux Zsh output colors
-  # elif SHELL_ZSH; then
-    ##
-  # fi
+  elif SHELL_ZSH; then
+    ## Output color reset (Zsh – Linux)
+    export COLOR_RESET=$(echo "%{\e[0m%}")
 
-## Linux Print colors
+    ## Output standard colors (Zsh – Linux)
+    export BLACK=$(echo "%{\e[0;30m%}")
+    export RED=$(echo "%{\e[0;31m%}")
+    export GREEN=$(echo "%{\e[0;32m%}")
+    export YELLOW=$(echo "%{\e[0;33m%}")
+    export BLUE=$(echo "%{\e[0;34m%}")
+    export MAGENTA=$(echo "%{\e[0;35m%}")
+    export CYAN=$(echo "%{\e[0;36m%}")
+    export WHITE=$(echo "%{\e[0;37m%}")
+    export INTENSE_BLACK=$(echo "%{\e[0;90m%}")
+    export INTENSE_RED=$(echo "%{\e[0;91m%}")
+    export INTENSE_GREEN=$(echo "%{\e[0;92m%}")
+    export INTENSE_YELLOW=$(echo "%{\e[0;93m%}")
+    export INTENSE_BLUE=$(echo "%{\e[0;94m%}")
+    export INTENSE_MAGENTA=$(echo "%{\e[0;95m%}")
+    export INTENSE_CYAN=$(echo "%{\e[0;96m%}")
+    export INTENSE_WHITE=$(echo "%{\e[0;97m%}")
 
-  ##
+    ## Output bold colors (Zsh – Linux)
+    export B_BLACK=$(echo "%{\e[1;30m%}")
+    export B_RED=$(echo "%{\e[1;31m%}")
+    export B_GREEN=$(echo "%{\e[1;32m%}")
+    export B_YELLOW=$(echo "%{\e[1;33m%}")
+    export B_BLUE=$(echo "%{\e[1;34m%}")
+    export B_MAGENTA=$(echo "%{\e[1;35m%}")
+    export B_CYAN=$(echo "%{\e[1;36m%}")
+    export B_WHITE=$(echo "%{\e[1;37m%}")
+    export B_INTENSE_BLACK=$(echo "%{\e[1;90m%}")
+    export B_INTENSE_RED=$(echo "%{\e[1;91m%}")
+    export B_INTENSE_GREEN=$(echo "%{\e[1;92m%}")
+    export B_INTENSE_YELLOW=$(echo "%{\e[1;93m%}")
+    export B_INTENSE_BLUE=$(echo "%{\e[1;94m%}")
+    export B_INTENSE_MAGENTA=$(echo "%{\e[1;95m%}")
+    export B_INTENSE_CYAN=$(echo "%{\e[1;96m%}")
+    export B_INTENSE_WHITE=$(echo "%{\e[1;97m%}")
 
+    ## Output underlined colors (Zsh – Linux)
+    export U_BLACK=$(echo "%{\e[4;30m%}")
+    export U_RED=$(echo "%{\e[4;31m%}")
+    export U_GREEN=$(echo "%{\e[4;32m%}")
+    export U_YELLOW=$(echo "%{\e[4;33m%}")
+    export U_BLUE=$(echo "%{\e[4;34m%}")
+    export U_MAGENTA=$(echo "%{\e[4;35m%}")
+    export U_CYAN=$(echo "%{\e[4;36m%}")
+    export U_WHITE=$(echo "%{\e[4;37m%}")
+    export U_INTENSE_BLACK=$(echo "%{\e[4;90m%}")
+    export U_INTENSE_RED=$(echo "%{\e[4;91m%}")
+    export U_INTENSE_GREEN=$(echo "%{\e[4;92m%}")
+    export U_INTENSE_YELLOW=$(echo "%{\e[4;93m%}")
+    export U_INTENSE_BLUE=$(echo "%{\e[4;94m%}")
+    export U_INTENSE_MAGENTA=$(echo "%{\e[4;95m%}")
+    export U_INTENSE_CYAN=$(echo "%{\e[4;96m%}")
+    export U_INTENSE_WHITE=$(echo "%{\e[4;97m%}")
+
+    ## Output bold and underlined colors (Zsh – Linux)
+    export B_U_BLACK=$(echo "%{\e[1;4;30m%}")
+    export B_U_RED=$(echo "%{\e[1;4;31m%}")
+    export B_U_GREEN=$(echo "%{\e[1;4;32m%}")
+    export B_U_YELLOW=$(echo "%{\e[1;4;33m%}")
+    export B_U_BLUE=$(echo "%{\e[1;4;34m%}")
+    export B_U_MAGENTA=$(echo "%{\e[1;4;35m%}")
+    export B_U_CYAN=$(echo "%{\e[1;4;36m%}")
+    export B_U_WHITE=$(echo "%{\e[1;4;37m%}")
+    export B_U_INTENSE_BLACK=$(echo "%{\e[1;4;90m%}")
+    export B_U_INTENSE_RED=$(echo "%{\e[1;4;91m%}")
+    export B_U_INTENSE_GREEN=$(echo "%{\e[1;4;92m%}")
+    export B_U_INTENSE_YELLOW=$(echo "%{\e[1;4;93m%}")
+    export B_U_INTENSE_BLUE=$(echo "%{\e[1;4;94m%}")
+    export B_U_INTENSE_MAGENTA=$(echo "%{\e[1;4;95m%}")
+    export B_U_INTENSE_CYAN=$(echo "%{\e[1;4;96m%}")
+    export B_U_INTENSE_WHITE=$(echo "%{\e[1;4;97m%}")
+
+    ## Output background colors (Zsh – Linux)
+    export BG_BLACK=$(echo "%{\e[40m%}")
+    export BG_RED=$(echo "%{\e[41m%}")
+    export BG_GREEN=$(echo "%{\e[42m%}")
+    export BG_YELLOW=$(echo "%{\e[43m%}")
+    export BG_BLUE=$(echo "%{\e[44m%}")
+    export BG_MAGENTA=$(echo "%{\e[45m%}")
+    export BG_CYAN=$(echo "%{\e[46m%}")
+    export BG_WHITE=$(echo "%{\e[47m%}")
+    export BG_INTENSE_BLACK=$(echo "%{\e[0;100m%}")
+    export BG_INTENSE_RED=$(echo "%{\e[0;101m%}")
+    export BG_INTENSE_GREEN=$(echo "%{\e[0;102m%}")
+    export BG_INTENSE_YELLOW=$(echo "%{\e[0;103m%}")
+    export BG_INTENSE_BLUE=$(echo "%{\e[0;104m%}")
+    export BG_INTENSE_MAGENTA=$(echo "%{\e[0;105m%}")
+    export BG_INTENSE_CYAN=$(echo "%{\e[0;106m%}")
+    export BG_INTENSE_WHITE=$(echo "%{\e[0;107m%}")
+  fi
+
+## Linux Print Colors
+
+  ## Print color reset (Linux)
+  export PRINT_COLOR_RESET="\e[0m"
+
+  ## Print standard colors (Linux)
+  export PRINT_BLACK="\e[0;30m"
+  export PRINT_RED="\e[0;31m"
+  export PRINT_GREEN="\e[0;32m"
+  export PRINT_YELLOW="\e[0;33m"
+  export PRINT_BLUE="\e[0;34m"
+  export PRINT_MAGENTA="\e[0;35m"
+  export PRINT_CYAN="\e[0;36m"
+  export PRINT_WHITE="\e[0;37m"
+  export PRINT_INTENSE_BLACK="\e[0;90m"
+  export PRINT_INTENSE_RED="\e[0;91m"
+  export PRINT_INTENSE_GREEN="\e[0;92m"
+  export PRINT_INTENSE_YELLOW="\e[0;93m"
+  export PRINT_INTENSE_BLUE="\e[0;94m"
+  export PRINT_INTENSE_MAGENTA="\e[0;95m"
+  export PRINT_INTENSE_CYAN="\e[0;96m"
+  export PRINT_INTENSE_WHITE="\e[0;97m"
+
+  ## Print bold colors (Linux)
+  export PRINT_B_BLACK="\e[1;30m"
+  export PRINT_B_RED="\e[1;31m"
+  export PRINT_B_GREEN="\e[1;32m"
+  export PRINT_B_YELLOW="\e[1;33m"
+  export PRINT_B_BLUE="\e[1;34m"
+  export PRINT_B_MAGENTA="\e[1;35m"
+  export PRINT_B_CYAN="\e[1;36m"
+  export PRINT_B_WHITE="\e[1;37m"
+  export PRINT_B_INTENSE_BLACK="\e[1;90m"
+  export PRINT_B_INTENSE_RED="\e[1;91m"
+  export PRINT_B_INTENSE_GREEN="\e[1;92m"
+  export PRINT_B_INTENSE_YELLOW="\e[1;93m"
+  export PRINT_B_INTENSE_BLUE="\e[1;94m"
+  export PRINT_B_INTENSE_MAGENTA="\e[1;95m"
+  export PRINT_B_INTENSE_CYAN="\e[1;96m"
+  export PRINT_B_INTENSE_WHITE="\e[1;97m"
+
+  ## Print underlined colors (Linux)
+  export PRINT_U_BLACK="\e[4;30m"
+  export PRINT_U_RED="\e[4;31m"
+  export PRINT_U_GREEN="\e[4;32m"
+  export PRINT_U_YELLOW="\e[4;33m"
+  export PRINT_U_BLUE="\e[4;34m"
+  export PRINT_U_MAGENTA="\e[4;35m"
+  export PRINT_U_CYAN="\e[4;36m"
+  export PRINT_U_WHITE="\e[4;37m"
+  export PRINT_U_INTENSE_BLACK="\e[4;90m"
+  export PRINT_U_INTENSE_RED="\e[4;91m"
+  export PRINT_U_INTENSE_GREEN="\e[4;92m"
+  export PRINT_U_INTENSE_YELLOW="\e[4;93m"
+  export PRINT_U_INTENSE_BLUE="\e[4;94m"
+  export PRINT_U_INTENSE_MAGENTA="\e[4;95m"
+  export PRINT_U_INTENSE_CYAN="\e[4;96m"
+  export PRINT_U_INTENSE_WHITE="\e[4;97m"
+
+  ## Print bold and underlined colors (Linux)
+  export PRINT_B_U_BLACK="\e[1;4;30m"
+  export PRINT_B_U_RED="\e[1;4;31m"
+  export PRINT_B_U_GREEN="\e[1;4;32m"
+  export PRINT_B_U_YELLOW="\e[1;4;33m"
+  export PRINT_B_U_BLUE="\e[1;4;34m"
+  export PRINT_B_U_MAGENTA="\e[1;4;35m"
+  export PRINT_B_U_CYAN="\e[1;4;36m"
+  export PRINT_B_U_WHITE="\e[1;4;37m"
+  export PRINT_B_U_INTENSE_BLACK="\e[1;4;90m"
+  export PRINT_B_U_INTENSE_RED="\e[1;4;91m"
+  export PRINT_B_U_INTENSE_GREEN="\e[1;4;92m"
+  export PRINT_B_U_INTENSE_YELLOW="\e[1;4;93m"
+  export PRINT_B_U_INTENSE_BLUE="\e[1;4;94m"
+  export PRINT_B_U_INTENSE_MAGENTA="\e[1;4;95m"
+  export PRINT_B_U_INTENSE_CYAN="\e[1;4;96m"
+  export PRINT_B_U_INTENSE_WHITE="\e[1;4;97m"
+
+  ## Print background colors (Linux)
+  export PRINT_BG_BLACK="\e[40m"
+  export PRINT_BG_RED="\e[41m"
+  export PRINT_BG_GREEN="\e[42m"
+  export PRINT_BG_YELLOW="\e[43m"
+  export PRINT_BG_BLUE="\e[44m"
+  export PRINT_BG_MAGENTA="\e[45m"
+  export PRINT_BG_CYAN="\e[46m"
+  export PRINT_BG_WHITE="\e[47m"
+  export PRINT_BG_INTENSE_BLACK="\e[0;100m"
+  export PRINT_BG_INTENSE_RED="\e[0;101m"
+  export PRINT_BG_INTENSE_GREEN="\e[0;102m"
+  export PRINT_BG_INTENSE_YELLOW="\e[0;103m"
+  export PRINT_BG_INTENSE_BLUE="\e[0;104m"
+  export PRINT_BG_INTENSE_MAGENTA="\e[0;105m"
+  export PRINT_BG_INTENSE_CYAN="\e[0;106m"
+  export PRINT_BG_INTENSE_WHITE="\e[0;107m"
 fi

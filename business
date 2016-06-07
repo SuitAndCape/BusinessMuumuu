@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # business
 
 ## Use setup helpers for the BusinessMuumuu configuration stage

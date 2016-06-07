@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # setup-helpers
 
 ####= SuitAndCape Setup Helpers
@@ -91,6 +91,7 @@ ARROW_LEFT_KEY="\\U2190"
 ARROW_RIGHT_KEY="\\U2192"
 ARROW_UP_KEY="\\U2191"
 BACKSLASH_KEY="\\U005c"
+COMMA_KEY="\\U002c"
 COMMAND_KEY="@"
 CONTROL_KEY="^"
 DELETE_BACKWARD_KEY="\\U232b"

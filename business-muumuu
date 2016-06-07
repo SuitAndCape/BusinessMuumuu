@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # business-muumuu
 
 ## Require the administrator password
@@ -15,4 +15,6 @@ set -e
 ./muumuu
 
 echo "Pre-existing dotfiles in $USER's home directory have been replaced – for changes to take effect, reload shell"
-echo "NOTE: If your Git username and email address were configured locally prior to running this installer, you will need to set them again"
+echo "NOTE: If your Git username and email address were configured locally prior to running this installer, you will need to set them again with the following commands"
+echo "  \`git config --global user.name \"Pat Doe\"\`"
+echo "  \`git config --global user.email patdoe@example.com\`"

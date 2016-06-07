@@ -3,24 +3,23 @@
 ####= SuitAndCape scss-lint Configurations
 ##============================================================================##
 
-## Limit Hex restrictions and allow Harry Roberts' style BEM syntax
-
 linters:
+  ## Allow hexadecimal colors to be written in shorthand or long-form
   HexLength:
     enabled: false
-
+  ## Allow hexadecimal colors to be written in lowercase or uppercase
   HexNotation:
     enabled: false
-
+  ## Require leading zeros for decimal numbers
   LeadingZero:
     enabled: true
     style: include_zero
-
+  ## Allow Harry Roberts' style BEM syntax
   NameFormat:
     convention: '^([a-z][a-z]*(-{0,2}[a-z0-9]*)(_{0,2}[a-z0-9]*))*[^-_0-9]$'
-
+  ## Do not limit the selector type used in `@extend` to placeholder selectors
   PlaceholderInExtend:
     enabled: false
-
+  ## Use the Hyphenated BEM naming convention for selectors
   SelectorFormat:
     convention: hyphenated_BEM

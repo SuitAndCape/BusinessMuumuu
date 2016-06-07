@@ -7,25 +7,25 @@
 tap 'caskroom/versions'
 tap 'homebrew/completions'
 tap 'homebrew/dupes'
-tap 'homebrew/science'
 tap 'homebrew/services'
-tap 'homebrew/tex'
 tap 'homebrew/versions'
 
-## Homebrew dependency and generally useful Casks
+## Homebrew development Casks
 cask 'xquartz'
 
-## Homebrew dependency and generally useful Formulae
+## Homebrew development Formulae
 brew 'cairo'
 brew 'cmake'
+brew 'freetype'
 brew 'gcc'
 brew 'gdbm'
 brew 'giflib'
-brew 'go', args: ['cross-compile-common']
-brew 'graphviz', args: ['with-librsvg', 'with-x11']
-brew 'freetype'
+brew 'git'
+brew 'go'
+brew 'graphviz', args: ['with-app', 'with-librsvg', 'with-x11']
+brew 'heroku'
 brew 'icu4c'
-brew 'imagemagick', args: ['with-fftw', 'with-librsvg', 'with-webp', 'with-x11']
+brew 'imagemagick', args: ['with-fftw', 'with-librsvg', 'with-little-cms2', 'with-webp', 'with-x11']
 brew 'libffi'
 brew 'libjpeg'
 brew 'libpng'
@@ -34,48 +34,34 @@ brew 'libxml2'
 brew 'libyaml'
 brew 'little-cms2'
 brew 'lua'
-brew 'readline'
-brew 'scons'
-brew 'swig'
-brew 'zeromq'
-
-## Homebrew development Formulae
-brew 'git'
-brew 'heroku'
-brew 'jenv'
 brew 'node', args: ['without-npm']
 brew 'openssl'
 brew 'p7zip'
 brew 'qt'
-brew 'shellcheck'
-brew 'tidy-html5'
+brew 'readline'
+brew 'scons'
+brew 'swig'
 brew 'tree'
 brew 'unrar'
 brew 'xz'
+brew 'zeromq'
 
-## Homebrew Python Formulae
-# brew 'chpython'
-brew 'py3cairo'
-brew 'python'
-brew 'python3'
-brew 'pyqt'
-
-## Homebrew Ruby Formulae
-brew 'chruby'       ## w/ 'ruby-install' ##
-# brew 'rbenv'      ## w/ 'ruby-build' ##
-# brew 'ruby-build' ## w/ 'rbenv' ##
-brew 'ruby-install' ## w/ 'chruby' ##
-
-## Homebrew terminal and shell Formulae
+## Homebrew shell Formulae
 brew 'ack'
 brew 'bash'
+brew 'coreutils'
+brew 'findutils'
+brew 'gnu-sed', args: ['with-default-names']
+brew 'moreutils'
 brew 'most'
-brew 'nano'
 brew 'tmux'
 brew 'vim'#, args: ['python3']
 brew 'zsh'
-
-## Homebrew tapped Formulae
+## Tapped "dupes" Formulae
+brew 'grep'
+brew 'nano'
+brew 'openssh'
+## Tapped "completions" Formulae
 # brew 'bash-completion'
 brew 'bash-completion2'
 brew 'brew-cask-completion'
@@ -85,7 +71,3 @@ brew 'pip-completion'
 brew 'ruby-completion'
 brew 'tmuxinator-completion'
 brew 'zsh-completions'
-
-## Homebrew Java Casks
-cask 'java'
-cask 'java7'

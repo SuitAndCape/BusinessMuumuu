@@ -3,21 +3,18 @@
 ####= SuitAndCape rubocop Configurations
 ##============================================================================##
 
-## Remove characters-per-line limit, allow ASCII symbols in comments, allow
-#"unnecessary" spacing, don't require a leading space in a comment, and allow
-#space before comments
-
+## Remove characters-per-line limit
 Metrics/LineLength:
   Enabled: false
-
+## Allow ASCII symbols in comments
 Style/AsciiComments:
   Enabled: false
-
+## Allow extra/unnecessary spacing
 Style/ExtraSpacing:
   Enabled: false
-
+## Do not require a leading space in comments
 Style/LeadingCommentSpace:
   Enabled: false
-
+## Allow space(s) before comments
 Style/SpaceBeforeComment:
   Enabled: false

@@ -1,0 +1,140 @@
+#!/bin/sh
+# $HOME/shell-modules/.inspectors
+
+####= SuitAndCape Shell Inspector Functions
+##============================================================================##
+
+## Example 01
+#
+# if OS_OSX; then
+#   # Do stuff when the user IS on the operating system OS X
+# fi
+
+## Example 02
+#
+# TERM_ITERM && # Do stuff when the user's current session IS through iTerm.app
+
+## Example 03
+#
+# if ! (USE_RVM); then
+#   # Do stuff when the user DOES NOT have an rvm executable installed
+# fi
+
+## Example 04
+#
+# ! (IS_SSH) && # Do stuff when the user IS NOT remotely logged in via SSH
+
+##== General Inspectors =======================================================#
+
+## Logged in remotely (SSH)
+IS_SSH() {
+  [[ -n "$SSH_CONNECTION" ]]
+}
+
+##== Operating System Inspectors ==============================================#
+
+## OS X operating System
+OS_OSX() {
+  [[ "$OSTYPE" == "darwin"* ]]
+}
+
+## Linux operating System
+OS_LINUX() {
+  [[ "$OSTYPE" == "linux"* ]]
+}
+
+##== Shell Inspectors =========================================================#
+
+## Bash shell environment
+SHELL_BASH() {
+  [[ -n "$($SHELL -c 'echo $BASH_VERSION')" ]]
+}
+
+## Zsh shell environment
+SHELL_ZSH() {
+  [[ -n "$($SHELL -c 'echo $ZSH_VERSION')" ]]
+}
+
+##== Terminal Inspectors ======================================================#
+
+## Session through Apple's Terminal.app
+TERM_OSX() {
+  [[ "$TERM_PROGRAM" == "Apple_Terminal" ]]
+}
+
+## Session through iTerm.app
+TERM_ITERM() {
+  [[ "$TERM_PROGRAM" == "iTerm.app" ]]
+}
+
+##== Executable and Function Inspectors =======================================#
+
+## Existence of apt-get executable
+USE_APT() {
+  [[ -x $(which apt-get) ]]
+}
+
+## Existence of atom executable
+USE_ATOM() {
+  [[ -x $(which atom) ]]
+}
+
+## Existence of brew executable
+USE_BREW() {
+  [[ -x $(which brew) ]]
+}
+
+## Existence of grunt executable
+USE_GRUNT() {
+  [[ -x $(which grunt) ]]
+}
+
+## Existence of gulp executable
+USE_GULP() {
+  [[ -x $(which gulp) ]]
+}
+
+## Existence of a jenv function
+USE_JENV() {
+  [[ $(which jenv) != "" ]] && [[ $(which jenv) != "jenv not found" ]]
+}
+
+## Existence of most executable
+USE_MOST() {
+  [[ -x $(which most) ]]
+}
+
+## Existence of node executable
+USE_NODE() {
+  [[ -x $(which node) ]]
+}
+
+## Existence of npm executable
+USE_NPM() {
+  [[ -x $(which npm) ]]
+}
+
+## Existence of pkgsrc executable
+USE_PKGSRC() {
+  [[ -x $(which pkgsrc) ]]
+}
+
+## Existence of rbenv executable
+USE_RBENV() {
+  [[ -x $(which rbenv) ]]
+}
+
+## Existence of an rvm function
+USE_RVM() {
+  [[ -s "${HOME}"/.rvm/scripts/rvm ]]
+}
+
+## Existence of subl executable
+USE_SUBL() {
+  [[ -x $(which subl) ]]
+}
+
+## Existence of virtualenv executable
+USE_VENV() {
+  [[ -x $(which virtualenv) ]]
+}
