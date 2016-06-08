@@ -134,6 +134,11 @@ USE_SUBL() {
   [[ -x $(which subl) ]]
 }
 
+## Existence of tmux executable
+USE_TMUX() {
+  [[ -x $(which tmux) ]]
+}
+
 ## Existence of virtualenv executable
 USE_VENV() {
   [[ -x $(which virtualenv) ]]
