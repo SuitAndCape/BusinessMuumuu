@@ -41,7 +41,6 @@ brew 'qt'
 brew 'readline'
 brew 'scons'
 brew 'swig'
-brew 'tree'
 brew 'unrar'
 brew 'xz'
 brew 'zeromq'
@@ -55,6 +54,7 @@ brew 'gnu-sed', args: ['with-default-names']
 brew 'moreutils'
 brew 'most'
 brew 'tmux'
+brew 'tree'
 brew 'vim'#, args: ['python3']
 brew 'zsh'
 ## Tapped "dupes" Formulae

@@ -19,29 +19,23 @@
   fi
 }
 
-## `bush INTEGER` – Tree-like list of directory contents three, optionally nth,
-#levels deep
-bush() {
-  ## Directory contents limit
-  local contents_limit=20
-  ## Directory contents to ignore
-  local contents_neglect=".DS_Store|.git|.sass-cache|Icon*|bower_components|jspm_packages|node_modules"
-  ## Directory depth limit, unless an integer argument is passed
-  local depth_limit="${1:-3}"; shift
-  tree --dirsfirst --filelimit "${contents_limit}" -aCF "$@" -I "${contents_neglect}" -L "${depth_limit}"
-}
-
-## `cls PATH/TO/DIRECTORY` – Change directory and list contents in long format
+## `cls PATH/TO/DIRECTORY` – Change the current working directory and list the
+#contents in long format
 cls() {
   if [ -d "$1" ]; then
-    cd "$1" || exit
+    cd "$1"
     ls -laF
   elif [ "$1" = "" ]; then
-    cd ~ || exit
+    cd ~
     ls -laF
   else
     echo -e "${SHELL_ENV_TYPE}: cls: no such directory: ${NO}$1/${PE}"
   fi
+}
+
+## `cpcmd` – Copy the last command entered
+cpcmd() {
+  history | tail -1 | cut -c 8- | pbcopy
 }
 
 ## `extract PATH/TO/FILE` – Extract common package and compressed file formats
@@ -50,12 +44,12 @@ cls() {
 extract() {
   if [ -z "$1" ]; then
     ## Display usage if no parameters given
-    echo "Usage: extract <PATH/FILE_NAME>.<7z|Z|bz2|exe|gz|lzma|rar|tar.bz2|tar.gz|tar.xz|tar|tb2|tbz2|tbz|tgz|txz|xz|zip>"
+    echo "usage: extract <PATH/FILE_NAME>.<7z|Z|bz2|exe|gz|lzma|rar|tar|tar.bz2|tar.gz|tar.xz|taz|tb2|tbz2|tbz|tgz|txz|xz|zip>"
   else
     if [ -f "$1" ]; then
-      ## Uncomment the lines below to create and `cd` into a new directory
-      # NAME=${1%.*}
-      # mkdir $NAME && cd $NAME
+      ## Directory to hold extracted contents
+      directory_name=${1%.*}
+      ## Extract contents if system knows how
       case "$1" in
         *.7z)      7z x ./"$1"        ;;
         *.Z)       uncompress ./"$1"  ;;
@@ -64,10 +58,11 @@ extract() {
         *.gz)      gunzip ./"$1"      ;;
         *.lzma)    unlzma ./"$1"      ;;
         *.rar)     unrar x -ad ./"$1" ;;
+        *.tar)     tar xvf ./"$1"     ;;
         *.tar.bz2) tar xvjf ./"$1"    ;;
         *.tar.gz)  tar xvzf ./"$1"    ;;
         *.tar.xz)  tar xvJf ./"$1"    ;;
-        *.tar)     tar xvf ./"$1"     ;;
+        *.taz)     tar xvzf ./"$1"    ;;
         *.tb2)     tar xvjf ./"$1"    ;;
         *.tbz2)    tar xvjf ./"$1"    ;;
         *.tbz)     tar xvjf ./"$1"    ;;
@@ -83,22 +78,35 @@ extract() {
   fi
 }
 
+# who is using the laptop's iSight camera?
+cub() {
+    echo "Checking to see who is using the iSight camera… 📷"
+    usedby=$(lsof | grep -w "AppleCamera\|USBVDC\|iSight" | awk '{printf $2"\n"}' | xargs ps)
+    echo -e "Recent camera uses:\n$usedby"
+}
+
 ## `launch INTEGER` – Launch a local HTTP server from a directory, optionally at
 #a specific port number
 launch() {
-  local port="${1:-8080}"
+  port="${1:-8080}"
   open "http://localhost:${port}/"
+  echo "Opening http://localhost:${port}/ in the default web browser"
   python -c $'import SimpleHTTPServer; \nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map; \nmap[""] = "text/plain"; \nfor key, value in map.items():\n\tmap[key] = value + "; charset=UTF-8"; \nSimpleHTTPServer.test();' "${port}"
 }
 
 ## `mkcd PATH/TO/DIRECTORY` – Create a directory then change to it
 mkcd() {
-  if ! [ -d "$1" ]; then
-    mkdir -pv "$@" && cd "$_"
-  elif [ -d "$1" ]; then
-    echo -e "${SHELL_ENV_TYPE}: mkcd: directory already exists: ${NO}$1/${PE}"
+  if [ -z "$1" ]; then
+    ## Display usage if no parameters given
+    echo "usage: mkcd <PATH/TO/DIRECTORY>"
   else
-    echo -e "${SHELL_ENV_TYPE}: mkcd: unable to create directory: ${NO}$1/${PE}"
+    if ! [ -d "$1" ]; then
+      mkdir -pv "$@" && cd "$_"
+    elif [ -d "$1" ]; then
+      echo -e "${SHELL_ENV_TYPE}: mkcd: directory already exists: ${NO}$1/${PE}"
+    else
+      echo -e "${SHELL_ENV_TYPE}: mkcd: unable to create directory: ${NO}$1/${PE}"
+    fi
   fi
 }
 
@@ -133,10 +141,23 @@ shz() {
   fi
 }
 
-## `up INTEGER` – Change to the parent directory, optionally nth levels up
+## `tre` or `tre INTEGER` – Tree-like list of directory contents three,
+#optionally nth, levels deep
+tre() {
+  ## Directory contents limit
+  contents_limit=20
+  ## Directory contents to ignore
+  contents_neglect=".DS_Store|.git|.sass-cache|Icon*|bower_components|jspm_packages|node_modules"
+  ## Directory depth limit, unless an integer argument is passed
+  default_depth="${1:-3}"
+  tree -CFIa "${contents_neglect}" --dirsfirst --filelimit "${contents_limit}" -L "${default_depth}" $2
+}
+
+## `up` or `up INTEGER` – Change the current working directory by one,
+#optionally nth, level(s) up
 ## (also see aliases: `..`, `...`, `....`, `.....`, and `......`)
 up() {
-  local destination=""
+  destination=""
   count=$1
   for ((i=1; i <= count; i++)); do
     destination=$destination/..

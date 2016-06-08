@@ -16,12 +16,12 @@ echo "Beginning OS X setup"
 
 ## Menu-select style computer naming process
 echo -e "Would you like to name this computer?"
-echo -e "\tName the computer [y/Y]"
-echo -e "\tDo not name the computer [n/N]"
+echo -e "\tName the computer [Y/y]"
+echo -e "\tDo not name the computer [N/n]"
 while true; do
   read -r user_answer
   case $user_answer in
-    y|Y)
+    Y|y)
       echo "Enter the computer's name:"
       read -r new_computer_name
       ## Set new computer name
@@ -34,7 +34,7 @@ while true; do
       sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "${new_computer_name}"
       echo "The computer's name: \"${new_computer_name}\""
       echo "The computer's host name: \"${new_computer_name}\"" ; break ;;
-    n|N)
+    N|n)
       echo "The computer's name has not been altered" ; break ;;
     *)
       echo "Invalid option, please try again" ;;
