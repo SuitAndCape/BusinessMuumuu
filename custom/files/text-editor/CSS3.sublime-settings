@@ -6,10 +6,8 @@
 /// @source https://packagecontrol.io/packages/CSS3
 
 {
-	"extensions":
-	[
-		"css",
-    "css.erb",
-    "css.liquid"
-	]
+  "extensions":
+  [
+    "css"
+  ]
 }
