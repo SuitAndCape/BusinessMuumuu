@@ -57,9 +57,11 @@
     "zshenv",
     "zshrc",
     /// Proper highlighting for custom files
+    "*.local",
     ".bash_setup",
     ".completions",
-    ".sh_helpers",
+    ".inspectors",
+    ".shell_setup",
     ".zsh_setup",
     "aesm",
     "aesmoji",

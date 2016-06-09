@@ -137,6 +137,12 @@
         "excludes": [],
         "include-linter": ""
       },
+      "shellcheck": {
+        "@disable": false,
+        "args": [],
+        "exclude": "",
+        "excludes": []
+      },
       "tslint": {
         "@disable": false,
         "args": [],

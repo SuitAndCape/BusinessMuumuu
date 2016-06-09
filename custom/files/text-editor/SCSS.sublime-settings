@@ -8,8 +8,6 @@
 {
   "extensions":
   [
-    "scss",
-    "scss.erb",
-    "scss.liquid"
+    "scss"
   ]
 }

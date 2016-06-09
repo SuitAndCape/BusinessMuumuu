@@ -15,11 +15,11 @@
   "binary_file_patterns":
   [
     "*.7z",
-    "*.Z",
     "*.GIF",
     "*.JPEG",
     "*.JPG",
     "*.PNG",
+    "*.Z",
     "*.ai",
     "*.dds",
     "*.eot",

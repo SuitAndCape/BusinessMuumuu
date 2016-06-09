@@ -180,7 +180,7 @@
       "which": "all"
     }
   },
-  /// TidyTabs – Close tabs that haven't been modified for 30 minutes
+  /// TidyTabs – Close tabs that haven't been modified for thirty minutes
   {
     "keys": ["ctrl+alt+w"],
     "caption": "Close Unattended Tabs",
