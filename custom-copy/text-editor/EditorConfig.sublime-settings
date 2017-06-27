@@ -1,0 +1,15 @@
+// $SUBLIME_DIR/Packages/User/EditorConfig.sublime-settings
+
+////= SuitAndCape Sublime Text Editor Configuration Preferences
+//============================================================================//
+
+/// @source https://packagecontrol.io/packages/EditorConfig
+
+/// Overrides both User and Default settings for the EditorConfig syntax
+
+{
+  "extensions":
+  [
+    ".editorconfig"
+  ]
+}

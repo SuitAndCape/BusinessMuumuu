@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# mysqlworkbench
+
+####= SuitAndCape MySQLWorkbench (Mac) Settings
+##============================================================================##
+
+echo "Adjusting MySQLWorkbench settings"
+
+## Set the MySQLWorkbench font to Inconsolata
+## NOTE: Install the Google Font "Inconsolata" before applying this change
+defaults write com.oracle.mysql.workbench WebKitStandardFont -string "Inconsolata-Regular"
+
+## Kill MySQLWorkbench
+appkillinator "MySQLWorkbench"

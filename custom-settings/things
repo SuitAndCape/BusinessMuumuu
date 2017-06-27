@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# things
+
+####= SuitAndCape Things (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Things settings"
+
+## Do not send anonymous system profile in Things
+defaults write com.culturedcode.things SUSendProfileInfo -bool false
+
+## Kill Things
+appkillinator "Things"

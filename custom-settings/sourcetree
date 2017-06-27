@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# sourcetree
+
+####= SuitAndCape SourceTree (Mac) Settings
+##============================================================================##
+
+echo "Adjusting SourceTree settings"
+
+## Automatically check for updates
+defaults write com.torusknot.SourceTreeNotMAS SUEnableAutomaticChecks -bool true
+
+## Allow force push in SourceTree
+defaults write com.torusknot.SourceTreeNotMAS allowForcePush -bool true
+
+## Always display full console output in SourceTree
+defaults write com.torusknot.SourceTreeNotMAS alwaysDisplayFullOutput -bool true
+
+## Display column guide in commit message at character 80 in SourceTree
+defaults write com.torusknot.SourceTreeNotMAS commitColumnGuideWidth -int 80
+
+## SourceTree Terminal App values:
+  ## 1: iTerm
+  ## 2: iTerm2
+
+## SourceTree Terminal App => ...
+  ## iTerm2
+defaults write com.torusknot.SourceTreeNotMAS terminalApp -int 2
+  ## Terminal/default
+# defaults delete com.torusknot.SourceTreeNotMAS terminalApp
+
+## Use fixed-width font for commit messages in SourceTree
+defaults write com.torusknot.SourceTreeNotMAS useFixedWithCommitFont -bool true
+
+## Kill SourceTree
+appkillinator "SourceTree"

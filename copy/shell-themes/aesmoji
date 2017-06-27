@@ -4,14 +4,101 @@
 ####= SuitAndCape Shell Visual Aesthetics (w/ Git Emoji)
 ##============================================================================##
 
-## OS X `ls` custom colors
-if OS_OSX; then
+## Preferred terminal bold text settings
+  ## ✔ Draw bold text in bold font
+  ## ⁃ Draw bold text in bright colors
+
+## Mac `ls` custom colors
+if OS_MAC; then
   export LSCOLORS=ExBxFxDxCxgadachhcehhe
 fi
 
-## OS X `zstyle list-colors` and Linux `ls` custom colors
+## Linux `ls` and Mac `zstyle list-colors` custom colors
 export LS_COLORS="di=1;34:ln=1;31:so=1;35:pi=1;33:ex=1;32:bd=36;40:cd=33;40:\
 su=32;47:sg=37;42:tw=34;47:ow=37;44:"
+
+## Begin less blinking, double-bright, standout, and underline modes
+export LESS_TERMCAP_mb=$'\e[1;91m'    ## Bold intense red
+export LESS_TERMCAP_md=$'\e[0;91m'    ## Intense red
+export LESS_TERMCAP_so=$'\e[0;93;44m' ## Intense yellow, blue background
+export LESS_TERMCAP_us=$'\e[4;92m'    ## Underlined intense green
+
+## End less appearance (all), standout, and underline modes
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_ue=$'\e[0m'
+
+##== Shell Output Colors ======================================================#
+
+## Bash output color assignments
+if SHELL_BASH; then
+  ## Output color assignments (Bash)
+  export COLOR_RESET="\[\e[0m\]"
+  export RED="\[\e[0;31m\]"
+  export GREEN="\[\e[0;32m\]"
+  export YELLOW="\[\e[0;33m\]"
+  export MAGENTA="\[\e[0;35m\]"
+  export CYAN="\[\e[0;36m\]"
+  export INTENSE_BLACK="\[\e[0;90m\]"
+  export INTENSE_RED="\[\e[0;91m\]"
+  export INTENSE_YELLOW="\[\e[0;93m\]"
+  export INTENSE_BLUE="\[\e[0;94m\]"
+  export INTENSE_MAGENTA="\[\e[0;95m\]"
+  export INTENSE_CYAN="\[\e[0;96m\]"
+  export INTENSE_WHITE="\[\e[0;97m\]"
+  export B_U_INTENSE_RED="\[\e[1;4;91m\]"
+  export B_U_INTENSE_YELLOW="\[\e[1;4;93m\]"
+  export B_U_INTENSE_BLUE="\[\e[1;4;94m\]"
+  export B_U_INTENSE_MAGENTA="\[\e[1;4;95m\]"
+  export B_U_INTENSE_WHITE="\[\e[1;4;97m\]"
+
+## Zsh output color assignments
+elif SHELL_ZSH; then
+  export COLOR_RESET=$(echo "%{\e[0m%}")
+  export RED=$(echo "%{\e[0;31m%}")
+  export GREEN=$(echo "%{\e[0;32m%}")
+  export YELLOW=$(echo "%{\e[0;33m%}")
+  export MAGENTA=$(echo "%{\e[0;35m%}")
+  export CYAN=$(echo "%{\e[0;36m%}")
+  export INTENSE_BLACK=$(echo "%{\e[0;90m%}")
+  export INTENSE_RED=$(echo "%{\e[0;91m%}")
+  export INTENSE_YELLOW=$(echo "%{\e[0;93m%}")
+  export INTENSE_BLUE=$(echo "%{\e[0;94m%}")
+  export INTENSE_MAGENTA=$(echo "%{\e[0;95m%}")
+  export INTENSE_CYAN=$(echo "%{\e[0;96m%}")
+  export INTENSE_WHITE=$(echo "%{\e[0;97m%}")
+  export B_U_INTENSE_RED=$(echo "%{\e[1;4;91m%}")
+  export B_U_INTENSE_YELLOW=$(echo "%{\e[1;4;93m%}")
+  export B_U_INTENSE_BLUE=$(echo "%{\e[1;4;94m%}")
+  export B_U_INTENSE_MAGENTA=$(echo "%{\e[1;4;95m%}")
+  export B_U_INTENSE_WHITE=$(echo "%{\e[1;4;97m%}")
+fi
+
+##== Zsh Output Stylization ===================================================#
+
+## Zsh autocompletion responses
+if SHELL_ZSH; then
+  ## Fallback to use built in `ls` colors for autocompletion
+  zstyle ':completion:*:default' list-colors ''
+
+  ## Use `LS_COLORS` for autocompletion colors
+  zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+  ## Autocompletion `kill` response color (red)
+  zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=1;31'
+
+  ## Autocompletion `corrections` response formatting
+  zstyle ':completion:*:corrections' format "${B_U_INTENSE_MAGENTA}Errors [${COLOR_RESET}${B_U_INTENSE_WHITE}%e${COLOR_RESET}${B_U_INTENSE_MAGENTA}]:${COLOR_RESET} ${INTENSE_WHITE}%d${COLOR_RESET}"
+
+  ## Autocompletion `descriptions` response formatting
+  zstyle ':completion:*:descriptions' format "${B_U_INTENSE_BLUE}Completion Type:${COLOR_RESET} ${INTENSE_WHITE}%d${COLOR_RESET}"
+
+  ## Autocompletion `messages` response formatting
+  zstyle ':completion:*:messages' format "${B_U_INTENSE_YELLOW}Note:${COLOR_RESET} ${INTENSE_WHITE}%d${COLOR_RESET}"
+
+  ## Autocompletion `warnings` response formatting
+  zstyle ':completion:*:warnings' format "${B_U_INTENSE_RED}No Matches Found:${COLOR_RESET} ${INTENSE_WHITE}%d${COLOR_RESET}"
+fi
 
 ##== Git Prompt Stylization ===================================================#
 
@@ -112,41 +199,19 @@ elif SHELL_ZSH; then
   RPROMPT='${INTENSE_BLUE}%n${COLOR_RESET} ${INTENSE_WHITE}@${INTENSE_BLACK}${host_style}${COLOR_RESET}'
 fi
 
-##== Output Hook Definitions ==================================================#
+##== Shell Print Colors =======================================================#
 
-## Zsh autocompletion responses
-if SHELL_ZSH; then
-  ## Autocompletion `corrections` response formatting
-  zstyle ':completion:*:corrections' format "${B_U_INTENSE_MAGENTA}Errors [${COLOR_RESET}${B_U_INTENSE_WHITE}%e${COLOR_RESET}${B_U_INTENSE_MAGENTA}]:${COLOR_RESET} ${INTENSE_WHITE}%d${COLOR_RESET}"
+## Print color assignments
+export PRINT_COLOR_RESET="\e[0m"
+export PRINT_RED="\e[0;31m"
+export PRINT_INTENSE_BLACK="\e[0;90m"
+export PRINT_INTENSE_RED="\e[0;91m"
+export PRINT_INTENSE_BLUE="\e[0;94m"
 
-  ## Autocompletion `descriptions` response formatting
-  zstyle ':completion:*:descriptions' format "${B_U_INTENSE_BLUE}Completion Type:${COLOR_RESET} ${INTENSE_WHITE}%d${COLOR_RESET}"
+##== Shell Print Stylization ==================================================#
 
-  ## Autocompletion `messages` response formatting
-  zstyle ':completion:*:messages' format "${B_YELLOW}––––${COLOR_RESET} ${INTENSE_WHITE}%d${COLOR_RESET}"
-
-  ## Autocompletion `warnings` response formatting
-  zstyle ':completion:*:warnings' format "${B_U_INTENSE_RED}No Matches Found:${COLOR_RESET} ${INTENSE_WHITE}%d${COLOR_RESET}"
-fi
-
-##== Print Hook Definitions ===================================================#
-
-if SHELL_BASH; then
-  ## Shell type identifier states that "bash" is the current environment
-  SHELL_ENV_TYPE="${PRINT_INTENSE_RED}bash${PRINT_COLOR_RESET}"
-elif SHELL_ZSH; then
-  ## Shell type identifier states that "zsh" is the current environment
-  SHELL_ENV_TYPE="${PRINT_INTENSE_RED}zsh${PRINT_COLOR_RESET}"
-fi
-
-## Transition pointer (from 'this' to 'that')
-ARROW="${PRINT_INTENSE_BLUE}=>${PRINT_COLOR_RESET}"
-
-## `NOPE` is a pretty print wrapper for inputs that confuse the Terminal
-NO="${PRINT_CYAN}"
-PE="${PRINT_COLOR_RESET}"
-
-## Terminal welcome message (hook can be found in ~/.bashrc and ~/.zshrc)
-LOGIN_WELCOME="Loading ${PRINT_RED}SuitAndCape${PRINT_COLOR_RESET} \
-${SHELL_ENV_TYPE} on ${PRINT_INTENSE_BLACK}$(hostname)${PRINT_COLOR_RESET} – Welcome \
+## Display terminal welcome message
+echo -e "Loading ${PRINT_RED}SuitAndCape${PRINT_COLOR_RESET} \
+${PRINT_INTENSE_RED}${SHELL_ENV_TYPE}${PRINT_COLOR_RESET} on \
+${PRINT_INTENSE_BLACK}$(hostname)${PRINT_COLOR_RESET} – Welcome \
 ${PRINT_INTENSE_BLUE}$USER${PRINT_COLOR_RESET}\n"

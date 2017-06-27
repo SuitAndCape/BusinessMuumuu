@@ -1,58 +1,156 @@
 #!/bin/sh
 # $HOME/shell-modules/.exports
 
-####= SuitAndCape Local Shell Environment Exports
+####= SuitAndCape Shell Environment Exports
 ##============================================================================##
+
+## Shell environment startup commands and information
+
+##== Environment Paths ========================================================#
+
+## PATH="new_PATH:$PATH" is a non-destructive path change (preserves old path)
+
+## Path for Homebrew, if it exists
+[ -d /usr/local/bin ] && export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+
+## Path and ManPath for Homebrew maintained GNU core utilities, if it exists
+[ -d /usr/local/opt/coreutils/ ] && export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH" && export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+
+## Path for Clojure, if it exists
+[ -d "${HOME}"/.cljr/ ] && export PATH="${HOME}/.cljr/bin:$PATH"
+
+## Path for jEnv, if it exists
+[ -d "${HOME}"/.jenv/ ] && export PATH="${HOME}/.jenv/bin:$PATH"
+
+## Path for Rbenv, if it exists
+[ -d "${HOME}"/.rbenv/ ] && PATH="${HOME}/.rbenv/bin:$PATH"
+
+## Path for RVM, if it exists
+[ -d "${HOME}"/.rvm/bin ] && PATH="$PATH:${HOME}/.rvm/bin"
+
+## Path for Yarn globally installed packages, if custom directory exists
+[ -d "${HOME}"/.yarn-global/ ] && export PATH="${HOME}/.yarn-global/bin:$PATH"
+
+## Path for Heroku Toolbelt, if it exists
+[ -d /usr/local/heroku/ ] && export PATH="/usr/local/heroku/bin:$PATH"
+
+## Path for the current user's binary directory, if it exists
+[ -d "${HOME}"/bin ] && export PATH="${HOME}/bin:$PATH"
+
+##== Environment Variables ====================================================#
+
+## Set personal locale to US style English and using UTF-8
+export LANG="en_US.UTF-8"
+
+## Override all locale preferences to US style English and using UTF-8
+export LC_ALL="en_US.UTF-8"
+
+## Allow 104,793 entries to be stored in memory during a session
+HISTSIZE=104793
+
+## Commands that will not appear in the command line history
+HISTIGNORE="* --help:cd:cd -:clear:date:exit:ls:pwd"
+
+## Set shell specific variables
+if SHELL_BASH; then
+  ## Enable Bash history and set destination
+  HISTFILE="${HOME}"/.history_bash
+
+  ## Allow 104,793 Bash history entries
+  HISTFILESIZE="${HISTSIZE}"
+elif SHELL_ZSH; then
+  ## Enable Zsh history and set destination
+  HISTFILE="${HOME}"/.history_zsh
+
+  ## Allow 104,793 Zsh history entries
+  SAVEHIST="${HISTSIZE}"
+
+  ## Output total CPU usage duration for commands that run beyond 10 seconds
+  REPORTTIME=10
+fi
 
 ## Preferred editor for remote and local sessions
 if IS_SSH; then
-  ## Set `vim` as the open default editor command for remote login
-  export OPEN_EDITOR="vim"
-
-  ## Set Vim as the default remote editor through the `vim` command
-  export EDITOR="${OPEN_EDITOR}"
+  ## Set Vim as the default editor for remote login sessions
+  export EDITOR="vim"
 else
-  ## If the `subl` command exists...
-  if USE_SUBL; then
-    ## Set `subl` as the open default editor command for local login
-    export OPEN_EDITOR="subl"
+  ## Local login session default editor priority: Sublime Text, Atom, Vim
+  export EDITOR=$(PRIORITY_INPUT "subl" "atom" "vim")
 
-    ## Set Sublime Text as the visual editor through the `subl --wait` command
-    export VISUAL="${OPEN_EDITOR} --wait"
+  ## Local login session visual editor priority: Sublime Text, Atom, Vim
+  export VISUAL=$(PRIORITY_INPUT "subl --wait" "atom --wait" "vim")
 
-  ## If the `subl` command does not exist and the `atom` command does exist...
-  elif USE_ATOM; then
-    ## Set `atom` as the open default editor command for local login
-    export OPEN_EDITOR="atom"
+  ## Set the git editor through the visual editor
+  export GIT_EDITOR="$VISUAL"
 
-    ## Set Atom as the visual editor through the `atom --wait` command
-    export VISUAL="${OPEN_EDITOR} --wait"
-
-  ## If the `subl` and `atom` commands do not exist...
-  else
-    ## Set `vim` as the open default editor command for local login
-    export OPEN_EDITOR="vim"
-
-    ## Set Vim as the visual editor through the `vim` command
-    export VISUAL="${OPEN_EDITOR}"
-  fi
-
-  ## Set the default local editor through the visual editor
-  export EDITOR="${VISUAL}"
-
-  ## Set the default git editor through the visual editor
-  export GIT_EDITOR="${VISUAL}"
+  ## Set the Apache Subversion editor through the visual editor
+  export SVN_EDITOR="$VISUAL"
 fi
 
-## Preferred output filtering command for terminal writing to the terminal
-if USE_MOST; then
-  ## Use `most` as the output filter, if it exists
-  export PAGER="most"
+## Output filter for writing to the terminal priority: most, less
+export PAGER=$(PRIORITY_INPUT "most" "less")
+
+## Force `less` to prompt in a verbose and pretty manner
+export LESS="-MRXq"
+
+## Set `ls` command flags
+if ls --color > /dev/null 2>&1; then
+  ## Linux and Homebrew maintained GNU core utilities `ls` colorflag
+  COLORFLAG="--color"
+
+  ## Linux and Homebrew maintained GNU core utilities `ls` timeflag
+  TIMEFLAG="--time-style=+%b\ %d\ %H:%M:%S\ %Y"
 else
-  ## Use `less` as the output filter, if `most` does not exist
-  export PAGER="less"
+  ## Mac `ls` colorflag
+  COLORFLAG="-G"
+
+  ## Mac `ls` timeflag
+  TIMEFLAG="-T"
 fi
 
-## Force `less` to repaint the screen/discard buffered input (`R`) and prevent
-#the screen from clearing upon exit (`X`)
-export LESS="-RX"
+##== Java Setup ===============================================================#
+
+## Load jEnv shims and autocomplete, if it exists
+USE_JENV && eval "$(jenv init -)"
+
+##== Python Setup =============================================================#
+
+## Sets Python encoding used for STDIN, STDOUT, and STDERR to UTF-8
+export PYTHONIOENCODING="UTF-8"
+
+## Load $HOME/.pyrc, if it exists
+[ -f "${HOME}"/.pyrc ] && export PYTHONSTARTUP="${HOME}"/.pyrc
+
+##== Ruby Setup ===============================================================#
+
+## If chruby exists...
+if USE_CHRUBY; then
+  ## Manage Ruby via chruby
+  source "${CHRUBY_LOCAL}"/chruby.sh
+
+  ## Set default Ruby version (2.4.0)
+  chruby ruby-2.4.0
+
+  ## Enable auto-switching of Rubies specified by .ruby-version files
+  source "${CHRUBY_LOCAL}"/auto.sh
+fi
+
+## Load Rbenv shims and autocomplete, if it exists
+USE_RBENV && eval "$(rbenv init -)"
+
+## Load RVM into a shell session as a function, if it exists
+USE_RVM && source "${HOME}"/.rvm/scripts/rvm
+
+##== Node Setup ===============================================================#
+
+## If Node exists...
+if USE_NODE; then
+  ## Enable `node` REPL history and set destination
+  export NODE_REPL_HISTORY="${HOME}"/.history_node
+
+  ## Allow 104,793 `node` REPL history entries
+  export NODE_REPL_HISTORY_SIZE=104793
+
+  ## Make `node` REPL use sloppy (as opposed to strict) mode by default
+  export NODE_REPL_MODE="sloppy"
+fi

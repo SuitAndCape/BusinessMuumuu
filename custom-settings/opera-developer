@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# opera-developer
+
+####= SuitAndCape Opera Developer (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Opera Developer settings"
+
+## Do not automatically send Opera Developer crash reports to Opera
+defaults write com.operasoftware.OperaDeveloper OPEnableCrashLogsUpload -bool false
+
+## Expand Opera Developer's print dialog box by default
+defaults write com.operasoftware.OperaDeveloper PMPrintingExpandedStateForPrint2 -bool true
+
+## Kill Opera Developer
+appkillinator "Opera Developer"

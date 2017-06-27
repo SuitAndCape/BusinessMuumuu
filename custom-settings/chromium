@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# chromium
+
+####= SuitAndCape Chromium (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Chromium settings"
+
+## Disable Chromium's "two-finger back/forward-swipe" Magic Mouse navigation
+defaults write org.chromium.Chromium AppleEnableMouseSwipeNavigateWithScrolls -bool false
+
+## Disable Chromium's "two-finger back/forward-swipe" Trackpad navigation
+defaults write org.chromium.Chromium AppleEnableSwipeNavigateWithScrolls -bool false
+
+## Disable Chromium's print preview in favor of the system-native print preview
+defaults write org.chromium.Chromium DisablePrintPreview -bool true
+
+## Allow user script installation via GitHub Gist or Userscripts.org
+defaults write org.chromium.Chromium ExtensionInstallSources -array "https://gist.githubusercontent.com/" "http://userscripts.org/*"
+
+## Expand Chromium's print dialog box by default
+defaults write org.chromium.Chromium PMPrintingExpandedStateForPrint2 -bool true
+
+## Kill Chromium
+appkillinator "Chromium"

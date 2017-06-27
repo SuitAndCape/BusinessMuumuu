@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# mactex
+
+####= SuitAndCape MacTeX Settings
+##============================================================================##
+
+## MacTeX is a TeX Live redistribution, which comes with the following apps...
+
+##== BibDesk ==================================================================#
+
+echo "Adjusting BibDesk (MacTeX) settings"
+
+## Automatically check for updates
+defaults write edu.ucsd.cs.mmccrack.bibdesk SUEnableAutomaticChecks -bool true
+
+## Kill BibDesk
+appkillinator "BibDesk"
+
+##== LaTeXiT ==================================================================#
+
+echo "Adjusting LaTeXiT (MacTeX) settings"
+
+## Automatically check for updates
+defaults write fr.chachatelier.pierre.LaTeXiT SUEnableAutomaticChecks -bool true
+
+## Kill LaTeXiT
+appkillinator "LaTeXiT"
+
+##== TeX Live Utility =========================================================#
+
+echo "Adjusting TeX Live Utility (MacTeX) settings"
+
+## Automatically check for updates
+defaults write com.googlecode.mactlmgr.tlu SUEnableAutomaticChecks -bool true
+
+## Kill TeX Live Utility
+appkillinator "TeX Live Utility"
+
+##== TeXShop ==================================================================#
+
+echo "Adjusting TeXShop (MacTeX) settings"
+
+## Automatically check for updates
+defaults write TeXShop SUEnableAutomaticChecks -bool true
+
+## Do not send anonymous system profile in TeXShop
+defaults write TeXShop SUSendProfileInfo -bool false
+
+## Kill TeXShop
+appkillinator "TeXShop"

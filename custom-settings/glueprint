@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# glueprint
+
+####= SuitAndCape GluePrint (Mac) Settings
+##============================================================================##
+
+echo "Adjusting GluePrint settings"
+
+## Set GluePrint's main hotkey to...
+  ## `[⌃]+[⌥]+[⌘]+[G]`
+defaults write com.nektar.GluePrint NKUserDefaultHotkeyKey -dict \
+  characters -string "" \
+  charactersIgnoringModifiers -string "g" \
+  keyCode -int 5 \
+  modifierFlags -int 1835008 \
+
+## Slightly lighten the GluePrint window transparency
+defaults write com.nektar.GluePrint NKUserDefaultTransparencyKey -float 0.79000000000000000
+
+## Kill GluePrint
+appkillinator "GluePrint"

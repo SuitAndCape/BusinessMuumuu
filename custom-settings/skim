@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# skim
+
+####= SuitAndCape Skim (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Skim settings"
+
+## Expand Skim's print dialog box by default
+defaults write net.sourceforge.skim-app.skim PMPrintingExpandedStateForPrint2 -bool true
+
+## Disable automatic checking for file changes in Skim
+defaults write net.sourceforge.skim-app.skim SKAutoCheckFileUpdate -bool false
+
+## Skim open file window size values:
+  ## 0: Default
+  ## 1: Maximized
+  ## 2: Fit
+
+## Skim open file automatic window size => Fit
+defaults write net.sourceforge.skim-app.skim SKInitialWindowSizeOption -int 2
+
+## Show status bar in Skim
+defaults write net.sourceforge.skim-app.skim SKShowStatusBar -bool true
+
+## Use Sublime Text as the PDF-TeX Sync editor preset for Skim
+defaults write net.sourceforge.skim-app.skim SKTeXEditorPreset -string "Sublime Text"
+defaults write net.sourceforge.skim-app.skim SKTeXEditorCommand -string "subl"
+defaults write net.sourceforge.skim-app.skim SKTeXEditorArguments -string "\"%file\":%line"
+
+## Automatically check for updates
+defaults write net.sourceforge.skim-app.skim SUEnableAutomaticChecks -bool true
+
+## Do not send anonymous system profile in Skim
+defaults write net.sourceforge.skim-app.skim SUSendProfileInfo -bool false
+
+## Kill Skim
+appkillinator "Skim"

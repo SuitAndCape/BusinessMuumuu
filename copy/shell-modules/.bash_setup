@@ -6,6 +6,25 @@
 
 ## Bash specific setup functions, variables, etc.
 
+##== Bash Definitions and Executions ==========================================#
+
+## If Homebrew exists...
+if USE_BREW; then
+  ## Autocompletion for Homebrew, if it exists
+  brew_comp=/usr/local/Homebrew/Library/Contributions/brew_bash_completion.sh
+  [ -f "${brew_comp}" ] && source "${brew_comp}"
+
+  ## Autocompletion for Bash 4 via Homebrew (bash-completion@2), if it exists
+  bash_comp_2_brew=/usr/local/share/bash-completion/bash_completion
+  [ -f "${bash_comp_2_brew}" ] && source "${bash_comp_2_brew}"
+fi
+
+## Bash autocompletion for Grunt, if it exists
+USE_GRUNT && eval "$(grunt --completion=bash)"
+
+## Bash autocompletion for Gulp, if it exists
+USE_GULP && eval "$(gulp --completion=bash)"
+
 ##== Bash Options =============================================================#
 
 ## Comments describe option behaviors when enabled (`set -o` or `shopt -s`)
@@ -95,7 +114,10 @@ bind "set visible-stats on"
 
 ##== Bash Bindkeys ============================================================#
 
-## "{iT2}" label means entry is tied to the iTerm2 profile shortcut keys
+## "{iT2}" indicates entry is tied to the iTerm2 profile shortcut keys
+
+## Use `[←]` to move backward one character
+bind '"\e[D": backward-char'
 
 ## Use `[⌘]+[⌫]` to delete the preceding characters on the current line    {iT2}
 bind '"\C-x\C-?": backward-kill-line'
@@ -115,6 +137,9 @@ bind '"\e[3~": delete-char'
 ## Use `[⌃]+[E]` to move cursor to the end of the current line
 bind '"\C-e": end-of-line'
 
+## Use `[→]` to move forward one character
+bind '"\e[C": forward-char'
+
 ## Use `[⌥]+[→]` to move forward one word
 bind '"\e[1;9C": forward-word'
 
@@ -130,27 +155,3 @@ bind '"\C-x\C-_": redo'
 
 ## Use `[⌘]+[Z]` to undo the last edit                                     {iT2}
 bind '"\C-_": undo'
-
-##== Bash Autocompletions =====================================================#
-
-## Autocompletion for Homebrew, if it exists
-brew_comp=$(brew --repository)/Library/Contributions/brew_bash_completion.sh
-test -f $brew_comp && source $brew_comp
-
-## Autocompletion for Bash via Homebrew (bash-completion), if it exists
-# bash_comp_brew=$(brew --prefix)/etc/bash_completion
-# test -f $bash_comp_brew && source $bash_comp_brew
-
-## Autocompletion for Bash 4 via Homebrew (bash-completion2), if it exists
-bash_comp_2_brew=$(brew --prefix)/share/bash-completion/bash_completion
-test -f $bash_comp_2_brew && source $bash_comp_2_brew
-
-## Bash autocompletion for Git via Homebrew (git), if it exists
-git_comp_brew=$(brew --prefix)/etc/bash_completion.d/git-completion.bash
-test -s $git_comp_brew && source $git_comp_brew
-
-## Bash autocompletion for Grunt, if it exists
-USE_GRUNT && eval "$(grunt --completion=bash)"
-
-## Bash autocompletion for Gulp, if it exists
-USE_GULP && eval "$(gulp --completion=bash)"

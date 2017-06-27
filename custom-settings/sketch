@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# sketch
+
+####= SuitAndCape Sketch 3 (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Sketch 3 settings"
+
+## Notify user if there are Sketch 3 updates
+defaults write com.bohemiancoding.sketch3 SUAutomaticallyUpdate -bool false
+
+## Automatically check for updates
+defaults write com.bohemiancoding.sketch3 SUEnableAutomaticChecks -bool true
+
+## Do not send anonymous system profile in Sketch 3
+defaults write com.bohemiancoding.sketch3 SUSendProfileInfo -bool false
+
+## Enable compact SVG exporting in Sketch 3
+defaults write com.bohemiancoding.sketch3 svgExportCompact -bool true
+
+## Do not use the layer name as the id for the SVG export layer in Sketch 3
+# defaults write com.bohemiancoding.sketch3 svgExportSkipAssignIdToLayerName -bool true
+
+## Kill Sketch 3
+appkillinator "Sketch"

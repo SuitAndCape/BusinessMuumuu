@@ -1,0 +1,47 @@
+# humans.txt
+
+####= SuitAndCape Humans Text File
+##============================================================================##
+
+## @source http://humanstxt.org/
+
+## The humans responsible & technology colophon
+
+##== Team =====================================================================#
+
+  Name: NAME
+  Role: ROLE
+  Email: EMAIL
+  GitHub: https://github.com/USERNAME
+  Website: WEBSITE/
+  LinkedIn: https://www.linkedin.com/in/USERNAME
+  Twitter: https://twitter.com/USERNAME
+  Location: AREA
+
+##== Thanks ===================================================================#
+
+  ##===== TITLE Team =====##
+    Name: NAME
+    Role: ROLE
+    Email: EMAIL
+    GitHub: https://github.com/USERNAME
+    Website: WEBSITE/
+    LinkedIn: https://www.linkedin.com/in/USERNAME
+    Twitter: https://twitter.com/USERNAME
+    Location: AREA
+
+    Name: NAME
+    Role: ROLE
+    Email: EMAIL
+    GitHub: https://github.com/USERNAME
+    Website: WEBSITE/
+    LinkedIn: https://www.linkedin.com/in/USERNAME
+    Twitter: https://twitter.com/USERNAME
+    Location: AREA
+
+##== Info =====================================================================#
+
+  Last Update: 20YY/MM/DD
+  Languages: LANGUAGES
+  Components: TECHNOLOGIES
+  Development Tools: APPLICATIONS

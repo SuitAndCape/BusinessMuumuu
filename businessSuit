@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# businessSuit
+
+####= SuitAndCape Primary Setup
+##============================================================================##
+
+## Default setup process
+
+echo "Running businessSuit"
+
+##== Setup Regulations ========================================================#
+
+## Use setup helpers for the businessSuit configuration stage
+source setup-helpers
+
+## Require the administrator password
+sudo -v
+
+## Keep updating `sudo` timestamp until `businessSuit` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+## Exit on any failure
+set -e
+
+##== File Transfer ============================================================#
+
+## Copy dotfiles and directories
+rsync -av --exclude=".DS_Store" --exclude="ReadMe.md" ./copy/ "${HOME}"
+
+##== Configuration ============================================================#
+
+## Settings configuration files to be run
+business_files=(
+  cli
+  package-managers
+  packages
+  code
+  mac-settings
+  fonts
+)
+
+## Run settings configuration files
+sourceinator business_files[@] "./"
+
+##== Notifications ============================================================#
+
+echo "Pre-existing dotfiles in $USER's home directory have been replaced – for changes to take effect, reload the shell"
+echo "NOTE: If your Git username and email address were configured locally prior to running this installer, you will need to set them again with the following commands"
+echo "  \`git config --global user.name \"Pat Doe\"\`"
+echo "  \`git config --global user.email patdoe@example.com\`"

@@ -6,8 +6,8 @@
 
 ## Example 01
 #
-# if OS_OSX; then
-#   # Do stuff when the user IS on the operating system OS X
+# if OS_MAC; then
+#   # Do stuff when the user IS on the a Mac specific operating system
 # fi
 
 ## Example 02
@@ -24,7 +24,19 @@
 #
 # ! (IS_SSH) && # Do stuff when the user IS NOT remotely logged in via SSH
 
-##== General Inspectors =======================================================#
+##== Editor Inspectors ========================================================#
+
+## $EDITOR assigned to atom
+EDIT_ATOM() {
+  [[ "$EDITOR" == "atom"* ]]
+}
+
+## $EDITOR assigned to subl
+EDIT_SUBL() {
+  [[ "$EDITOR" == "subl"* ]]
+}
+
+##== Access Inspectors ========================================================#
 
 ## Logged in remotely (SSH)
 IS_SSH() {
@@ -33,14 +45,14 @@ IS_SSH() {
 
 ##== Operating System Inspectors ==============================================#
 
-## OS X operating System
-OS_OSX() {
-  [[ "$OSTYPE" == "darwin"* ]]
-}
-
 ## Linux operating System
 OS_LINUX() {
   [[ "$OSTYPE" == "linux"* ]]
+}
+
+## Mac operating System
+OS_MAC() {
+  [[ "$OSTYPE" == "darwin"* ]]
 }
 
 ##== Shell Inspectors =========================================================#
@@ -57,17 +69,17 @@ SHELL_ZSH() {
 
 ##== Terminal Inspectors ======================================================#
 
-## Session through Apple's Terminal.app
-TERM_OSX() {
-  [[ "$TERM_PROGRAM" == "Apple_Terminal" ]]
-}
-
 ## Session through iTerm.app
 TERM_ITERM() {
   [[ "$TERM_PROGRAM" == "iTerm.app" ]]
 }
 
-##== Executable and Function Inspectors =======================================#
+## Session through Apple's Terminal.app
+TERM_MAC() {
+  [[ "$TERM_PROGRAM" == "Apple_Terminal" ]]
+}
+
+##== Existence Inspectors =====================================================#
 
 ## Existence of apt-get executable
 USE_APT() {
@@ -84,6 +96,28 @@ USE_BREW() {
   [[ -x $(which brew) ]]
 }
 
+## Existence of bundler gem executable
+USE_BUNDLER() {
+  [[ -x $(which bundler) ]]
+}
+
+## Existence of chruby directory
+USE_CHRUBY() {
+  if [[ $OSTYPE == "darwin"* ]]; then
+    ## Mac chruby file location
+    CHRUBY_LOCAL=/usr/local/opt/chruby/share/chruby
+  elif [[ "$OSTYPE" == "linux"* ]]; then
+    ## Linux chruby file location
+    CHRUBY_LOCAL=/usr/local/share/chruby
+  fi
+  [[ -d "${CHRUBY_LOCAL}" ]]
+}
+
+## Existence of gpg executable
+USE_GPG() {
+  [[ -x $(which gpg) ]]
+}
+
 ## Existence of grunt executable
 USE_GRUNT() {
   [[ -x $(which grunt) ]]
@@ -97,11 +131,6 @@ USE_GULP() {
 ## Existence of a jenv function
 USE_JENV() {
   [[ $(which jenv) != "" ]] && [[ $(which jenv) != "jenv not found" ]]
-}
-
-## Existence of most executable
-USE_MOST() {
-  [[ -x $(which most) ]]
 }
 
 ## Existence of node executable
@@ -142,4 +171,27 @@ USE_TMUX() {
 ## Existence of virtualenv executable
 USE_VENV() {
   [[ -x $(which virtualenv) ]]
+}
+
+## Existence of yarn executable
+USE_YARN() {
+  [[ -x $(which yarn) ]]
+}
+
+##== Input Inspectors =========================================================#
+
+## Use first input from the list that exists
+PRIORITY_INPUT() {
+  if [[ -n "$1" ]]; then
+    local input
+    input="$1"
+    shift
+    if command -v "$(echo "$input" | sed 's/ .*//')" >> /dev/null; then
+      echo "$input"
+    else
+      PRIORITY_INPUT "$@"
+    fi
+  else
+    exit 1
+  fi
 }

@@ -1,0 +1,201 @@
+# .gitignore
+
+####= SuitAndCape Git Untracked File List
+##============================================================================##
+
+## @how-to-use-gitignore https://help.github.com/articles/ignoring-files
+## @github-resource https://github.com/github/gitignore
+
+##== PROJECT NAME Git Untracked File List (20YY-MM-DD) ========================#
+
+#
+
+##== SuitAndCape Default Git Untracked File List ==============================#
+
+## Backup files
+*~
+*.bak
+
+## Caches and temps
+!tmp/cache/.keep
+tmp/**/*
+
+## Clojure Leiningen projects
+Leiningen.gitignore
+
+## Codekit files
+.codekit-config.json
+config.codekit
+/min
+
+## CVS (Concurrent Versions System)
+**/CVS/*
+*/.cvsignore
+.cvsignore
+/CVS/*
+
+## Executable and compiled files
+*.app
+*.class
+*.com
+*.dll
+*.exe
+*.out
+*.o
+*.so
+
+## Java mobile tools and crash logs
+.mtj.tmp/
+hs_err_pid*
+
+## Linux, Mac, and Windows
+$RECYCLE.BIN/
+*.DS_Store*
+*.cab
+*.lnk
+*.msi
+*.msm
+*.msp
+.AppleDB
+.AppleDesktop
+.AppleDouble
+.DocumentRevisions-V100
+.LSOverride
+.Spotlight-V100
+.TemporaryItems
+.Trash-*
+.Trashes
+.VolumeIcon.icns
+._*
+.apdisk
+.com.apple.timemachine.donotpresent
+.dat*
+.directory
+.fseventsd
+.fuse_hidden*
+Desktop.ini
+Network Trash Folder
+Temporary Items
+Thumbs.db
+ehthumbs.db
+
+## Local databases and logs – make your own, don't share
+*.log
+*.sql
+*.sqlite
+*.sqlite3
+*.sqlite3-journal
+logs
+
+## Matlab autosaves
+*.asv
+*.m~
+*.mex*
+octave-workspace
+slprj/
+
+## Packages – only raw source files should be commited
+*.7z
+*.bz2
+*.bzip
+*.deb
+*.dmg
+*.ear
+*.egg
+*.gem
+*.gz
+*.iso
+*.jar
+*.lzma
+*.rar
+*.rpm
+*.tar
+*.war
+*.xpi
+*.xz
+*.zip
+
+## Python environment, optimized, temporary, and VirtualEnv files
+*.py[cod]
+.Python
+.ipynb_checkpoints/
+.python-version
+.venv
+[Bb]in
+[Ii]nclude
+[Ll]ib
+[Ll]ib64
+[Ll]ocal
+[Ss]cripts
+__pycache__/
+pip-delete-this-directory.txt
+pip-log.txt
+pip-selfcheck.json
+pyvenv.cfg
+
+## Ruby environment, cache, temporary, and Bundler files
+.rvmrc
+/.bundle/
+/.yardoc/
+/_yardoc/
+/doc/
+/rdoc/
+
+## Sass (SCSS) caches
+*.css.map
+*.sassc
+.sass-cache/
+
+## Software package management
+bower_components
+jspm_packages
+node_modules
+
+## Sublime Text cache, work, and configuration files
+*.stTheme.cache
+*.sublime-workspace
+# *.sublime-project ## Uncomment if many contributors don't use Sublime Text
+*.tmPreferences.cache
+*.tmlanguage.cache
+GitHub.sublime-settings
+Package Control.ca-bundle
+Package Control.ca-certs/
+Package Control.ca-list
+Package Control.cache/
+Package Control.last-run
+Package Control.system-ca-bundle
+bh_unicode_properties.cache
+sftp-config.json
+
+## Tags created by cscope, ctags, etags, and gtags (GNU global)
+!TAGS/
+!tags/
+.TAGS
+.tags
+GPATH
+GRTAGS
+GTAGS
+TAGS
+cscope.files
+cscope.in.out
+cscope.out
+cscope.po.out
+gtags.files
+tags
+
+## TeX/LaTeX auxiliary and build files
+*.aux
+*.fdb_latexmk
+*.fls
+*.lo[aft]
+*.pdfsync
+*.synctex
+*.synctex.gz
+*.synctex.gz(busy)
+*.toc
+
+## Vim backup and session files
+[._]*.s[a-w][a-z]
+.netrwhist
+[._]s[a-w][a-z]
+Session.vim

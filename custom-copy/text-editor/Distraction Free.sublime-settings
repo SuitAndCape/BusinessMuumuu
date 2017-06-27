@@ -1,0 +1,9 @@
+// $SUBLIME_DIR/Packages/User/Distraction Free.sublime-settings
+
+////= SuitAndCape Sublime Text Distraction Free Preferences
+//============================================================================//
+
+{
+  "font_size": 19.0,
+  // "wrap_width": 80,
+}

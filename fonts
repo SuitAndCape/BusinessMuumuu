@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+# fonts
+
+####= SuitAndCape Fonts Setup
+##============================================================================##
+
+## Fonts setup process
+
+echo "Setting up fonts"
+
+##== Setup Regulations ========================================================#
+
+## Require the administrator password
+sudo -v
+
+## Keep updating `sudo` timestamp until `fonts` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+##== Google Fonts =============================================================#
+
+## @source https://github.com/google/fonts
+
+## If a Google-Fonts/ directory doesn't exist...
+if [ ! -d "${FONTS_DIR}"/Google-Fonts ]; then
+  ## Make a Google-Fonts/ directory
+  mkdir -p "${FONTS_DIR}"/Google-Fonts
+fi
+
+## If Google Fonts isn't cloned locally...
+if [ ! -d "${FONTS_DIR}"/Google-Fonts/.git ]; then
+  ## Clone Google Fonts locally
+  git clone https://github.com/google/fonts.git "${FONTS_DIR}"/Google-Fonts
+fi
+
+## Check for a Google Fonts update every four hours
+(crontab -l 2>/dev/null; echo "0 */4 * * * sh -c \"cd ${FONTS_DIR}/Google-Fonts && git fetch -fp && git reset --hard @{upstream} && git clean -dfqx\" &>/dev/null") | crontab -
+
+##== Powerline Fonts ==========================================================#
+
+## @source https://github.com/powerline/fonts
+
+## If a Powerline-Fonts/ directory doesn't exist...
+if [ ! -d "${FONTS_DIR}"/Powerline-Fonts ]; then
+  ## Make a Powerline-Fonts/ directory
+  mkdir -p "${FONTS_DIR}"/Powerline-Fonts
+fi
+
+## If Powerline Fonts isn't cloned locally...
+if [ ! -d "${FONTS_DIR}"/Powerline-Fonts/.git ]; then
+  ## Clone Powerline Fonts locally
+  git clone https://github.com/powerline/fonts.git "${FONTS_DIR}"/Powerline-Fonts
+fi
+
+## Check for a Powerline Fonts update every four hours
+(crontab -l 2>/dev/null; echo "0 */4 * * * sh -c \"cd ${FONTS_DIR}/Powerline-Fonts && git fetch -fp && git reset --hard @{upstream} && git clean -dfqx\" &>/dev/null") | crontab -

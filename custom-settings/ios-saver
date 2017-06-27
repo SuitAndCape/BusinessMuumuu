@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+# ios-saver
+
+####= SuitAndCape iOS Lockscreen Screen Saver (Mac) Settings
+##============================================================================##
+
+echo "Adjusting iOS Lockscreen Screen Saver settings"
+
+## iOS Lockscreen: Animated wallpaper
+defaults write "${HOME}"/Library/Preferences/ByHost/com.littleendian.iOS-Screen-Saver animated -bool true
+
+## iOS Lockscreen: Use the Higher Clock placement
+## (alternative: false=Deeper Clock)
+defaults write "${HOME}"/Library/Preferences/ByHost/com.littleendian.iOS-Screen-Saver clockplacement -bool true
+
+## iOS Lockscreen: Use White Text
+## (alternative: false=Black Text)
+defaults write "${HOME}"/Library/Preferences/ByHost/com.littleendian.iOS-Screen-Saver color -bool true
+
+## iOS Lockscreen: Date Format values:
+  ## 0: Monday, January 1
+  ## 1: Monday 1 January
+  ## 2: Monday, 1 January
+  ## 3: January, 1. Monday
+  ## 4: January 1. Monday
+  ## 5: January 1 Monday
+  ## 6: January1日Monday
+
+## iOS Lockscreen: Date Format => Monday, January 1
+defaults write "${HOME}"/Library/Preferences/ByHost/com.littleendian.iOS-Screen-Saver dateformat -int 0
+
+## iOS Lockscreen Use the Full Username
+## (alternative: false=Short)
+defaults write "${HOME}"/Library/Preferences/ByHost/com.littleendian.iOS-Screen-Saver fullname -bool true
+
+## iOS Lockscreen: High definition
+defaults write "${HOME}"/Library/Preferences/ByHost/com.littleendian.iOS-Screen-Saver hd -bool true
+
+## iOS Lockscreen: Use the Higher Menubar placement
+## (alternative: false=Deeper Menubar)
+defaults write "${HOME}"/Library/Preferences/ByHost/com.littleendian.iOS-Screen-Saver menubarplacement -bool true
+
+## iOS Lockscreen: Menubar Size values:
+  ## 0: 1
+  ## 1: 2
+  ## 2: 3
+  ## 3: 4
+  ## 4: 5
+  ## 5: 6
+  ## 6: 7
+  ## 7: 8
+
+## iOS Lockscreen: Menubar Size => 5
+defaults write "${HOME}"/Library/Preferences/ByHost/com.littleendian.iOS-Screen-Saver menubarsize -int 4
+
+## iOS Lockscreen: Use the 24 hour Clock Format
+## (alternative: true=12 hour)
+defaults write "${HOME}"/Library/Preferences/ByHost/com.littleendian.iOS-Screen-Saver timeformat -bool false
+
+## iOS Lockscreen: Set the close action to Any Action
+## (alternative: true=Trackpad Slide)
+defaults write "${HOME}"/Library/Preferences/ByHost/com.littleendian.iOS-Screen-Saver unlockaction -bool false
+
+## iOS Lockscreen: Customize the Unlock String
+defaults write "${HOME}"/Library/Preferences/ByHost/com.littleendian.iOS-Screen-Saver unlockstring -string "Press any key to unlock"
+
+## iOS Lockscreen: Do Not Include the Unlock String chevron
+## (alternative: true=Include)
+defaults write "${HOME}"/Library/Preferences/ByHost/com.littleendian.iOS-Screen-Saver usechevron -bool false
+
+## Use the iOS Lockscreen Screen Saver
+defaults -currentHost write com.apple.screensaver moduleDict -dict moduleName -string "iOS Saver" path -string "/System/Library/Screen Savers/iOS Saver.saver" type -int 0

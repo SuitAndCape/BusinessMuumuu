@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# colorsnapper
+
+####= SuitAndCape ColorSnapper2 (Mac) Settings
+##============================================================================##
+
+echo "Adjusting ColorSnapper2 settings"
+
+## Automatically check for updates
+defaults write com.koolesache.ColorSnapper2 SUEnableAutomaticChecks -bool true
+
+## Enable ColorSnapper2 menu bar icon
+defaults write com.koolesache.ColorSnapper2 showMenubarIcon -bool true
+
+## Kill ColorSnapper2
+appkillinator "ColorSnapper2"

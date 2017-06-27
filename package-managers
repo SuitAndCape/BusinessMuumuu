@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+# package-managers
+
+####= SuitAndCape Package Managers Setup
+##============================================================================##
+
+## Package managers setup process
+
+echo "Setting up package managers"
+
+##== Setup Regulations ========================================================#
+
+## Require the administrator password
+sudo -v
+
+## Keep updating `sudo` timestamp until `package-managers` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+##== Homebrew Setup ===========================================================#
+
+## If launchd service processes directory doesn't exist...
+if [[ ! -d "${HOME}"/Library/LaunchAgents ]]; then
+  ## Create launchd service processes directory
+  mkdir -p "${HOME}"/Library/LaunchAgents
+fi
+
+## Set user permissions for the /usr/local/ software directory
+sudo chown -R "$USER" /usr/local
+
+## Set user permissions for launchd service processes directory
+sudo chown -R "$USER" "${HOME}"/Library/LaunchAgents
+
+## If Homebrew doesn't exist...
+if ! (which brew >/dev/null); then
+  ## Install Homebrew
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
+fi
+
+## If Homebrew exists...
+if (which brew >/dev/null); then
+  ## Update all outdated locally installed Homebrew Formulae
+  brew update && brew upgrade
+
+  ## Update Cask
+  brew cask update
+
+  ## Install Node via Homebrew
+  brew install node
+
+  ## Remove outdated Formulae and Casks from the cellar and the caskroom
+  brew cleanup; brew cask cleanup; brew prune
+fi
+
+##== NPM and Yarn Setup =======================================================#
+
+## If Node exists...
+if (which node >/dev/null); then
+  ## Install NPM
+  curl -fsSL https://www.npmjs.com/install.sh | sh
+
+  ## Ensure NPM is properly installed (globally) and up-to-date
+  npm install npm -g
+
+  ## Remove data from the NPM cache folder
+  npm cache clean
+
+  ## Create a custom global directory for Yarn
+  mkdir -p "${HOME}/.yarn-global"
+
+  ## Set user permissions for the $HOME/.yarn-global directory
+  sudo chown -R "$USER" "${HOME}"/.yarn-global
+
+  ## Install Yarn via Homebrew
+  brew install yarn
+
+  ## Install global packages for Yarn in the $HOME/.yarn-global directory
+  yarn config set prefix "${HOME}/.yarn-global"
+
+  ## Remove data from the Yarn cache folder
+  yarn cache clean
+fi

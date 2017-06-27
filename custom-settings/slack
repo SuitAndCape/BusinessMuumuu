@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# slack
+
+####= SuitAndCape Slack (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Slack settings"
+
+## Disable automatic spelling correction (auto-correct) in Slack
+defaults write com.tinyspeck.slackmacgap WebAutomaticSpellingCorrectionEnabled -bool false
+
+## Enable continuous spell checking in Slack
+defaults write com.tinyspeck.slackmacgap WebContinuousSpellCheckingEnabled -bool true
+
+## Disable smart dashes in Slack
+defaults write com.tinyspeck.slackmacgap NSAutomaticDashSubstitutionEnabled -bool false
+
+## Disable smart quotes in Slack
+defaults write com.tinyspeck.slackmacgap NSAutomaticQuoteSubstitutionEnabled -bool false
+
+## Kill Slack
+appkillinator "Slack"

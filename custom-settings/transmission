@@ -1,0 +1,114 @@
+#!/usr/bin/env bash
+# transmission
+
+####= SuitAndCape Transmission (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Transmission settings"
+
+## Do not include beta releases when updating software in Transmission
+# defaults delete org.m0k.transmission AutoUpdateBeta
+
+## Enable Transmission's "total download rate" Dock icon badge
+# defaults delete org.m0k.transmission BadgeDownloadRate
+
+## Enable Transmission's "total upload rate" Dock icon badge
+# defaults delete org.m0k.transmission BadgeUploadRate
+
+## Automatically check for updates
+defaults delete org.m0k.transmission SUEnableAutomaticChecks
+
+## Watch for Transmission torrents in the torrent import directory
+defaults write org.m0k.transmission AutoImport -bool true
+defaults write org.m0k.transmission AutoImportDirectory -string "${TORRENTS_IMPORT_DIR}"
+
+## Automatically size window to fit all transfers
+defaults write org.m0k.transmission AutoSize -bool true
+
+## Add blocklist that updates weekly in Transmission
+## @source https://giuliomac.wordpress.com/2014/02/19/best-blocklist-for-transmission/
+defaults write org.m0k.transmission BlocklistNew -bool true
+defaults write org.m0k.transmission BlocklistURL -string "http://john.bitsurge.net/public/biglist.p2p.gz"
+defaults write org.m0k.transmission BlocklistAutoUpdate -bool true
+
+## Prompt for quit with active transfers only when transfers are downloading
+defaults write org.m0k.transmission CheckQuitDownloading -bool true
+
+## Prompt for removal of active transfers only when transfers are downloading
+defaults write org.m0k.transmission CheckRemoveDownloading -bool true
+
+## Trash original torrent files after they are added in Transmission
+defaults write org.m0k.transmission DeleteOriginalTorrent -bool true
+
+## Enable availability progress bar in Transmission
+defaults write org.m0k.transmission DisplayProgressBarAvailable -bool true
+
+## Disable the pre-download confirmation dialog box in Transmission
+defaults write org.m0k.transmission DownloadAsk -bool false
+defaults write org.m0k.transmission MagnetOpenAsk -bool false
+
+## Display a window when opening a torrent only when adding manually
+defaults write org.m0k.transmission DownloadAskManual -bool true
+
+## Display a window when opening a torrent only when there are multiple files
+defaults write org.m0k.transmission DownloadAskMulti -bool true
+
+## Save downloaded Transmission torrents in the torrents directory
+defaults write org.m0k.transmission DownloadChoice -string "Constant"
+defaults write org.m0k.transmission DownloadFolder -string "${TORRENTS_DIR}"
+defaults write org.m0k.transmission DownloadLocationConstant -bool true
+
+## Ignore unencrypted peers in Transmission
+defaults write org.m0k.transmission EncryptionRequire -bool true
+
+## Show filter bar in Transmission
+defaults write org.m0k.transmission FilterBar -bool true
+
+## Do not show pieces bar in Transmission
+defaults write org.m0k.transmission PiecesBar -bool false
+
+## Transmission completion sound values:
+  ## "Basso"
+  ## "Blow"
+  ## "Bottle"
+  ## "Frog"
+  ## "Funk"
+  ## "Glass"
+  ## "Hero"
+  ## "Morse"
+  ## "Ping"
+  ## "Pop"
+  ## "Purr"
+  ## "Sosumi"
+  ## "Submarine"
+  ## "Tink"
+
+## Transmission download complete sound => Pop
+# defaults write org.m0k.transmission PlayDownloadSound -bool true
+defaults write org.m0k.transmission DownloadSound -string "Pop"
+
+## Transmission seeding complete sound => Tink
+defaults write org.m0k.transmission PlaySeedingSound -bool true
+defaults write org.m0k.transmission SeedingSound -string "Tink"
+
+## Randomize port on launch in Transmission
+defaults write org.m0k.transmission RandomPort -bool true
+
+## Disable compact view in Transmission
+defaults write org.m0k.transmission SmallView -bool false
+
+## Show status bar in Transmission
+defaults write org.m0k.transmission StatusBar -bool true
+
+## Save incomplete Transmission downloads in the incomplete torrents directory
+defaults write org.m0k.transmission UseIncompleteDownloadFolder -bool true
+defaults write org.m0k.transmission IncompleteDownloadFolder -string "${TORRENTS_INCOMP_DIR}"
+
+## Disable the Transmission donation startup dialog box
+defaults write org.m0k.transmission WarningDonate -bool false
+
+## Disable the Transmission legal disclaimer startup dialog box
+defaults write org.m0k.transmission WarningLegal -bool false
+
+## Kill Transmission
+appkillinator "Transmission"

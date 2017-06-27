@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# sublime-text
+
+####= SuitAndCape Sublime Text 3 (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Sublime Text 3 shortcuts, symbolic links, and settings"
+
+## Copy over "Launch Sublime Text" Workflow
+cp custom-copy/files/Launch\ Sublime\ Text.workflow /Library/Services/Launch\ Sublime\ Text.workflow
+
+## Use `[⌃]+[\]` to run the "Launch Sublime Text" Workflow as a Service
+# $PLISTBUDDY -c "Delete :NSServicesStatus:\"(null) - Launch Sublime Text - runWorkflowAsService\"" "${HOME}/Library/Preferences/pbs.plist" 2>/dev/null
+defaults write pbs NSServicesStatus -dict-add "\"(null) - Launch Sublime Text - runWorkflowAsService\"" "{key_equivalent = \"${CONTROL_KEY}${BACKSLASH_KEY}\";}"
+
+## Create Sublime Text 3 symlink and `subl` shortcut in user's binary directory
+# test -d /Applications/Sublime\ Text.app/ && {
+#   test /usr/local/bin/subl && rm /usr/local/bin/subl
+#   ln -sf /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl "${HOME}"/bin/subl
+# }
+
+## Install Package Control in Sublime Text 3
+curl "https://packagecontrol.io/Package Control.sublime-package" > "${SUBLIME_DIR}"/Installed\ Packages/Package\ Control.sublime-package
+
+## Copy over Sublime Text 3 preferences, keybindings, and syntax settings
+cp -r custom-copy/text-editor/* "${SUBLIME_DIR}"/Packages/User
+
+## Use Sublime Text 3 as the default editor for plain text files
+defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add "{LSHandlerContentType=public.plain-text;LSHandlerRoleAll=com.sublimetext.3;}"
+
+## Set font smoothing and anti-aliasing strength to Light in Sublime Text 3
+## (range: 0=Off–3=Heavy)
+# defaults write com.sublimetext.3 AppleFontSmoothing -int 1

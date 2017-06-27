@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+# couleurs
+
+####= SuitAndCape Couleurs (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Couleurs settings"
+
+## Show Couleurs above all other windows...
+  ## Enabled
+defaults write com.13bold.Couleurs AlwaysOnTop -bool true
+  ## Disabled
+# defaults delete com.13bold.Couleurs AlwaysOnTop
+
+## Automatically copy value when snapping a new color in Couleurs...
+  ## Enabled
+defaults write com.13bold.Couleurs CopyAfterSnapping -bool true
+  ## Disabled
+# defaults delete com.13bold.Couleurs CopyAfterSnapping
+
+## Couleurs clipboard picked color format values:
+  ## "#{rr}{gg}{bb}"
+    ##: #fee98d
+  ## "#{rx}{gx}{bx}"
+    ##: #fe8
+  ## "{rr}{gg}{bb}"
+    ##: fee98d
+  ## "rgb({r}, {g}, {b})"
+    ##: rgb(254, 233, 141)
+  ## "rgba({r}, {g}, {b}, {a})"
+    ##: rgba(254, 233, 141, 1.0)
+  ## "hsl({h}, {s}%, {l}%)"
+    ##: hsl(49, 98%, 77%)
+  ## "hsla({h}, {s}%, {l}%, {a})"
+    ##: hsla(49, 98%, 77%, 1.0)
+  ## "NSColor(srgbRed: {r.}, green: {g.}, blue: {b.}, alpha: {a?})"
+    ##: NSColor (Swift)
+  ## "[NSColor colorWithSRGBRed:{r.} green:{g.} blue:{b.} alpha:{a}]"
+    ##: NSColor (Objective-C, 10.7+)
+  ## "UIColor(red: {r.}, green: {g.}, blue: {b.}, alpha: {a?})"
+    ##: UIColor (Swift)
+  ## "[UIColor colorWithRed:{r.} green:{g.} blue:{b.} alpha:{a}]"
+    ##: UIColor (Objective-C)
+  ## "#{aa}{rr}{gg}{bb}"
+    ##: #fffee98d
+  ## "NSColor(SRGBRed: {r.}, green: {g.}, blue: {b.}, alpha: {a?})"
+    ##: NSColor (Swift 2)
+
+## Couleurs clipboard color format => rgba(254, 233, 141, 1.0)
+defaults write com.13bold.Couleurs LastFormatter -string "rgba({r}, {g}, {b}, {a})"
+
+## Automatically check for updates
+defaults write com.13bold.Couleurs SUEnableAutomaticChecks -bool true
+
+## Kill Couleurs
+appkillinator "Couleurs"

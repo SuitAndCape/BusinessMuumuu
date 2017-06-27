@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# screenflow
+
+####= SuitAndCape ScreenFlow 6 (Mac) Settings
+##============================================================================##
+
+echo "Adjusting ScreenFlow 6 settings"
+
+## Do not lock Aspect Ratio when scaling with mouse in ScreenFlow 6
+# defaults write net.telestream.screenflow6 SCLockAspectRatioWhenScaling -bool false
+
+## Do not send anonymous system profile in ScreenFlow 6
+defaults write net.telestream.screenflow6 SCSendAnalytics -bool false
+
+## Automatically check for updates
+defaults write net.telestream.screenflow6 SUEnableAutomaticChecks -bool true
+
+## Enable recording countdown in ScreenFlow 6
+defaults write net.telestream.screenflow6 countdownEnabled -bool true
+
+## Enable ScreenFlow 6 menu bar icon
+defaults write net.telestream.screenflow6 showInMenuBar -bool true
+
+## Kill ScreenFlow 6
+appkillinator "ScreenFlow"

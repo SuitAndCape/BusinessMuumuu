@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# vlc
+
+####= SuitAndCape VLC (Mac) Settings
+##============================================================================##
+
+echo "Adjusting VLC settings"
+
+## Clear and disable recent documents in VLC
+defaults write org.videolan.vlc NSRecentDocumentsLimit -int 0
+defaults delete org.videolan.vlc.LSSharedFileList RecentDocuments
+defaults write org.videolan.vlc.LSSharedFileList RecentDocuments -dict-add "MaxAmount" -int 0
+
+## Automatically check for updates
+defaults write org.videolan.vlc SUEnableAutomaticChecks -bool true
+
+## Kill VLC
+appkillinator "VLC"

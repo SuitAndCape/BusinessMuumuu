@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# google-chrome-canary
+
+####= SuitAndCape Google Chrome Canary (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Google Chrome Canary settings"
+
+## Disable Canary's "two-finger back/forward-swipe" Magic Mouse navigation
+defaults write com.google.Chrome.canary AppleEnableMouseSwipeNavigateWithScrolls -bool false
+
+## Disable Canary's "two-finger back/forward-swipe" Trackpad navigation
+defaults write com.google.Chrome.canary AppleEnableSwipeNavigateWithScrolls -bool false
+
+## Disable Canary's print preview in favor of the system-native print preview
+defaults write com.google.Chrome.canary DisablePrintPreview -bool true
+
+## Allow user script installation via GitHub Gist or Userscripts.org
+defaults write com.google.Chrome.canary ExtensionInstallSources -array "https://gist.githubusercontent.com/" "http://userscripts.org/*"
+
+## Expand Canary's print dialog box by default
+defaults write com.google.Chrome.canary PMPrintingExpandedStateForPrint2 -bool true
+
+## Kill Google Chrome Canary
+appkillinator "Google Chrome Canary"

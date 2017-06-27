@@ -1,0 +1,137 @@
+#!/usr/bin/env bash
+# packages
+
+####= SuitAndCape Packages Setup
+##============================================================================##
+
+## Packages setup process
+
+echo "Setting up packages"
+
+##== Setup Regulations ========================================================#
+
+## Require the administrator password
+sudo -v
+
+## Keep updating `sudo` timestamp until `packages` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+##== Homebrew Packages Setup ==================================================#
+
+## If Homebrew exists...
+if (which brew >/dev/null); then
+  ## Update all outdated locally installed Homebrew Formulae
+  brew update && brew upgrade
+
+  ## Update Cask
+  brew cask update
+
+  ## Tap Homebrew Kegs
+  brew tap caskroom/versions
+  brew tap homebrew/services
+
+  ## Select Homebrew Formulae
+  homebrew_formulae=(
+    ## Development Formulae
+    cairo
+    cmake
+    freetype
+    gcc
+    gdbm
+    giflib
+    git
+    icu4c
+    jpeg
+    libffi
+    libpng
+    libtiff
+    libxml2
+    libyaml
+    little-cms2
+    openssl
+    p7zip
+    qt
+    readline
+    scons
+    swig
+    unrar
+    xz
+    zeromq
+
+    ## Shell Formulae
+    ack
+    bash
+    coreutils
+    findutils
+    moreutils
+    tmux
+    tree
+    vim
+    zsh
+    zsh-syntax-highlighting
+
+    ## Shell completion Formulae
+    bash-completion@2
+    zsh-completions
+    brew-cask-completion
+    tmuxinator-completion
+
+    ## Tapped dupes Formulae
+    homebrew/dupes/openssh
+    homebrew/dupes/screen
+  )
+
+  ## Install select Homebrew Formulae
+  brew install "${homebrew_formulae[@]}"
+
+  ## Install development Homebrew Formulae with options
+  brew install graphviz --with-app --with-librsvg --with-x11 && brew linkapps graphviz
+  brew install imagemagick --with-fftw --with-librsvg --with-little-cms2 --with-webp --with-x11
+
+  ## Install shell Homebrew Formulae with options
+  brew install gnu-sed --with-default-names
+
+  ## Select Homebrew Casks
+  homebrew_casks=(
+    ## Quicklook Casks
+    betterzipql
+    qlimagesize
+    qlmarkdown
+    qlprettypatch
+    qlstephen
+    qlvideo
+    quicklook-csv
+    quicklook-json
+    webpquicklook
+
+    ## x11 Casks
+    xquartz
+  )
+
+  ## Install select Homebrew Casks
+  brew cask install --force "${homebrew_casks[@]}"
+
+  ## Remove outdated Formulae and Casks from the cellar and the caskroom
+  brew cleanup; brew cask cleanup; brew prune
+
+  ## Create a Zsh shell `[⇥]` autocompletion for `brew` symlink
+  ln -s "$(brew --prefix)/Library/Contributions/brew_zsh_completion.zsh" /usr/local/share/zsh/site-functions/_brew
+
+  ## Add Homebrew maintained Bash and Zsh to the system shells list
+  command -v bash | sudo tee -a /etc/shells
+  command -v zsh | sudo tee -a /etc/shells
+fi
+
+##== NPM Packages Setup =======================================================#
+
+## If Node exists...
+if (which node >/dev/null); then
+  ## Ensure NPM is properly installed (globally) and up-to-date
+  npm install npm -g
+
+  ## Install NPM Bash autocompletions
+  npm completion > /usr/local/etc/bash_completion.d/npm
+
+  ## Install Yarn Bash autocompletions
+  # yarn completion > /usr/local/etc/bash_completion.d/yarn
+fi

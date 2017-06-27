@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# suspicious-package
+
+####= SuitAndCape Suspicious Package (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Suspicious Package settings"
+
+## Set the Suspicious Package default export location to $HOME/Documents/
+defaults write com.mothersruin.SuspiciousPackage DefaultExportDirectoryURL -string "${HOME}/Documents/"
+
+## Show update in Suspicious Package window title bar, when available
+defaults write com.mothersruin.SuspiciousPackage HideUpdateNotifications -bool false
+
+## Automatically check for updates
+defaults write com.mothersruin.SuspiciousPackage SUEnableAutomaticChecks -bool true
+
+## Show distribution script after Suspicious Package examination
+defaults write com.mothersruin.SuspiciousPackage ShowDistribution -bool true
+
+## Show component package and bundle info after Suspicious Package examination
+defaults write com.mothersruin.SuspiciousPackage ShowPackageDataInfo -bool true
+
+## Kill Suspicious Package
+appkillinator "Suspicious Package"

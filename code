@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+# code
+
+####= SuitAndCape Code Setup
+##============================================================================##
+
+## Code setup process
+
+echo "Setting up code"
+
+##== Setup Regulations ========================================================#
+
+## Require the administrator password
+sudo -v
+
+## Keep updating `sudo` timestamp until `code` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+##== Code Setup ===============================================================#
+
+## Install Go via Homebrew
+brew install go
+
+## Install jEnv via Homebrew
+brew install jenv
+
+## Install Java 7 via Homebrew Cask
+brew cask install java7
+
+## Install Java 8 via Homebrew Cask
+brew cask install java
+
+## Install Lua via Homebrew Cask
+brew cask install lua
+
+## Install Python 2 via Homebrew
+brew install python
+
+## Install Python 3 via Homebrew
+brew install python3
+
+## If Python 2 exists...
+if (which python > /dev/null); then
+  ## Install PyQt via Homebrew
+  brew install pyqt
+
+  ## Set user permissions for the Python 2.7 software directory
+  sudo chown -R "$USER" /Library/Python/2.7
+
+  ## Update Pip and Setuptools
+  pip install -U pip setuptools
+
+  ## Install Virtualenv (Pip)
+  pip install virtualenv
+fi
+
+## If Python 3 exists...
+if (which python3 > /dev/null); then
+  ## Install Py3Cairo and PyQT via Homebrew
+  brew install py3cairo pyqt
+
+  ## Update Pip3 and Setuptools
+  pip3 install -U pip setuptools
+
+  ## Install Virtualenv (Pip3)
+  pip3 install virtualenv
+fi
+
+## Install chruby via Homebrew
+brew install chruby
+
+## Install ruby-install via Homebrew
+brew install ruby-install
+
+## If ruby-install exists...
+if (which ruby-install > /dev/null); then
+  ## Install Ruby 2.0.0 via ruby-install
+  ruby-install ruby 2.0.0
+
+  ## Install Ruby 2.4.0 via ruby-install
+  ruby-install ruby 2.4.0
+
+  ## Update RubyGems and locally installed Gems
+  gem update --system; gem update
+
+  ## Install Bundler
+  gem install bundler
+
+  ## Remove outdated versions of Gems
+  gem cleanup
+fi

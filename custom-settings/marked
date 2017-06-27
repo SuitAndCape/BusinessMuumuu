@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# marked
+
+####= SuitAndCape Marked 2 (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Marked 2 settings"
+
+## Show word count in Marked 2
+defaults write com.brettterpstra.marked2 showWordCount -bool true
+
+## Kill Marked 2
+appkillinator "Marked"

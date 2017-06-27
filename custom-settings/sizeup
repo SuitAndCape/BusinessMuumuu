@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# sizeup
+
+####= SuitAndCape SizeUp (Mac) Settings
+##============================================================================##
+
+echo "Adjusting SizeUp settings"
+
+## Launch SizeUp at login
+defaults write com.irradiatedsoftware.SizeUp StartAtLogin -bool true
+
+## Do not open the preferences window when launching SizeUp
+defaults write com.irradiatedsoftware.SizeUp ShowPrefsOnNextStart -bool false
+
+## Kill SizeUp
+appkillinator "SizeUp"

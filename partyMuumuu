@@ -1,0 +1,626 @@
+#!/usr/bin/env bash
+# partyMuumuu
+
+####= SuitAndCape Secondary Setup
+##============================================================================##
+
+## Personal setup process
+
+echo "Running partyMuumuu"
+
+##== Setup Regulations ========================================================#
+
+## Use setup helpers for the partyMuumuu custom stage
+source setup-helpers
+
+## Require the administrator password
+sudo -v
+
+## Keep updating `sudo` timestamp until `partyMuumuu` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+## Exit on any failure
+set -e
+
+##== Custom General Settings ==================================================#
+
+echo "Adjusting general settings"
+
+## Reveal the hidden /Volumes/ directory
+sudo chflags nohidden /Volumes
+
+## Reveal the current user's hidden $HOME/Library/ directory
+sudo chflags nohidden "${HOME}"/Library
+
+## Hide the current user's binary ($HOME/bin/) directory
+chflags -h hidden "${HOME}"/bin
+
+## Create a directory for torrents
+mkdir -p "${TORRENTS_DIR}"
+
+## Create a directory for torrent imports
+mkdir -p "${TORRENTS_IMPORT_DIR}"
+
+## Create then hide a directory for incomplete torrent downloads
+mkdir -p "${TORRENTS_INCOMP_DIR}"
+chflags -h hidden "${TORRENTS_INCOMP_DIR}"
+
+##== Custom General Mac Shortcuts =============================================#
+
+echo "Adjusting general Mac shortcuts"
+
+## Use `[⌘]+[']` to show/hide the sidebar in all applications
+defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Hide Sidebar" "${COMMAND_KEY}${APOSTROPHE_KEY}"
+defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Show Sidebar" "${COMMAND_KEY}${APOSTROPHE_KEY}"
+
+## Use `[⌥]+[⌘]+[→]` to select the following tab in all applications
+defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Select Next Tab" "${OPTION_KEY}${COMMAND_KEY}${ARROW_RIGHT_KEY}"
+defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Show Next Tab" "${OPTION_KEY}${COMMAND_KEY}${ARROW_RIGHT_KEY}"
+defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Next Tab" "${OPTION_KEY}${COMMAND_KEY}${ARROW_RIGHT_KEY}"
+
+## Use `[⌥]+[⌘]+[←]` to select the previous tab in all applications
+defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Select Previous Tab" "${OPTION_KEY}${COMMAND_KEY}${ARROW_LEFT_KEY}"
+defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Show Previous Tab" "${OPTION_KEY}${COMMAND_KEY}${ARROW_LEFT_KEY}"
+defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Previous Tab" "${OPTION_KEY}${COMMAND_KEY}${ARROW_LEFT_KEY}"
+
+## Use `[⌘]+[']` to show/hide the groups sidebar in Contacts
+defaults write com.apple.AddressBook NSUserKeyEquivalents -dict-add "Hide Groups" "${COMMAND_KEY}${APOSTROPHE_KEY}"
+defaults write com.apple.AddressBook NSUserKeyEquivalents -dict-add "Show Groups" "${COMMAND_KEY}${APOSTROPHE_KEY}"
+
+## Use `[⇧]+[⌘]+[R]` to restore the window to its default size in Terminal
+defaults write com.apple.Terminal NSUserKeyEquivalents -dict-add "Return to Default Size" "${SHIFT_KEY}${COMMAND_KEY}r"
+
+## Use `[⌘]+[⌦]` to move an item to the Trash in Finder
+defaults write com.apple.finder NSUserKeyEquivalents -dict-add "Move to Trash" "${COMMAND_KEY}${DELETE_FORWARD_KEY}"
+
+## Use `[⌃]+[⌘]+[O]` to show the contents of a package in Finder
+defaults write com.apple.finder NSUserKeyEquivalents -dict-add "Show Package Contents" "${CONTROL_KEY}${COMMAND_KEY}o"
+
+## Use `[⌥]+[A]` to archive messages in Mail
+defaults write com.apple.mail NSUserKeyEquivalents -dict-add "Archive" "${OPTION_KEY}a"
+
+## Use `[⌥]+[M]` to mark messages as read/unread in Mail
+defaults write com.apple.mail NSUserKeyEquivalents -dict-add "As Read" "${OPTION_KEY}m"
+defaults write com.apple.mail NSUserKeyEquivalents -dict-add "As Unread" "${OPTION_KEY}m"
+
+## Use `[⌘]+[⏎]` to send messages in Mail
+defaults write com.apple.mail NSUserKeyEquivalents -dict-add "Send" "${COMMAND_KEY}${RETURN_KEY}"
+
+## Application shortcut sub-menus to add to the Keyboard shortcut menu
+keyboard_hotkey_submenus=(
+  "NSGlobalDomain"
+  "com.apple.AddressBook"
+  "com.apple.finder"
+  "com.apple.mail"
+  "com.apple.Terminal"
+)
+
+## Add application shortcut sub-menus to the Keyboard shortcut menu
+shortcutinator "${keyboard_hotkey_submenus[@]}"
+
+#== Custom Application Symlinks ===================================================#
+
+echo "Adjusting application symbolic links"
+
+## Symlink Xcode iOS Simulator to the /Applications/ directory
+sudo ln -sf /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app /Applications/Simulator.app
+
+## Symlink Xcode Watch Simulator to the /Applications/ directory
+sudo ln -sf /Applications/Xcode.app/Contents/Developer/Applications/Simulator\ \(Watch\).app /Applications/Simulator\ \(Watch\).app
+
+## Symlink Archive Utility to the /Applications/Utilities/ directory
+sudo ln -sf /System/Library/CoreServices/Applications/Archive\ Utility.app /Applications/Utilities/Archive\ Utility.app
+
+## Symlink Directory Utility to the /Applications/Utilities/ directory
+sudo ln -sf /System/Library/CoreServices/Applications/Directory\ Utility.app /Applications/Utilities/Directory\ Utility.app
+
+## Symlink Screen Sharing to the /Applications/Utilities/ directory
+sudo ln -sf /System/Library/CoreServices/Applications/Screen\ Sharing.app /Applications/Utilities/Screen\ Sharing.app
+
+##== Custom Java Versions Setup ===============================================#
+
+## NOTE: Check Java version installed via configure/packages/Brewfile by using
+#the command `brew cask info java`
+## @source http://www.oracle.com/technetwork/java/javase/downloads/index.html
+
+echo "Installing Java 7 via jEnv"
+
+## Add Homebrew Cask maintained Java 7 via jEnv
+jenv add /Library/Java/JavaVirtualMachines/jdk1.7*/Contents/Home/
+
+echo "Installing Java 8 via jEnv"
+
+## Add Homebrew Cask maintained Java 8 via jEnv
+jenv add /Library/Java/JavaVirtualMachines/jdk1.8*/Contents/Home/
+
+## Have jEnv look for all known binaries and create the necessary shims
+jenv rehash
+
+##== Custom Python Pip Packages Setup =========================================#
+
+## Link Python 2 applications
+brew linkapps python
+
+## Link Python 3 applications
+brew linkapps python3
+
+## Pip and Setuptools
+pip_setup=(
+  pip
+  setuptools
+)
+
+## Update Pip and Setuptools
+echo "Updating Pip and setuptools for Python 2"
+pip2 install -U "${pip_setup[@]}"
+
+## Update Pip3 and Setuptools
+echo "Updating Pip3 and setuptools for Python 3"
+pip3 install -U "${pip_setup[@]}"
+
+## Local Pip packages
+pip_packages=(
+  cssselect
+  html5lib
+  ipython
+  lxml
+  matplotlib
+  nltk
+  nose
+  numpy
+  pandas
+  pep8
+  pillow
+  pylint
+  pyquery
+  q
+  scipy
+  simplejson
+  snakeviz
+  sympy
+  virtualenv
+)
+
+## Install local Pip packages
+echo "Installing local Pip packages"
+pip2 install "${pip_packages[@]}"
+
+## Install local Pip3 packages
+echo "Installing local Pip3 packages"
+pip3 install "${pip_packages[@]}"
+
+## Local Python framework packages
+python_framework_packages=(
+  Django
+  Flask
+)
+
+## Install local Python framework Pip packages`
+# echo "Installing local Django packages for Python 2"
+# pip2 install "${python_framework_packages[@]}"
+
+## Install local Python framework Pip3 packages
+# echo "Installing local Django packages for Python 3"
+# pip3 install "${python_framework_packages[@]}"
+
+##== Custom Ruby Gems Setup ===================================================#
+
+## Select Ruby version 2.4.0 via chruby
+chruby ruby-2.4.0
+
+## Update RubyGems and locally installed Gems
+gem update --system; gem update
+
+## Local Ruby Gems
+ruby_gems=(
+  awesome_print
+  bundler
+  cocoapods
+  github
+  hirb
+  # jekyll
+  pry
+  pry-doc
+  rspec
+  rubocop
+  sass
+  scss_lint
+  sqlint
+)
+
+## Install local Ruby Gems
+echo "Installing local Ruby Gems"
+gem install "${ruby_gems[@]}"
+
+## Local Ruby framework Gems
+ruby_framework_gems=(
+  rails
+  rails-api
+  sinatra
+  foreman
+  mongo
+  mysql2
+  pg
+  sqlite3
+)
+
+## Install local Ruby framework Gems
+# echo "Installing local Ruby framework Gems"
+# gem install "${ruby_framework_gems[@]}"
+
+##== Custom NPM and Yarn Setup ================================================#
+
+## Global NPM and/or Yarn packages
+global_packages=(
+  @angular/cli
+  clean-css
+  clean-css-cli
+  coffee-script
+  cordova
+  csslint
+  # eslint
+  firebase-tools
+  grunt-cli
+  gulp-cli
+  gulp
+  html-minifier
+  http-server
+  ionic
+  js-beautify
+  jshint
+  jspm
+  minjson
+  svgo
+  tslint
+  typescript
+  uglify-js
+  uglifycss
+  uncss
+)
+
+## Menu-select style global NPM and/or Yarn package installation process
+echo -e "Would you like to install global packages via NPM, Yarn, or both?"
+echo -e "\t- NPM [N/n]"
+echo -e "\t- Yarn (recommended) [Y/y]"
+echo -e "\t- Both NPM and Yarn (not recommended) [B/b]"
+while true; do
+  read -r user_selection
+  case $user_selection in
+    N|n)
+      ## Install global NPM packages
+      echo "Installing global NPM packages"
+      npm install -g "${global_packages[@]}" ; break ;;
+    Y|y)
+      ## Install global Yarn packages
+      echo "Installing global Yarn packages"
+      yarn global add "${global_packages[@]}" ; break ;;
+    B|b)
+      ## Install global NPM and Yarn packages
+      echo "Installing global NPM packages"
+      npm install -g "${global_packages[@]}"
+      echo "Installing global Yarn packages"
+      yarn global add "${global_packages[@]}" ; break ;;
+    *)
+      echo "Invalid option, please try again" ;;
+  esac
+done
+
+##== Custom Homebrew Formulae Setup ===========================================#
+
+## Additional Homebrew Formulae
+additional_formulae=(
+  ## Additional standard Formulae
+  gifsicle
+  heroku
+  libav
+  lynx
+  pandoc
+  pv
+  rename
+  shellcheck
+  sqlmap
+  tidy-html5
+
+  ## Additional completion Formulae
+  bundler-completion
+  django-completion
+  docker-completion
+  gem-completion
+  pip-completion
+  rails-completion
+  rake-completion
+  ruby-completion
+
+  ## Additional tapped dupes Formulae
+  homebrew/dupes/grep
+  homebrew/dupes/nano
+
+  ## Additional tapped science Formulae
+  homebrew/science/suite-sparse
+
+  ## Additional tapped TeX Formulae
+  homebrew/tex/chktex
+)
+
+## Install additional Homebrew Formulae
+echo "Installing additional Homebrew Formulae"
+brew install "${additional_formulae[@]}"
+
+## Install additional standard Homebrew Formulae with options
+brew install ffmpeg --with-fdk-aac --with-libvpx --with-webp --with-x265
+
+##== Custom Application Setup =================================================#
+
+## Additional Homebrew Casks
+additional_casks=(
+  ## General Casks
+  alfred                                ### £35.00 ### <-add-on (Powerpack)
+  dropbox
+  gpgtools
+  jumpcut
+  # sizeup       ## VS. 'spectacle' ##    ### $12.99 ###
+  spectacle    ## VS. 'sizeup' ##
+
+  ## Browser Casks
+  chromium
+  firefox
+  firefoxdeveloperedition
+  google-chrome
+  google-chrome-canary
+  opera
+  opera-developer
+  opera-neon
+  vivaldi
+
+  ## Chat Casks
+  hipchat
+  skype
+  slack
+
+  ## Database Casks
+  docker
+  mysqlworkbench
+
+  ## Designer Casks
+  # colorsnapper ## VS. 'couleurs' ##     ### $08.99 ###
+  couleurs     ## VS. 'colorsnapper' ##
+  glueprint
+  imageoptim
+  # sketch                                ### $99.00 ###
+
+  ## Developer Casks
+  # atom         ## VS. 'sublime-text' ##
+  # cactus
+  dash                                  ### $24.99 ### <-optional
+  iterm2
+  # kaleidoscope                          ### $69.99 ###
+  mactex
+  sourcetree   ## VS. 'tower' ##
+  sublime-text ## VS. 'atom' ##         ### $70.00 ### <-optional
+  # tower        ## VS. 'sourcetree' ##   ### $69.00 ###
+
+  ## Display Casks
+  # flux         ## "Automatically adjust brightness" causes f.lux to flicker
+  ios-saver
+
+  ## File transfer Casks
+  filezilla    ## VS. 'transmit' ##
+  transmission
+  # transmit     ## VS. 'filezilla' ##    ### $69.00 ###
+
+  ## Media player Casks
+  vlc
+
+  ## Personal productivity Casks
+  # marked                                ### $09.99 ###
+  openoffice
+  # screenflow                            ### $99.00 ###
+  skim
+  # things                                ### $49.99 ###
+
+  ## Quicklook plugin Casks
+  qlcolorcode
+  suspicious-package
+)
+
+## Install additional Homebrew Casks
+echo "Installing additional Casks (Homebrew maintained applications)"
+brew cask install --force "${additional_casks[@]}"
+
+## Run additional Homebrew Cask settings configuration files
+sourceinator additional_casks[@] "custom-settings/"
+
+##== Custom Database Setup ====================================================#
+
+## Install SQLite3 via Homebrew
+echo "Installing SQLite3"
+brew install sqlite3
+## Override the system copy of SQLite
+brew link --force sqlite3
+
+## Install MySQL via Homebrew
+echo "Installing MySQL"
+brew install mysql
+## Symlink the MySQL property list file to run MySQL on startup
+ln -sfv /usr/local/opt/mysql/*.plist "${HOME}"/Library/LaunchAgents
+## Unload the MySQL property list file, in case it has errored
+launchctl unload "${HOME}"/Library/LaunchAgents/homebrew.mxcl.mysql.plist; sleep 2
+## Reload the MySQL property list file
+launchctl load "${HOME}"/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+
+## Remove previously existing PostgreSQL directory
+echo "Installing PostgreSQL"
+## **** Remove current PostgreSQL database, in case of directory corruption ****
+# rm -rf /usr/local/var/postgres/
+## **** Set user permissions for /use/local/ once again, because PostgreSQL ****
+# sudo chown -R $USER /usr/local
+## Install PostgreSQL via Homebrew
+brew install postgresql
+## **** Create a new PostgreSQL database cluster, with an encoding of UTF-8 ****
+# rm -rf /usr/local/var/postgres/
+# initdb /usr/local/var/postgres -E utf8
+## Symlink the PostgreSQL property list file to run PostgreSQL on startup
+ln -sfv /usr/local/opt/postgresql/*.plist "${HOME}"/Library/LaunchAgents
+## Unload the PostgreSQL property list file, in case it has errored
+launchctl unload "${HOME}"/Library/LaunchAgents/homebrew.mxcl.postgresql.plist; sleep 2
+## Reload the PostgreSQL property list file
+launchctl load "${HOME}"/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+
+## Install MongoDB via Homebrew
+echo "Installing MongoDB"
+brew install mongodb
+## Create the MongoDB data database directory
+sudo mkdir -p /data/db
+## Set user permissions for the /data directory
+sudo chown -R "${USER}" /data/
+## Ensure the MongoDB database directory is readable and writable
+sudo chmod 777 /data/db
+## Symlink the MongoDB property list file to run MongoDB on startup
+ln -sfv /usr/local/opt/mongodb/*.plist "${HOME}"/Library/LaunchAgents
+## Unload the MongoDB property list file, in case it has errored
+launchctl unload "${HOME}"/Library/LaunchAgents/homebrew.mxcl.mongodb.plist; sleep 2
+## Reload the MongoDB property list file
+launchctl load "${HOME}"/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
+
+## Display status of Homebrew services, including databases
+echo "Listing status of all Homebrew services"
+brew services list
+
+##== Copy Custom Resources ====================================================#
+
+## Copy over custom dotfiles
+rsync -av --exclude=".DS_Store" ./custom-copy/dots/ "${HOME}"
+
+## Copy over custom files
+cp custom-copy/files/Application-Goals.md "${HOME}"/Code/Application-Goals.md
+
+## Copy over custom directories
+cp -r custom-copy/directories/AndTheTemplateOfDoom "${HOME}"/Code/AndTheTemplateOfDoom
+cp -r custom-copy/directories/Mac-Directory-Icons "${HOME}"/Design/Mac-Directory-Icons
+
+##== Shell Selection ==========================================================#
+
+## Menu-select style shell selector
+echo -e "Select a default shell:"
+echo -e "\tUse Bash as the default shell [B/b]"
+echo -e "\tUse Zsh as the default shell [Z/z]"
+while true; do
+  read shell_selection
+  case $shell_selection in
+    B|b)
+      ## Set shell to Bash
+      bashinator ; echo "The default shell is now Bash" ; break ;;
+    Z|z)
+      ## Set shell to Zsh
+      zshinator ; echo "The default shell is now Zsh" ; break ;;
+    *)
+      echo "Invalid option, please try again" ;;
+  esac
+done
+
+##== Speech Setup =============================================================#
+
+## Menu-select style Siri selector
+echo -e "Select Siri's voice:"
+echo -e "\tUse Siri's current voice [C/c]"
+echo -e "\tUse Siri's Austrailian voice [A/a]"
+echo -e "\tUse Siri's Irish voice [I/i]"
+while true; do
+  read siri_selection
+  case $siri_selection in
+    C|c)
+      ## Do not change Siri's voice
+      echo "Siri's current voice will not change" ; break ;;
+    A|a)
+      ## Select Siri's Australian voice
+      defaults write com.apple.assistant.backedup "Output Voice" -dict \
+        Custom -bool true \
+        Footprint -int 0 \
+        Gender -int 2 \
+        Language -string "en-AU" ; echo "Siri is now Australian" ; break ;;
+    I|i)
+      ## Select Siri's Irish voice
+      defaults write com.apple.assistant.backedup "Output Voice" -dict \
+        Custom -bool false \
+        Footprint -int 0 \
+        Gender -int 2 \
+        Language -string "en-IE" ; echo "Siri is now Irish" ; break ;;
+    *)
+      echo "Invalid option, please try again" ;;
+  esac
+done
+
+## Menu-select style System Voice selector
+## NOTE: Install English System Voices Karen and Moira first
+## @location System Preferences > Accessibility > Speech
+echo -e "Select System Voice:"
+echo -e "    NOTE: English System Voices \"Karen\" (Australia) and \"Moira\" (Ireland) may not be installed by default"
+echo -e "\tUse current System Voice [C/c]"
+echo -e "\tUse \"Karen\" (Australia) System Voice [A/a]"
+echo -e "\tUse \"Moira\" (Ireland) System Voice [I/i]"
+while true; do
+  read system_voice_selection
+  case $system_voice_selection in
+    C|c)
+      ## Do not change System Voice
+      echo "Current System Voice will not change" ; break ;;
+    A|a)
+      ## Select "Karen" (Australia) System Voice
+      defaults write com.apple.speech.voice.prefs SelectedVoiceCreator -int 1886745202 ; defaults write com.apple.speech.voice.prefs SelectedVoiceID -int 100827421 ; defaults write com.apple.speech.voice.prefs SelectedVoiceName -string "Karen" ; echo "\"Karen\" is now the System Voice" ; break ;;
+    I|i)
+      ## Select "Moira" (Ireland) System Voice
+      defaults write com.apple.speech.voice.prefs SelectedVoiceCreator -int 1886745202 ; defaults write com.apple.speech.voice.prefs SelectedVoiceID -int 117644429 ; defaults write com.apple.speech.voice.prefs SelectedVoiceName -string "Moira" ; echo "\"Moira\" is now the System Voice" ; break ;;
+    *)
+      echo "Invalid option, please try again" ;;
+  esac
+done
+
+## Make System Voices Karen and Moira speak Semi-Fast (range: 90=Slow–350=Fast)
+$PLISTBUDDY -x \
+  -c "Delete :VoiceRateDataArray" \
+  -c "Add :VoiceRateDataArray array" \
+  -c "Add :VoiceRateDataArray:0 array" \
+  -c "Add :VoiceRateDataArray:0:0 integer 1886745202" \
+  -c "Add :VoiceRateDataArray:0:1 integer 100827421" \
+  -c "Add :VoiceRateDataArray:0:2 integer 230" \
+  -c "Add :VoiceRateDataArray:1 array" \
+  -c "Add :VoiceRateDataArray:1:0 integer 1886745202" \
+  -c "Add :VoiceRateDataArray:1:1 integer 117644429" \
+  -c "Add :VoiceRateDataArray:1:2 integer 230" \
+  "${HOME}"/Library/Preferences/com.apple.speech.voice.prefs.plist
+
+##== Clean Up and Reset =======================================================#
+
+echo "Initiating clean up and resets"
+
+## Remove outdated Formulae and casks from the cellar and the caskroom
+brew cleanup; brew cask cleanup
+
+## Remove data from the NPM cache folder
+npm cache clean
+
+## Remove data from the Yarn cache folder
+yarn cache clean
+
+## Remove outdated versions of Gems
+gem cleanup
+
+## Reset Quick Look server and Quick Look generator cache
+qlmanage -r
+
+## Kill the dock
+appkillinator -HUP "Dock"
+
+## General applications to kill
+general_apps_to_kill=(
+  "Finder"
+  "SystemUIServer"
+  "cfprefsd"
+)
+
+## Kill general application list
+appkillinator "${general_apps_to_kill[@]}"
+
+##== Notifications ============================================================#
+
+echo "NOTE: To select the version of Java to use via jEnv, use the command \`jenv versions\`, identify the version of choice, and select the version with a command similar to \`jenv global oracle64-1.8.0.121\`"

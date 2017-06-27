@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# openoffice
+
+####= SuitAndCape OpenOffice (Mac) Settings
+##============================================================================##
+
+echo "Adjusting OpenOffice settings"
+
+## Expand OpenOffice's print dialog box by default
+defaults write org.openoffice.script PMPrintingExpandedStateForPrint2 -bool true
+
+## Kill OpenOffice
+appkillinator "OpenOffice"

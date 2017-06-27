@@ -8,252 +8,422 @@
 
 ##== Transformed Aliases ======================================================#
 
-## Force `bc` to start with the standard math library support (`l`)
+## Force `bc` to start with the standard math library support
 alias bc="bc -l"
-## Force `cp` to prompt before overwriting an existing file (`i`), and
-#recursively copy files into existing folders and create new folders when the
-#destination folder is missing (`r`)
-alias cp="cp -ri"
-## Force `df` to output in a human readable format (`h`)
+## Force `cp` to prompt before overwriting files and recursively copy paths
+alias cp="cp -ir"
+## Force `df` to output in a human readable format
 alias df="df -h"
-## Force `du` to output a grand total (`c`) in a human readable format (`h`)
+## Force `du` to output a grand total in a human readable format
 alias du="du -ch"
-## Force `egrep`, fgrep`, `grep`, `zegrep`, `zfgrep`, and `zgrep` to output in
-#color unless the output is piped or redirected to a file (`--color=auto`)
+## Force `grep`s to output in color unless the output is piped or redirected
 alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
 alias grep="grep --color=auto"
 alias zegrep="zegrep --color=auto"
 alias zfgrep="zfgrep --color=auto"
 alias zgrep="zgrep --color=auto"
-## Force `less` to exit if the entire file can be displayed at once (`F`),
-#prompt more verbosely than `more` (`M`), display ANSI color escape sequence
-#raw control characters (`R`), and mute the bell (`q`)
+## Force `free` to output the memory free in megabytes along with the totals
+alias free="free -mt"
+## Force `less` to be verbose, colorful, quiet, and exit for fully printed files
 alias less="less -FMRq"
-## Force `ln` to output unedited non-graphic characters (`v`)
-alias ln="ln -v"
-## Force `ls` to output the listing with human readable file sizes (`h`) and in
-#color (`${COLORFLAG}`)
+## Force `ln` to prompt before unlinking files and output non-graphic characters
+alias ln="ln -iv"
+## Force `ls` to output the listing with human readable file sizes and in color
 alias ls="ls -h ${COLORFLAG}"
-## Force `mkdir` to make any necessary parent directories (`p`) and output all
-#of the directories created (`v`)
+## Force `mkdir` to make necessary parent directories and output them
 alias mkdir="mkdir -pv"
-## Force `mount` to output in a pretty, human readable format (`| column -t`)
+## Force `mount` to output in a columated table format
 alias mount="mount | column -t"
-## Force `mv` to prompt before overwriting an existing file (`i`)
+## Force `mv` to prompt before overwriting an existing file
 alias mv="mv -i"
-## Force `nano` to convert typed tabs to spaces (`E`), show the cursor
-#location (`c`), and autoindent to match the previous line (`i`)
-alias nano="nano -Eci"
-## Force `rm` to prompt before erasing file (`i`)
+## Force `nano` to show the cursor, autoindent, and disable long line wrapping
+alias nano="nano -ciw"
+## Force `rm` to prompt before erasing file
 alias rm="rm -i"
-## Force `sudo` to use alias expansion (` `) it can work with aliases
+## Force `sudo` to use alias expansion, so it can work with aliases
 alias sudo="sudo "
-## Force `tmux` to use two hundred fifty six colors (`2`) and enable UTF-8 (`u`)
+## Force `tmux` to use two hundred fifty six colors and enable UTF-8
 alias tmux="tmux -2u"
 
 ##== Variant Aliases ==========================================================#
 
-## `clr` – Variant of `clear`; clear the terminal emulator screen
+## `clear` variant; clear the terminal emulator screen
 alias clr="clear"
-## `e` – Open (with) the primary editor (`${OPEN_EDITOR}`)
-alias e="${OPEN_EDITOR}"
-## `egrepc`, fgrepc`, or `grepc` – Variants of `egrep`, `fgrep`, `grep`,
-#`zegrep`, `zfgrep`, and `zgrep`; always output in color (`--color=always`)
+## `$EDITOR` variant; open (with) the default editor
+alias e="$EDITOR"
+## `grep` variants; always output in color
 alias egrepc="egrep --color=always"
 alias fgrepc="fgrep --color=always"
 alias grepc="grep --color=always"
 alias zegrepc="zegrep --color=always"
 alias zfgrepc="zfgrep --color=always"
 alias zgrepc="zgrep --color=always"
-## `gurl` – Variant of `curl`; enable gzip (`--compressed`) for `curl`
+## `curl` variant; request a compressed response and save the expanded document
+## NOTE: With Gzip configured, it is an accepted response header encoding format
 alias gurl="curl --compressed"
-## `ping!` – Variant of `ping`; send ICMP ECHO_REQUEST packets to network
-#hosts until five ECHO_RESPONSE packets are received (`c 5`)
-alias ping!="ping -c 5"
-## `psaux` – Variant of `ps aux | grep`; search files for the occurrence of a
-#string of characters that matches a specified pattern (`| grep`) and output the
-#active processes info (`ps`) showing processes of all users (`a`), each
-#process's user/owner (`u`), and processes not attached to a terminal (`x`)
+## `curl` variant; fetch the HTTP-headers from all requested pages
+alias headurl="curl -sIL"
+## `history` variant; output the recent command line history
+alias hist="history"
+## `history` variant; pattern search the recent command line history
+alias histg="history | grep"
+## `ping` variant; send ECHO_REQUESTs until five ECHO_RESPONSEs are received
+alias ping.="ping -c 5"
+## `ps` variant; pattern search files for and output various process information
 alias psaux="ps aux | grep"
-## `v` – Variant of `vim`; launch Vim
-alias v="vim"
+## `$VISUAL` variant; open (with) the visual editor
+alias v="$VISUAL"
 
 ##== Change Directory Aliases =================================================#
 
-## `cd-` – Change to the previous working directory
+## Change to the previous working directory
 ## (also see function: `-`)
 alias cd-="cd -"
-## `cd~` or `~` – Change to the $HOME/ directory
+## Change to the $HOME/ directory
 alias cd~="cd ~"
 alias ~="cd ~"
-## `..`, `...`, `....`, `.....`, or `......` – Go up one to five directories
+## Change the current working directory by one to five level(s) up
 ## (also see function: `up`)
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ......="cd ../../../../.."
-## `apps` – Change to the Applications/ directory
+## Change to the Applications/ directory
 alias apps="cd ~/Applications"
-## `code` – Change to the Code/ directory
+## Change to the Code/ directory
 alias code="cd ~/Code"
-## `desi` – Change to the Design/ directory
+## Change to the Design/ directory
 alias desi="cd ~/Design"
-## `desk` – Change to the Desktop/ directory
+## Change to the Desktop/ directory
 alias desk="cd ~/Desktop"
-## `docs` – Change to the Documents/ directory
+## Change to the Documents/ directory
 alias docs="cd ~/Documents"
-## `down` – Change to the Downloads/ directory
+## Change to the Downloads/ directory
 alias down="cd ~/Downloads"
-## `drop` – Change to the Dropbox/ directory
+## Change to the Dropbox/ directory
 alias drop="cd ~/Dropbox"
-## `movi` – Change to the Movies/ directory
+## Change to the Movies/ directory
 alias movi="cd ~/Movies"
-## `musi` – Change to the Music/ directory
+## Change to the Music/ directory
 alias musi="cd ~/Music"
-## `pics` – Change to the Pictures/ directory
+## Change to the Pictures/ directory
 alias pics="cd ~/Pictures"
-## `proj` – Change to the Projects/ directory
+## Change to the Projects/ directory
 alias proj="cd ~/Projects"
+## Change to the Sites/ directory
+alias site="cd ~/Sites"
 
 ##== List Contents Aliases ====================================================#
 
-## `hella` – Output the listing in long format (`l`) displaying the following:
-#annotated file types (`F`), hidden files (`a`), non-printable characters (`b`),
-#the number of file system blocks actually used by each file in units of 512
-#bytes (`s`), and complete time information (`${TIMEFLAG}`)
+## Long listing with hella information
 alias hella="ls -lFabs ${TIMEFLAG}"
-## `l.` – Output only hidden items, listed in long format (`l`)
+## Long listing of hidden files only
 alias l.="find . \( -flags +hidden -or -name \".*\" \) -maxdepth 1 | sed \"s/^\.\/*//\" | xargs ls -lFadh ${COLORFLAG}"
-## `ld` – Output only directories (`d */`), listed in long format (`l`)
+## Long listing of directories only
 alias ld="ls -ld */"
-## `ll` – Output the listing in long format (`l`), annotate file types (`F`),
-#and include hidden files (`a`)
+## Long listing with annotated file types and hidden files
 alias ll="ls -lFa"
-## `lo` – Output the listing in long format (`l`), annotate file types (`F`),
-#and include hidden files (`a`) and permissions converted to octals (`sed …`)
+## Long listing with annotated file types, hidden files, and octal permissions
 alias lo="ls -lFa | sed -e \"s/--x/1/g\" -e \"s/-w-/2/g\" -e \"s/-wx/3/g\" -e \"s/r--/4/g\" -e \"s/r-x/5/g\" -e \"s/rw-/6/g\" -e \"s/rwx/7/g\" -e \"s/---/0/g\""
-## `t100` – Output the last one hundred lines (`n 100`) of the input
+## Output the last one hundred lines of each input file
 alias t100="tail -n 100"
-## `t200` – Output the last two hundred lines (`n 200`) of the input
+## Output the last two hundred lines of each input file
 alias t200="tail -n 200"
-## `t500` – Output the last five hundred lines (`n 500`) of the input
+## Output the last five hundred lines of each input file
 alias t500="tail -n 500"
-## `t1000` – Output the last one thousand lines (`n 1000`) of the input
+## Output the last one thousand lines of each input file
 alias t1000="tail -n 1000"
-## `t2000` – Output the last two thousand lines (`n 2000`) of the input
+## Output the last two thousand lines of each input file
 alias t2000="tail -n 2000"
-## `t5000` – Output the last five thousand lines (`n 5000`) of the input
+## Output the last five thousand lines of each input file
 alias t5000="tail -n 5000"
 
-##== Display Aliases ==========================================================#
+##== System Aliases ===========================================================#
 
-if OS_OSX; then
+## Output all active network interfaces
+alias actif="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
+## Output the IP address information about all interfaces in the system
+alias everyip="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+## Output the IP address of the network service associated with the interface
+alias localip="ipconfig getifaddr en0"
+## Acquire and output the device's IP address from http://ipecho.net/
+alias myip="curl http://ipecho.net/plain; echo"
+## Output the date and time as `YYYY-MM-DD WEEKDAY HH-MM-SS TIMEZONE`
+alias now="date +\"%Y-%m-%d %a %T %Z\""
+## Pretty print Path
+alias path="echo ${PATH} | tr -s \":\" \"\n\""
+## Reload the shell (invoke as a login shell)
+alias resh="exec ${SHELL} -l"
+## Clear the terminal screen and reload the shell (invoke as a login shell)
+alias rete="clear; exec ${SHELL} -l"
+## Converts URL strings into a human readable format
+## @source http://unix.stackexchange.com/a/159254/165656
+alias urldecode="python -c \"import sys, urllib as ul; print ul.unquote_plus(sys.argv[1])\""
+## Converts strings into a valid URL format, using the ASCII character-set
+## @source http://unix.stackexchange.com/a/159254/165656
+alias urlencode="python -c \"import sys, urllib as ul; print ul.quote_plus(sys.argv[1])\""
 
-  ## `afk` – Activate the screen saver
-  alias afk="${OPEN_APP} ScreenSaverEngine"
-  ## `hide` – Conceal hidden files
+if OS_MAC; then
+
+  ##== Mac Variant Aliases ==================================================#
+
+  ## `open` variant; open input or URL
+  alias o="open"
+  ## `open` variant; open (with) the specified application
+  alias open-a="open -a"
+
+  ##== Mac Display Aliases ==================================================#
+
+  ## Start screen saver
+  alias afk="open-a ScreenSaverEngine"
+  ## Put display to sleep
+  alias dream="pmset displaysleepnow"
+  ## Conceal hidden files
   alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder; echo \"Hidden files concealed\""
-  ## `hidedesk` – Conceal desktop files
+  ## Conceal desktop files
   alias hidedesk="defaults write com.apple.finder CreateDesktop -bool false && killall Finder; echo \"Desktop files concealed\""
-  ## `lock` – Lock the screen
+  ## Lock the screen
   alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
-  ## `show` – Reveal hidden files
+  ## Reveal hidden files
   alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder; echo \"Hidden files revealed\""
-  ## `showdesk` – Reveal desktop files
+  ## Reveal desktop files
   alias showdesk="defaults write com.apple.finder CreateDesktop -bool true && killall Finder; echo \"Desktop files revealed\""
 
-# elif OS_LINUX; then
+  ##== Mac Audio Aliases ====================================================#
 
-  ## `afk` – Activate the screen saver
-  # alias afk=""
-  ## `hide` – Conceal hidden files
-  # alias hide=""
-  ## `hidedesk` – Conceal desktop files
-  # alias hidedesk=""
-  ## `lock` – Lock the screen
-  # alias lock=""
-  ## `show` – Reveal hidden files
-  # alias show=""
-  ## `showdesk` – Reveal desktop files
-  # alias showdesk=""
-
-fi
-
-##== Audio Aliases ============================================================#
-
-if OS_OSX; then
-
-  ## `calm` – Turn the volume low
-  alias calm="osascript -e \"set volume 1\"; echo \"Volume: min\""
-  ## `chill` – Turn the volume halfway up
-  alias chill="osascript -e \"set volume 4\"; echo \"Volume: mid\""
-  ## `party` – Turn the volume all the way up
-  alias party="osascript -e \"set volume 7\"; echo \"Volume: max\""
-  ## `saywhat` – Restore the volume
+  ## Turn the volume low
+  alias calm="osascript -e \"set volume output volume 1\"; echo \"Volume: min\""
+  ## Turn the volume halfway up
+  alias chill="osascript -e \"set volume output volume 50\"; echo \"Volume: mid\""
+  ## Turn the volume all the way up
+  alias overload="osascript -e \"set volume output volume 100\"; echo \"Volume: max\""
+  ## Restore the volume
   alias saywhat="osascript -e \"set volume output muted false\"; echo \"Sound restored\""
-  ## `shush` – Mute the volume
+  ## Mute the volume
   alias shush="osascript -e \"set volume output muted true\"; echo \"Sound muted\""
 
-# elif OS_LINUX; then
+  ##== Mac Application Aliases ==============================================#
 
-  ## `calm` – Turn the volume low
-  # alias calm=""
-  ## `chill` – Turn the volume halfway up
-  # alias chill=""
-  ## `party` – Turn the volume all the way up
-  # alias party=""
-  ## `saywhat` – Restore the volume
-  # alias saywhat=""
-  ## `shush` – Mute the volume
-  # alias shush=""
-
-fi
-
-##== Application and System Aliases ===========================================#
-
-## `cobang` – Open the Code/, Design/, Documents/, Dropbox/, and Projects/
-#directories in the primary editor
-alias cobang="e ~/Code ~/Design ~/Documents ~/Dropbox ~/Projects"
-## `codeit` – Open the Code/ directory in the primary editor
-alias codeit="e ~/Code"
-## `codocs` – Open the Code/ and Documents/ directories in the primary editor
-alias codocs="e ~/Code ~/Documents"
-## `cosign` – Open the Code/ and Design/ directories in the primary editor
-alias cosign="e ~/Code ~/Design"
-## `codrop` – Open the Code/ and Dropbox/ directories in the primary editor
-alias codrop="e ~/Code ~/Dropbox"
-## `coproj` – Open the Code/ and Projects/ directories in the primary editor
-alias coproj="e ~/Code ~/Projects"
-## `now` – Output the date (`date`) as the year-month-day (`%Y-%m-%d`), day of
-#the week (`%a`), time (`%T`), and time zone (`%Z`)
-alias now="date +\"%Y-%m-%d %a %T %Z\""
-## `path` – Pretty print Path
-alias path="echo ${PATH} | tr -s \":\" \"\n\""
-## `resh` – Reload the current shell (invoke as a login shell)
-alias resh="exec ${SHELL} -l"
-## `rete` – Clear the terminal emulator screen and reload the current shell
-#(invoke as a login shell)
-alias rete="clear; exec ${SHELL} -l"
-
-if OS_OSX; then
-
-  ## `battery` – Output OS X battery info
+  ## Airport CLI for configuring and troubleshooting the device's Wi-Fi hardware
+  ## @source http://apple.stackexchange.com/a/130924
+  alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
+  ## Output Mac battery info
   ## @source http://blog.justingreer.com/post/45839440/a-tale-of-two-batteries
   alias battery="ioreg -w0 -l | grep Capacity | cut -d \" \" -f 17-50"
-  ## `osup` – Install available OS X updates (`ia`) and output verbosely (`v`)
+  ## Install available Mac updates and output verbosely
   alias osup="sudo softwareupdate -iav"
-  ## `spotoff` – Disable Spotlight
+  ## Disable Spotlight
   alias spotoff="sudo mdutil -a -i off; echo \"Spotlight disabled\""
-  ## `spoton` – Enable Spotlight
+  ## Enable Spotlight
   alias spoton="sudo mdutil -a -i on; echo \"Spotlight enabled\""
+  ## Open Xcode iOS Simulator
+  alias xios="open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app"
+  ## Open Xcode Watch Simulator
+  alias xwatch="open /Applications/Xcode.app/Contents/Developer/Applications/Simulator\ \(Watch\).app"
 
-# elif OS_LINUX; then
+elif OS_LINUX; then
 
-  ## `battery` – Output Linux battery info
-  # alias battery=""
-  ## `osup` – Install available Linux updates
-  # alias osup=""
+  ##== Linux Variant Aliases ================================================#
+
+  ## `xdg-open` variants; open input or URL
+  alias o="xdg-open"
+  alias open="xdg-open"
+  ## `xdg-open` variant; open (with) the specified application
+  alias open-a="xdg-open"
+
+  ##== Linux Display Aliases ================================================#
+
+  ## Start screen saver
+  alias afk="xscreensaver-command -activate"
 
 fi
+
+##== Editor Aliases ===========================================================#
+
+if EDIT_SUBL || EDIT_ATOM; then
+
+  ## Open the work directories in the primary editor
+  alias cobang="e ~/Code ~/Design ~/Documents ~/Dropbox ~/Projects ~/Sites"
+  ## Open the Code/ directory in the primary editor
+  alias codeit="e ~/Code"
+  ## Open the Code/ and Design/ directories in the primary editor
+  alias codesi="e ~/Code ~/Design"
+  ## Open the Code/ and Documents/ directories in the primary editor
+  alias codocs="e ~/Code ~/Documents"
+  ## Open the Code/ and Dropbox/ directories in the primary editor
+  alias codrop="e ~/Code ~/Dropbox"
+  ## Open the Code/ and Projects/ directories in the primary editor
+  alias coproj="e ~/Code ~/Projects"
+  ## Open the Code/ and Sites/ directories in the primary editor
+  alias cosite="e ~/Code ~/Sites"
+  ## Open the work directories, excluding Dropbox/, in the primary editor
+  alias cowork="e ~/Code ~/Design ~/Documents ~/Projects ~/Sites"
+
+fi
+
+##== Package Manager Aliases ==================================================#
+
+if USE_BREW; then
+
+  ##== Homebrew Aliases =====================================================#
+
+  ## Remove outdated and replaced Homebrew Formulae and Casks
+  alias brewclean="echo \"Cleaning Homebrew's Cellar and Caskroom\" && brew cleanup; brew cask cleanup; echo"
+  ## Run Homebrew self-diagnostic
+  alias brewdr="echo \"Brew Doctor diagnoses\" && brew doctor; echo"
+  alias drbrew="echo \"Brew Doctor diagnoses\" && brew doctor; echo"
+  ## Output all Homebrew Formulae and Casks
+  alias brews="echo \"Current environment's Homebrew Formulae\" && brew ls; echo; echo \"Current environment's Homebrew Casks\" && brew cask ls; echo"
+  ## Output all Homebrew Casks
+  alias brewsc="echo \"Current environment's Homebrew Casks\" && brew cask ls; echo"
+  alias casks="echo \"Current environment's Homebrew Casks\" && brew cask ls; echo"
+  ## Output all Homebrew Formulae
+  alias brewsf="echo \"Current environment's Homebrew Formulae\" && brew ls; echo"
+  alias formulae="echo \"Current environment's Homebrew Formulae\" && brew ls; echo"
+  ## Update all outdated Homebrew Formulae and Casks, and upgrade all Formulae
+  alias brewup="echo \"Updating current environment's Homebrew Formulae and Casks, and upgrading all Formulae\" && brew update && brew upgrade; echo"
+  ## Homebrew's external `cask` command
+  alias cask="brew cask"
+  ## Output all outdated Homebrew Casks (run after `brewup`)
+  alias caskout="echo \"Outdated Homebrew Casks in current environment\" && brew cask outdated; echo"
+  ## Upgrade all outdated Casks (run after `brewup`)
+  alias caskup="echo \"Upgrading current environment's Homebrew Casks\" && brew cask upgrade; echo"
+
+fi
+
+if USE_BUNDLER; then
+
+  ##== Bundler Aliases ======================================================#
+
+  ## Run a Gem executable within the context of the Bundle
+  alias be="bundle exec"
+  ## Run the Rails executable within the context of the Bundle
+  alias brails="bundle exec rails"
+  ## Run the Rails console within the context of the Bundle
+  alias brailscon="bundle exec rails console"
+  ## Run the Rails dbconsole within the context of the Bundle
+  alias brailsdbc="bundle exec rails dbconsole"
+  ## Run the Rails generator within the context of the Bundle
+  alias brailsgen="bundle exec rails generate"
+  ## Run the Rails server within the context of the Bundle
+  alias brailsser="bundle exec rails server"
+  ## Run a Rake executable within the context of the Bundle
+  alias brake="bundle exec rake"
+  ## Run an RSpec executable within the context of the Bundle
+  alias brspec="bundle exec rspec"
+  ## Update or install all Gems dependencies within the Gemfile
+  alias bundlein="echo \"Updating/installing the current Bundle's Gem dependencies\" && bundle install; echo"
+  ## Output all Gems installed within the context of the Bundle
+  alias bundles="echo \"Current Bundle's Gems\" && bundle list; echo"
+  ## Lock and cache the current bundle's Gems into ./vendor/cache
+  alias bundlepack="echo \"Locking and caching the current Bundle's Gems\" && bundle package; echo"
+  ## Update all Gems installed within the context of the Bundle
+  alias bundleup="echo \"Updating the current Bundle's Gems\" && bundle update; echo"
+
+fi
+
+if USE_NPM; then
+
+  ##== NPM Aliases ==========================================================#
+
+  ## Remove data from the NPM cache directory
+  alias npmclean="echo \"Cleaning NPM's cache directory\" && npm cache clean; echo"
+  ## Update or install to the latest version of NPM globally
+  alias npmin="echo \"Updating/installing NPM Globally\" && npm install npm@latest -g; echo"
+  ## Output all outdated local and global NPM packages
+  alias npmout="echo \"Outdated local NPM packages\" && npm outdated --depth=0; echo; echo \"Outdated global NPM packages\" && npm outdated -g --depth=0; echo"
+  ## Output all outdated global NPM packages
+  alias npmoutg="echo \"Outdated global NPM packages\" && npm outdated -g --depth=0; echo"
+  ## Output all outdated local NPM packages
+  alias npmoutl="echo \"Outdated local NPM packages\" && npm outdated --depth=0; echo"
+  ## Output all local and global NPM packages
+  alias npms="echo \"Local NPM packages\" && npm ls --depth=0; echo \"Global NPM packages\" && npm ls -g --depth=0"
+  ## Output all global NPM packages
+  alias npmsg="echo \"Global NPM packages\" && npm ls -g --depth=0"
+  ## Output all local NPM packages
+  alias npmsl="echo \"Local NPM packages\" && npm ls --depth=0"
+  ## Update all outdated local and global NPM packages
+  alias npmup="echo \"Updating locally and globally installed NPM packages\" && npm update; npm update -g npm; npm update -g"
+  ## Update all outdated global NPM packages
+  alias npmupg="echo \"Updating global NPM packages\" && npm update -g npm; npm update -g"
+  ## Update all outdated local NPM packages
+  alias npmupl="echo \"Updating local NPM packages\" && npm update"
+
+fi
+
+if USE_YARN; then
+
+  ##== Yarn Aliases =========================================================#
+
+  ## Remove data from the Yarn cache directory
+  alias yarnclean="echo \"Cleaning Yarn's cache directory\" && yarn cache clean; echo"
+  ## Output all local and global Yarn packages
+  alias yarns="echo \"Local Yarn packages\" && yarn list --depth=0; echo \"Global Yarn packages\" && yarn global ls --depth=0; echo"
+  ## Output all global Yarn packages
+  alias yarnsg="echo \"Global Yarn packages\" && yarn global ls --depth=0; echo"
+  ## Output all local Yarn packages
+  alias yarnsl="echo \"Local Yarn packages\" && yarn list --depth=0; echo"
+  ## Update all outdated local and global Yarn packages
+  alias yarnup="echo \"Updating locally and globally installed Yarn packages\" && npm install npm@latest -g; yarn upgrade-interactive; echo; yarn global upgrade-interactive; echo"
+  ## Update all outdated global Yarn packages
+  alias yarnupg="echo \"Updating global Yarn packages\" && npm install npm@latest -g; yarn global upgrade-interactive; echo"
+  ## Update all outdated local Yarn packages
+  alias yarnupl="echo \"Updating local Yarn packages\" && npm install npm@latest -g; yarn upgrade-interactive; echo"
+
+fi
+
+##== Gem Aliases ==============================================================#
+
+## Remove outdated and replaced Gems
+alias gemclean="echo \"Cleaning current environment's Gemset\" && gem cleanup; echo"
+## Output all outdated Gems
+alias gemout="echo \"Outdated Gems in current environment\" && gem outdated; echo"
+## Output all installed Gems
+alias gems="echo \"Current environment's Gemset\" && gem list; echo"
+## Update RubyGems and all installed Gems
+alias gemup="echo \"Updating RubyGems\" && gem update --system; echo; gem update; echo"
+
+##== Git Aliases ==============================================================#
+
+## Output all Git tracked remote and local branches
+alias branches="git branch --all"
+## Output all Git tracked repositories in the verbose format
+alias remotes="git remote --verbose"
+
+##== Pip Aliases ==============================================================#
+
+## Output all outdated Pip packages
+alias pip2out="echo \"Outdated Pip2 packages in current environment\" && pip2 list -o; echo"
+alias pip3out="echo \"Outdated Pip3 packages in current environment\" && pip3 list -o; echo"
+alias pipout="echo \"Outdated Pip packages in current environment\" && pip list -o; echo"
+## Output all installed Pip packages
+alias pip2s="echo \"Current environment's Pip2 packages\" && pip2 list; echo"
+alias pip3s="echo \"Current environment's Pip3 packages\" && pip3 list; echo"
+alias pips="echo \"Current environment's Pip packages\" && pip list; echo"
+## Update Pip, Setuptools, Wheel, and Pip packages
+alias pip2up="echo \"Updating Pip2\" && pip2 install -U pip; echo; echo \"Updating Setuptools\" && pip2 install -U setuptools; echo; echo \"Updating Wheel\" && pip2 install -U wheel; echo; echo \"Updating current environment's Pip2 packages\" && pip2 list -o | cut -d ' ' -f1 | xargs -n1 pip2 install -U; echo"
+alias pip3up="echo \"Updating Pip3\" && pip3 install -U pip; echo; echo \"Updating Setuptools\" && pip3 install -U setuptools; echo; echo \"Updating Wheel\" && pip3 install -U wheel; echo; echo \"Updating current environment's Pip3 packages\" && pip3 list -o | cut -d ' ' -f1 | xargs -n1 pip3 install -U; echo"
+alias pipup="echo \"Updating Pip\" && pip install -U pip; echo; echo \"Updating Setuptools\" && pip install -U setuptools; echo; echo \"Updating Wheel\" && pip install -U wheel; echo; echo \"Updating current environment's Pip packages\" && pip list -o | cut -d ' ' -f1 | xargs -n1 pip install -U; echo"
+
+##== Ruby on Rails Aliases ====================================================#
+
+## Run the Rails console
+alias railscon="rails console"
+## Run the Rails dbconsole
+alias railsdbc="rails dbconsole"
+## Run the Rails generator
+alias railsgen="rails generate"
+## Run the Rails server
+alias railsser="rails server"
+## Create the Rails database
+alias rakec="rake db:create"
+## Drop the Rails database
+alias raked="rake db:drop"
+## Migrate the Rails database
+alias rakem="rake db:migrate"
+## Load the Rails seed data from db/seeds.rb
+alias rakes="rake db:seed"
+## Drop, create, and migrate the Rails database, then load db/seeds.rb seed data
+alias rerake="rake db:drop db:create db:migrate db:seed"

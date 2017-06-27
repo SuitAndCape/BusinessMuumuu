@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# tower
+
+####= SuitAndCape Tower 2 (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Tower 2 settings"
+
+## Always update Submodules automatically in Tower 2
+defaults write com.fournova.Tower2 GTUserDefaultsAlwaysAutoUpdateSubmodules -bool true
+
+## Set the Tower 2 default directory for cloned repositories to $HOME/Code/
+defaults write com.fournova.Tower2 GTUserDefaultsDefaultCloningDirectory -string "${HOME}/Code"
+
+## Terminal application for Tower 2 is...
+  ## iTerm2
+defaults write com.fournova.Tower2 GTUserDefaultsDefaultTerminalApplication -string "com.googlecode.iterm2"
+  ## Terminal/default
+# defaults delete com.fournova.Tower2 GTUserDefaultsDefaultTerminalApplication
+
+## Diff tool for Tower 2 is Kaleidoscope
+defaults write com.fournova.Tower2 GTUserDefaultsDiffToolIdentifier -string "kaleidoscope"
+
+## Tower 2 Git binary values:
+  ## "/Applications/Tower.app/Contents/Resources/git/bin/git"
+    ##: Tower
+  ## "/usr/bin/git"
+    ##: /usr/bin/git (System)
+  ## "/usr/local/bin/git"
+    ##: /usr/local/bin/git
+
+## Tower 2 Git binary => /usr/local/bin/git
+defaults write com.fournova.Tower2 GTUserDefaultsGitBinary -string "/usr/local/bin/git"
+
+## Merge tool for Tower 2 is Kaleidoscope
+defaults write com.fournova.Tower2 GTUserDefaultsMergeToolIdentifier -string "kaleidoscope"
+
+## Tower 2 commit history values:
+  ## 200:  200 commits
+  ## 500:  500 commits
+  ## 1000: 1000 commits
+
+## Number of commits in history for Tower 2 => ...
+  ## 200 commits
+defaults write com.fournova.Tower2 GTUserDefaultsNumberOfCommitsInHistory -int 200
+  ## 100 commits/default
+# defaults delete com.fournova.Tower2 GTUserDefaultsNumberOfCommitsInHistory
+
+## Automatically check for updates
+defaults write com.fournova.Tower2 SUEnableAutomaticChecks -bool true
+
+## Kill Tower 2
+appkillinator "Tower"
