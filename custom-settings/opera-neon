@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# opera-neon
+
+####= SuitAndCape Opera Neon (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Opera Neon settings"
+
+## Do not automatically send Opera Neon crash reports to Opera
+defaults write com.opera.Neon OPEnableCrashLogsUpload -bool false
+
+## Expand Opera Neon's print dialog box by default
+defaults write com.opera.Neon PMPrintingExpandedStateForPrint2 -bool true
+
+## Kill Opera Neon
+appkillinator "Opera Neon"

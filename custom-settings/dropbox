@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# dropbox
+
+####= SuitAndCape Dropbox (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Dropbox settings"
+
+## Disable green checkmark icons next to Dropbox files and directories in Finder
+# dbcons=/Applications/Dropbox.app/Contents/Resources/emblem-dropbox-uptodate.icns
+# [ -e "${dbcons}" ] && mv -f "${dbcons}" "${dbcons}.bak"
+
+## Kill Dropbox
+appkillinator "Dropbox"

@@ -1,0 +1,19 @@
+// $SUBLIME_DIR/Packages/User/Git Commit Message.sublime-settings
+
+////= SuitAndCape Sublime Text Git Commit Message Preferences
+//============================================================================//
+
+/// @source https://packagecontrol.io/packages/Git
+
+{
+	"extensions":
+	[
+    ".git_commit_template"
+	],
+  "rulers":
+  [
+    68, /// Limit the length of the Subject line to 68 characters
+    72,  /// Limit the length of Body and Issue sections to 72 characters
+    80
+  ],
+}

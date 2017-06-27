@@ -1,0 +1,11 @@
+// $SUBLIME_DIR/Packages/User/Angular2HTMLSyntax.sublime-settings
+
+////= SuitAndCape Sublime Text Angular2 HTML Syntax Preferences
+//===========================================================================//
+
+{
+  "extensions":
+  [
+    "component.html"
+  ]
+}

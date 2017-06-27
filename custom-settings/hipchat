@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# hipchat
+
+####= SuitAndCape HipChat (Mac) Settings
+##============================================================================##
+
+echo "Adjusting HipChat settings"
+
+## Disable smart dashes in HipChat
+defaults write com.hipchat.HipChat WebAutomaticDashSubstitutionEnabled -bool false
+
+## Disable smart quotes in HipChat
+defaults write com.hipchat.HipChat WebAutomaticQuoteSubstitutionEnabled -bool false
+
+## Disable automatic spelling correction (auto-correct) in HipChat
+defaults write com.hipchat.HipChat WebAutomaticSpellingCorrectionEnabled -bool false
+
+## Enable continuous spell checking in HipChat
+defaults write com.hipchat.HipChat WebContinuousSpellCheckingEnabled -bool true
+
+## Kill HipChat
+appkillinator "HipChat"

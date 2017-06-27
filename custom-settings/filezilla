@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# filezilla
+
+####= SuitAndCape FileZilla (Mac) Settings
+##============================================================================##
+
+echo "Adjusting FileZilla settings"
+
+
+
+## Kill FileZilla
+appkillinator "FileZilla"

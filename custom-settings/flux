@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# flux
+
+####= SuitAndCape f.lux (Mac) Settings
+##============================================================================##
+
+echo "Adjusting f.lux settings"
+
+## Load f.lux on startup
+defaults write org.herf.Flux startAtLogin -bool true
+
+## Enable sleep in on weekends in f.lux
+defaults write org.herf.Flux sleepLate -bool true
+
+## Enable backwards alarm clock in f.lux
+## (alternative: 1=Disable)
+defaults write org.herf.Flux wakeNotifyDisable -int 0
+
+## Enable fast transitions in f.lux
+# defaults write org.herf.Flux transitionSpeed -bool false
+
+## Kill f.lux
+appkillinator "Flux"

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# vivaldi
+
+####= SuitAndCape Vivaldi (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Vivaldi shortcuts and settings"
+
+## Disable Vivaldi's print preview in favor of the system-native print preview
+defaults write com.vivaldi.Vivaldi DisablePrintPreview -bool true
+
+## Expand Vivaldi's print dialog box by default
+defaults write com.vivaldi.Vivaldi PMPrintingExpandedStateForPrint2 -bool true
+
+## Kill Vivaldi
+appkillinator "Vivaldi"

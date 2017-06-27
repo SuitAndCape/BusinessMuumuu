@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# transmit
+
+####= SuitAndCape Transmit (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Transmit settings"
+
+## Copy a remote item's URL without the login information in the URL in Transmit
+## (alternative: 1=with the login information)
+defaults write com.panic.Transmit CopyURLWithoutLogin -int 0
+
+## Transmit list font size values:
+  ## 11: Small
+  ## 13: Large
+  ## 16: Mac-Large (custom)
+
+## Transmit list font size => Mac-Large (custom)
+defaults write com.panic.Transmit ListFontSize -int 16
+
+## Open a Finder window when mounting a Transmit Disk, with the mounted Disk
+## (alternative: 0=Do not open a Finder window)
+defaults write com.panic.Transmit OpenMountedFinderWindow -int 1
+
+## Notify user if there are Transmit updates
+defaults write com.panic.Transmit SUAutomaticallyUpdate -bool false
+
+## Automatically check for updates
+defaults write com.panic.Transmit SUEnableAutomaticChecks -bool true
+
+## Disable Transmit Disk menu bar icon
+defaults write com.panic.Transmit ShowTransmitMenu -bool false
+
+## Enable verbose Transmit console logging
+## (alternative: 0=Disable)
+defaults write com.panic.Transmit UseVerboseLogging -int 1
+
+## Do not automatically search the local network for shared servers in Transmit
+defaults write com.panic.Transmit kPrefKeyRendezvousEnabled -bool false
+
+## Kill Transmit
+appkillinator "Transmit"

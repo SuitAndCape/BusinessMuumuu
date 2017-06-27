@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# gpgtools
+
+####= SuitAndCape GPGTools (Mac) Settings
+##============================================================================##
+
+echo "Adjusting GPGTools settings"
+
+## Disable signing new emails by default in GPGMail 2
+defaults write "${HOME}"/Library/Preferences/org.gpgtools.gpgmail SignNewEmailsByDefault -bool false

@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# google-chrome
+
+####= SuitAndCape Google Chrome (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Google Chrome settings"
+
+## Disable Chrome's "two-finger back/forward-swipe" Magic Mouse navigation
+defaults write com.google.Chrome AppleEnableMouseSwipeNavigateWithScrolls -bool false
+
+## Disable Chrome's "two-finger back/forward-swipe" Trackpad navigation
+defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
+
+## Disable Chrome's print preview in favor of the system-native print preview
+defaults write com.google.Chrome DisablePrintPreview -bool true
+
+## Allow user script installation via GitHub Gist or Userscripts.org
+defaults write com.google.Chrome ExtensionInstallSources -array "https://gist.githubusercontent.com/" "http://userscripts.org/*"
+
+## Expand Chrome's print dialog box by default
+defaults write com.google.Chrome PMPrintingExpandedStateForPrint2 -bool true
+
+## Kill Google Chrome
+appkillinator "Google Chrome"

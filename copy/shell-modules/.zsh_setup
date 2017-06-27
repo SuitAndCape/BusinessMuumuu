@@ -8,22 +8,48 @@
 
 ##== Zsh Autoloads ============================================================#
 
-## `atld` – Variant for `autoload`; mark the function for autoloading and
-#suppress alias expansion (`U`), in zsh style (`z`) not ksh style
-alias atld="autoload -Uz"
-
 ## Call colors
-atld colors
+autoload -Uz colors
 colors
 
 ## Call initialize prompt
-atld promptinit
+autoload -Uz promptinit
 promptinit
 
 ## Call completions list
 zmodload -i zsh/complist
-atld compinit
+autoload -Uz compinit
 compinit
+
+##== Zsh Definitions and Executions ===========================================#
+
+## If Homebrew exists...
+if USE_BREW; then
+  ## If the Homebrew zsh/site-functions/ directory exists, send it to fpath
+  zsh_site_func=/usr/local/share/zsh/site-functions
+  [ -d "${zsh_site_func}" ] && zsh_fpath_site_func="${zsh_site_func}"
+
+  ## If the Homebrew zsh-completions/ directory exists, send it to fpath
+  zsh_complete=/usr/local/share/zsh-completions
+  [ -d "${zsh_complete}" ] && zsh_fpath_complete="${zsh_complete}"
+
+  ## Zsh Function Path
+  fpath=(
+    $zsh_fpath_site_func
+    $zsh_fpath_complete
+    $fpath
+  )
+
+  ## Activate the Homebrew maintained Zsh Syntax Highlighting, if it exists
+  zsh_highlight=/usr/local/share/zsh-syntax-highlighting
+  [ -d "${zsh_highlight}" ] && source "${zsh_highlight}"/zsh-syntax-highlighting.zsh
+fi
+
+## Zsh autocompletion for Grunt, if it exists
+USE_GRUNT && eval "$(grunt --completion=zsh)"
+
+## Zsh autocompletion for Gulp, if it exists
+USE_GULP && eval "$(gulp --completion=zsh)"
 
 ##== Zsh Options ==============================================================#
 
@@ -182,7 +208,10 @@ unsetopt BEEP
 
 ##== Zsh Bindkeys =============================================================#
 
-## "{iT2}" label means entry is tied to the iTerm2 profile shortcut keys
+## "{iT2}" indicates entry is tied to the iTerm2 profile shortcut keys
+
+## Use `[←]` to move backward one character
+bindkey "\e[D" backward-char
 
 ## Use `[⌘]+[⌫]` to delete the preceding characters on the current line    {iT2}
 bindkey "^X^H" backward-kill-line
@@ -203,6 +232,9 @@ bindkey "^[[3~" delete-char
 
 ## Use `[⌃]+[E]` to move cursor to the end of the current line
 bindkey "^E" end-of-line
+
+## Use `[→]` to move forward one character
+bindkey "\e[C" forward-char
 
 ## Use `[⌥]+[→]` to move forward one word
 bindkey "^[[1;9C" forward-word
@@ -228,25 +260,19 @@ zstyle ':completion:*:*:*:*:*' menu select
 ## List of autocompletion completers to use
 zstyle ':completion:*' completer _complete _match _approximate
 zstyle ':completion:*:match:*' original only
-zstyle ':completion:*:approximate:*' max-errors 1 numeric
-
-## Fallback to use built in `ls` colors for autocompletion
-zstyle ':completion:*:default' list-colors ''
-
-## Use `ls` colors for autocompletion
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*:approximate:*' max-errors 2 numeric
 
 ## Case-insensitive and inside filenames autocompletion matcher
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[.,_-]=** r:|=**' 'l:|=* r:|=*'
 
 ## Improved autocompletion for `cd`
 zstyle ':completion::complete:cd:' tag-order local-directories path-directories
+zstyle ':completion:*:cd:*' ignore-parents parent pwd
 
 ## Improved autocompletion for `kill`
-zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd -v'
 zstyle ':completion:*:kill:*' force-list always
 zstyle ':completion:*:*:kill:*' menu yes select
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=1;31'
 
 ## Improved autocompletion for `killall`
 zstyle ':completion:*:killall:*' command 'ps -u $USER -o cmd'
@@ -258,19 +284,3 @@ zstyle ':completion:*' verbose yes
 
 ## Display autocompletion matches by type grouping
 zstyle ':completion:*' group-name ''
-
-## If the Homebrew zsh-completions/ directory exists...
-zsh_complete=/usr/local/share/zsh-completions
-if [ -d "${zsh_complete}" ]; then
-  ## Add the Homebrew maintained Zsh completions to the Zsh fpath
-  fpath=(
-    /usr/local/share/zsh-completions
-    $fpath
-  )
-fi
-
-## Zsh autocompletion for Grunt, if it exists
-USE_GRUNT && eval "$(grunt --completion=zsh)"
-
-## Zsh autocompletion for Gulp, if it exists
-USE_GULP && eval "$(gulp --completion=zsh)"

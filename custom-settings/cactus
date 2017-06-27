@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# cactus
+
+####= SuitAndCape Cactus (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Cactus settings"
+
+## Automatically check for updates
+defaults write com.nektar.Cactus SUEnableAutomaticChecks -bool true
+
+## Do not send anonymous system profile in Cactus
+defaults write com.nektar.Cactus SUSendProfileInfo -bool false
+
+## Kill Cactus
+appkillinator "Cactus"

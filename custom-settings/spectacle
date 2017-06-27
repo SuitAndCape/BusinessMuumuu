@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# spectacle
+
+####= SuitAndCape Spectacle (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Spectacle settings"
+
+## Automatically check for updates
+defaults write com.divisiblebyzero.Spectacle SUEnableAutomaticChecks -bool true
+
+## Copy over Spectacle (Mac) Shortcuts
+if [ -d "${HOME}"/Library/Application\ Support/Spectacle ]; then
+  cp custom-copy/files/Shortcuts.json "${HOME}"/Library/Application\ Support/Spectacle/Shortcuts.json
+else
+  mkdir "${HOME}"/Library/Application\ Support/Spectacle
+  cp custom-copy/files/Shortcuts.json "${HOME}"/Library/Application\ Support/Spectacle/Shortcuts.json
+fi
+
+## - Use `[⌃]+[⌥]+[⇧]+[⌘]+[Z]` to redo the last window move via Spectacle
+## - Use `[⌃]+[⌥]+[⌘]+[-]` to make window smaller via Spectacle
+## - Use `[⌃]+[⌥]+[⌘]+[L]` to move window to the lower right via Spectacle
+## - Use `[⌃]+[⌥]+[⌘]+[O]` to move window to the upper right via Spectacle
+## - Use `[⌃]+[⌥]+[⌘]+[↓]` to move window to the bottom half via Spectacle
+## - Use `[⌃]+[⌥]+[⇧]+[⌘]+[→]` to move window to the next display via
+#Spectacle
+## - Use `[⌃]+[⌥]+[⌘]+[↑]` to move window to the top half via Spectacle
+## - Use `[⌃]+[⌥]+[⌘]+[K]` to move window to the lower left via Spectacle
+## - Use `[⌃]+[⌥]+[⌘]+[=]` to make window larger via Spectacle
+## - Use `[⌃]+[⌥]+[⌘]+[Z]` to undo the last window move via Spectacle
+## - Use `[⌃]+[⌥]+[⇧]+[⌘]+[←]` to move window to the previous display via
+#Spectacle
+## - Use `[⌃]+[⌥]+[⌘]+[F]` to fullscreen the window via Spectacle
+## - Use `[⌃]+[⌥]+[⌘]+[]]` to move window to the next third via Spectacle
+## - Use `[⌃]+[⌥]+[⌘]+[←]` to move window to the left half via Spectacle
+## - Use `[⌃]+[⌥]+[⌘]+[C]` to move window to the center via Spectacle
+## - Use `[⌃]+[⌥]+[⌘]+[→]` to move window to the right half via Spectacle
+## - Use `[⌃]+[⌥]+[⌘]+[I]` to move window to the upper left via Spectacle
+## - Use `[⌃]+[⌥]+[⌘]+[[]` to move window to the previous third via
+#Spectacle
+
+## Kill Spectacle
+appkillinator "Spectacle"

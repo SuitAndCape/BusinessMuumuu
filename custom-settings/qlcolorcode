@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# qlcolorcode
+
+####= SuitAndCape QLColorCode (Mac) Settings
+##============================================================================##
+
+echo "Adjusting QLColorCode settings"
+
+## Make QLColorCode print line numbers (`l`) and wrap long lines (`W`)
+defaults write org.n8gray.QLColorCode extraHLFlags -string "-lW"
+
+## Set the QLColorCode font to Inconsolata
+## NOTE: Install the Google Font "Inconsolata" before applying this change
+defaults write org.n8gray.QLColorCode font -string "Inconsolata-Regular"
+
+## Set the QLColorCode font size to thirteen and a half points
+defaults write org.n8gray.QLColorCode fontSizePoints -float 13.5
+
+## @color-schemes http://www.andre-simon.de/dokuwiki/doku.php?id=theme_examples
+
+## Set the QLColorCode color scheme to Acid
+defaults write org.n8gray.QLColorCode hlTheme -string "acid"
+
+## Set the QLColorCode thumbnail color scheme to Acid
+defaults write org.n8gray.QLColorCode hlThumbTheme -string "acid"

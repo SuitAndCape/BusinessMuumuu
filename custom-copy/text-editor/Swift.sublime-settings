@@ -1,0 +1,12 @@
+// $SUBLIME_DIR/Packages/User/Swift.sublime-settings
+
+////= SuitAndCape Sublime Text Swift Preferences
+//============================================================================//
+
+{
+  "extensions":
+  [
+    "swift"
+  ],
+  "tab_size": 4,
+}

@@ -1,0 +1,107 @@
+#!/usr/bin/env bash
+# kaleidoscope
+
+####= SuitAndCape Kaleidoscope (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Kaleidoscope settings"
+
+## Kaleidoscope color values:
+  ## 040b73747265616d747970656481e803840140848484074e53436f6c6f72008484084e534f626a6563740085840163028404666666660101010186
+    ##: White
+  ## 040b73747265616d747970656481e803840140848484074e53436f6c6f72008484084e534f626a65637400858401630284046666666683d2d1513f83d2d1513f83d2d1513f0186
+    ##: Grey
+  ## 040b73747265616d747970656481e803840140848484074e53436f6c6f72008484084e534f626a6563740085840163028404666666660000000186
+    ##: Black
+  ## 040b73747265616d747970656481e803840140848484074e53436f6c6f72008484084e534f626a65637400858401630284046666666683c2c1413f83dedd5d3f010186
+    ##: Blue
+  ## 040b73747265616d747970656481e803840140848484074e53436f6c6f72008484084e534f626a65637400858401630284046666666683fffe7e3f83c3c2423f83c3c2423f0186
+    ##: Red
+  ## 040b73747265616d747970656481e803840140848484074e53436f6c6f72008484084e534f626a65637400858401630284046666666683cecd4d3f83f8f7773f83a3a2223f0186
+    ##: Green
+  ## 040b73747265616d747970656481e803840140848484074e53436f6c6f72008484084e534f626a65637400858401630284046666666683eeed6d3f83c9c8483f010186
+    ##: Pink
+  ## 040b73747265616d747970656481e803840140848484074e53436f6c6f72008484084e534f626a65637400858401630184046666666683c9c8c83d83c9c8c83d83c9c8c83d0186
+    ##: Lead (custom)
+  ## 040b73747265616d747970656481e803840140848484074e53436f6c6f72008484084e534f626a65637400858401630184046666666683cdcc4c3e83cdcc4c3e83cdcc4c3e0186
+    ##: Tungsten (custom)
+  ## 040b73747265616d747970656481e803840140848484074e53436f6c6f72008484084e534f626a65637400858401630184046666666683cdcc4c3f83cdcc4c3f83cdcc4c3f0186
+    ##: Silver (custom)
+  ## 040b73747265616d747970656481e803840140848484074e53436f6c6f72008484084e534f626a65637400858401630184046666666683e7e6663f83e7e6663f83e7e6663f0186
+    ##: Mercury (custom)
+
+## Kaleidoscope Difference Coloring for Different regions color => ...
+  ## Lead (custom)
+defaults write com.blackpixel.kaleidoscope KSImageScopeDifferenceMaskDifferenceHighlightColor -data 040b73747265616d747970656481e803840140848484074e53436f6c6f72008484084e534f626a65637400858401630184046666666683c9c8c83d83c9c8c83d83c9c8c83d0186
+  ## Black/default
+# defaults delete com.blackpixel.kaleidoscope KSImageScopeDifferenceMaskDifferenceHighlightColor
+
+## Kaleidoscope Difference Coloring for Same regions color => ...
+  ## Mercury (custom)
+defaults write com.blackpixel.kaleidoscope KSImageScopeDifferenceMaskSameHighlightColor -data 040b73747265616d747970656481e803840140848484074e53436f6c6f72008484084e534f626a65637400858401630184046666666683e7e6663f83e7e6663f83e7e6663f0186
+  ## White/default
+# defaults delete com.blackpixel.kaleidoscope KSImageScopeDifferenceMaskSameHighlightColor
+
+## Kaleidoscope Transparency Rendition Solid color => ...
+  ## Pink
+defaults write com.blackpixel.kaleidoscope KSImageScopeTransparencySolidColor -data 040b73747265616d747970656481e803840140848484074e53436f6c6f72008484084e534f626a65637400858401630284046666666683eeed6d3f83c9c8483f010186
+  ## Grey/default
+# defaults delete com.blackpixel.kaleidoscope KSImageScopeTransparencySolidColor
+
+## Kaleidoscope Transparency Rendition Checker Pattern color => ...
+  ## Pink
+defaults write com.blackpixel.kaleidoscope KSImageScopeTransparencyPrimaryCheckerColor -data 040b73747265616d747970656481e803840140848484074e53436f6c6f72008484084e534f626a65637400858401630284046666666683eeed6d3f83c9c8483f010186
+  ## Grey/default
+# defaults delete com.blackpixel.kaleidoscope KSImageScopeTransparencyPrimaryCheckerColor
+
+## Scan hidden files in Kaleidoscope
+defaults write com.blackpixel.kaleidoscope KSFileSystemItemRepScanHiddenFilesKey -bool true
+
+## Do not ignore differences in whitespace in Kaleidoscope
+defaults write com.blackpixel.kaleidoscope KSIgnoreWhitespaceUserDefaultsKey -bool false
+
+## Set Difference Rendition to Absolute in Kaleidoscope
+## (alternative: 1=Proportional)
+defaults write com.blackpixel.kaleidoscope KSImageScopeDifferenceMaskType -int 0
+
+## Show summary before copying in Kaleidoscope
+defaults write com.blackpixel.kaleidoscope KSFolderScopeShowCopyFilesConfirmationUserDefaultsKey -bool true
+
+## Set Image Navigator to Show Automatically in Kaleidoscope
+## (alternative: false=Never Show)
+defaults write com.blackpixel.kaleidoscope KSImageScopeAutoShowNavigator -bool true
+
+## Set Transparency Rendition to Checker Pattern size to Medium in Kaleidoscope
+## (alternatives: 0=Small|1=Medium|2=Large)
+defaults write com.blackpixel.kaleidoscope KSImageScopeTransparencyCheckerSize -int 1
+
+## Set Transparency Rendition to Checker Pattern in Kaleidoscope
+## (alternative: true=Solid Color)
+defaults write com.blackpixel.kaleidoscope KSImageScopeTransparencyRendition -bool false
+
+## Set the Kaleidoscope font size to sixteen points
+defaults write com.blackpixel.kaleidoscope KSTextScopeFontInfoUserDefaultsKey -dict-add "fontSize" -int 16
+
+## Set the Kaleidoscope font to Inconsolata
+## NOTE: Install the Google Font "Inconsolata" before applying this change
+defaults write com.blackpixel.kaleidoscope KSTextScopeFontInfoUserDefaultsKey -dict-add "fontName" -string "Inconsolata-Regular"
+
+## Set the Difference Coloring to Multicolored in Kaleidoscope
+## (alternative: 1=Single Color)
+defaults write com.blackpixel.kaleidoscope KSTextScopeThemeTagUserDefaultsKey -int 0
+
+## Set the Background Color to Light in Kaleidoscope
+## (alternative: 1=Dark)
+defaults write com.blackpixel.kaleidoscope KSTextScopeThemeTextStyleTagUserDefaultsKey -int 0
+
+## Wrap long lines in new comparisons in Kaleidoscope
+defaults write com.blackpixel.kaleidoscope SFTextViewLineWrapsUserDefaultsKey -bool true
+
+## Automatically check for updates
+defaults write com.blackpixel.kaleidoscope SUEnableAutomaticChecks -bool true
+
+## Do not send anonymous system profile in Kaleidoscope
+defaults write com.blackpixel.kaleidoscope SUSendProfileInfo -bool false
+
+## Kill Kaleidoscope
+appkillinator "Kaleidoscope"

@@ -1,90 +1,83 @@
 # [<FLAG>]<TYPE>(<SCOPE>): <SUBJECT>
-  #
-# <BODY>
-  #
-# <FOOTER>
+#
+# <BREAKDOWN>
+#
+# <ISSUE>
 
-##== SuitAndCape Commit Template Description ==================================#
+##== SuitAndCape Commit Template Description ======================^===^=======#
+##                                                               68^ 72^
 
 ## Git Commit Message formatting rules...
 ##   - Write in an impertivite tone
 ##   - The Subject line is required
-##   - Limit the length of the Subject line to 70 characters
+##   - Limit the length of the Subject line to 68 characters
 ##   - Capitalize the first letter of the Subject line description
 ##   - Do not include a closing punctuation mark in the Subject line description
 ##   - Separate each section with a newline
-##   - Use the Body and Footer sections when necessary
-##   - Limit the length of Body and Footer sections to 80 characters
-##   - Write the Body section as a paragraph or bullet-pointed list, following
-#    the [`-`, `+`, `*`] tree-order when using bullet-points, (2 character
-#    indentation for `+`, 4 character indentation for `*`)
-##   - Basic markup formatting in the Body section is allowed
+##   - Only use the Breakdown and Issue sections when necessary
+##   - Limit the length of Breakdown and Issue sections to 72 characters
+##   - Write the Breakdown section as a paragraph and/or bullet-pointed list
+##     + Follow the [`-`, `+`, `*`] tree-order when using bullet-points
+##       * Two character indentation for `+`, four character indentation for `*`
+##   - Basic markup formatting in the Breakdown section is allowed
 #
 ## [<FLAG>]<TYPE>(<SCOPE>): <SUBJECT> content...
 ##   - <FLAG> values (when necessary)...
-##     + `!!!` – something works differently than before and the admin, user,
-#      developer needs to make a change/fix; the details must be properly
-#      documented
-##     + `SEC` – change fixes a security issue; tag is used by the
-#      Security Team
-##     + `WIP` – feature branch is a work in progress; this flag will be
-#      removed once the final version of a change is available
+##     + `!!!` – something works differently; must make and document a fix
+##     + `SEC` – change fixes a security issue; Security Team tag
+##     + `WIP` – feature branch is a work in progress
 ##   - <TYPE> values...
-##     + `bugfix` – fix for a bug
-##     + `clean` – update or maintainance; no production code/functionality
-#      change
-##     + `docs` – documentation; no production code/functionality change
-##     + `feat` – new feature
-##     + `init` – initializing a repo or branch
-##     + `move` – move, modularize, or rearrange files
-##     + `refact` – refactor production code/functionality
-##     + `style` – formatting, missing semicolons, etc.; no production
-#      code/functionality change
-##     + `supp` – support tool (task runner, custom scripts, etc.) update or
-#      maintainance; no production code/functionality change
-##     + `test` – add new or refactor existing tests; no production
-#      code/functionality change
-##     + `misc` – anything not covered by the above categories or a
-#      keyword; this option should be used rarely
+##     + `clean` – update or maintainance; production not affected
+##     + `docs`  – documentation changes; production not affected
+##     + `feat`  – new feature
+##     + `fix`   – correct a bug in the program
+##     + `host`  – upload files for storage or access
+##     + `init`  – initialize a repo or branch
+##     + `move`  – move, modularize, or rearrange files
+##     + `ref`   – refactor/optimize production code/functionality
+##     + `rem`   – remove production code/functionality
+##     + `style` – formatting changes; production not affected
+##     + `supp`  – support tool update or maintainance; production not affected
+##     + `test`  – add new or refactor existing tests; production not affected
+##     + `tweak` – add to or change an existing behavior
+##     + `misc`  – anything not covered; use rarely
 ##   - <SCOPE> values...
-##     + Keyword specifying the scope of the commit change [`v1.1.1`, `admin`,
-#      `bg-color`, `global`, `init`, `login`, `ngClick`,`README`, etc.]
+##     + Keyword specifying the scope of change [`v1.1`, `view`, `README`, etc.]
 ##   - <SUBJECT> content...
-##     + Succinct description of changes made
+##     + Succinct description of change
 #
-## <BODY> content (when necessary)...
-##   - Explain the changes and motivations behind the changes made; the "why"
-#    and the "what"
+## <BREAKDOWN> content (when necessary)...
+##   - Explain the changes and motivations behind them; the "what" and the "why"
 #
-## <FOOTER> content (when necessary)...
-##   - First line(s) – issue type(s) [`Closes`, `Fixes`, `Opens`, `Re-Opens`,
-#    `References`] and issue number(s)
-##   - Middle line(s) (when necessary) – `Breaking Changes:` followed by a
-#    succinct description of the change, justification, and migration notes
-##   - Last line – status [`CLOSED`, `FIXED`, `IN PROGRESS`, `OPEN`]
+## <ISSUE> content (when necessary)...
+##   - Issue type [`Closes`, `Fixes`, `Opens`, `Refs`] and number(s)
+##   - If needed, `BREAKS:` and description, justification, and migration notes
 
 ## STRUCTURE:
 # [<FLAG>]<TYPE>(<SCOPE>): <SUBJECT>
 #
-# <BODY>
+# <BREAKDOWN>
 #
-# <FOOTER>
+# <ISSUE>
 
 ## EXAMPLE:
-#clean(git_commit_template): Add git commit example to template
+# clean(git_commit_template): Add git commit example to template
 #
-#Update .git_commit_template, create git commit message example for clarity,
-#pet kitty no more than three times, put on a suit & cape, modify LICENSE, and
-#add optional bullet-points.
-#- Add primary tier bullet-point
-#- Add another primary tier bullet-point
-#  + Add secondary tier bullet-point
-#    * Add tertiary tier bullet-point
+# Update .git_commit_template, create git commit message example for
+# clarity, pet kitty no more than three times, put on a suit & cape,
+# modify README, add optional bullet-points, and change text appearance.
+# - Adjust headlines
+#   + h1, h2, h6
+#     * Change responsive sizes, for a better mobile experience
+#     * Match fonts (Futura), for consistency
+#   + Attach icon to h3, to represent links
+# - Decrease p font-size, to differentiate paragraphs from headlines
 #
-#Fixes #21 & #24
-#Breaking Changes: The cat no longer enjoys belly rubs.
-#FIXED
+# Refs #1, #4, & #17
+# Fixes #21 & #24
+# BREAKS: The cat no longer enjoys belly rubs, admin must only pet kitty
+# behind the ears
 
+## @source https://github.com/SuitAndCape/BusinessMuumuu/blob/master/copy/.git_commit_template
 ## @based-on https://github.com/sparkbox/how_to/tree/master/style/git
 ## @modifier Ali Esmaili
-## @source https://github.com/SuitAndCape/BusinessMuumuu/blob/master/copy/.git_commit_template

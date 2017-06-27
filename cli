@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# cli
+
+####= SuitAndCape Command Line Interface Setup
+##============================================================================##
+
+## CLI setup process
+
+echo "Setting up CLI"
+
+##== Setup Regulations ========================================================#
+
+## Require the administrator password
+sudo -v
+
+## Keep updating `sudo` timestamp until `cli` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+##== Xcode Setup ==============================================================#
+
+## Install available system updates (`ia`) and output verbosely (`v`)
+sudo softwareupdate -iav
+
+## If Xcode doesn't exist...
+if ! $(xcode-select -p &>/dev/null); then
+  ## Install Xcode
+  xcode-select --install
+
+  ## Suspend execution for three seconds
+  while ! xcode-select -p &>/dev/null; do
+    sleep 3
+  done
+fi
+
+## Accept the Xcode license agreement
+if ! $(sudo xcodebuild -license status); then
+  sudo xcodebuild -license accept
+fi

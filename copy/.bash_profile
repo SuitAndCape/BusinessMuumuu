@@ -13,8 +13,9 @@ fi
 export BASH_MODULES="${HOME}"/shell-modules
 export SHELL_THEMES="${HOME}"/shell-themes
 
-test -f "${BASH_MODULES}"/.inspectors && source "${BASH_MODULES}"/.inspectors
-test -f "${BASH_MODULES}"/.exports && source "${BASH_MODULES}"/.exports
+[ -f "${BASH_MODULES}"/.inspectors ] && source "${BASH_MODULES}"/.inspectors
+[ -f "${BASH_MODULES}"/.exports ] && source "${BASH_MODULES}"/.exports
+[ -f "${BASH_MODULES}"/.exports.local ] && source "${BASH_MODULES}"/.exports.local
 
 ## Load $HOME/.bashrc, if it exists
-test -f $HOME/.bashrc && source $HOME/.bashrc
+[ -f "${HOME}"/.bashrc ] && source "${HOME}"/.bashrc

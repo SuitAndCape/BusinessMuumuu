@@ -3,7 +3,7 @@
 BusinessMuumuu
 ================================================================================
 
-An OS X system configuration, dotfiles, and applications setter-upper.  Contains custom `bash` and `zsh` preferences, aliases, Homebrew maintained packages (formulae) and applications (casks), program settings, additional fonts, and an automated environment setup file.
+A Mac system configuration, dotfiles, and applications setter-upper.  Contains custom `bash` and `zsh` preferences, aliases, Homebrew maintained packages (formulae) and applications (casks), program settings, additional fonts, and an automated environment setup file.
 
 ## Contents
 
@@ -13,10 +13,10 @@ An OS X system configuration, dotfiles, and applications setter-upper.  Contains
 ## Get to Know the Code
 
 ### Business
-**[Business](https://github.com/SuitAndCape/BusinessMuumuu/blob/master/business)**
+**[BusinessMuumuu](https://github.com/SuitAndCape/BusinessMuumuu/blob/master/businessmuumuu)**
 
-### Muumuu
-**[Muumuu](https://github.com/SuitAndCape/BusinessMuumuu/blob/master/muumuu)**
+### Personalized
+**[Personalized](https://github.com/SuitAndCape/BusinessMuumuu/blob/master/personalized)**
 
 --------------------------------------------------------------------------------
 

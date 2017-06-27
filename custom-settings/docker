@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# docker
+
+####= SuitAndCape Docker (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Docker settings"
+
+## Automatically check for updates
+defaults write com.docker.docker SUEnableAutomaticChecks -bool true
+
+## Kill Docker
+appkillinator "Docker"

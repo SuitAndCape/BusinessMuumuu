@@ -1,0 +1,125 @@
+// $SUBLIME_DIR/Packages/User/Markdown.sublime-settings
+
+////= SuitAndCape Sublime Text Markdown Preferences
+//============================================================================//
+
+{
+  "extensions":
+  [
+    "md",
+    "markdown",
+    "mdown",
+    "mdwn",
+    "mkd",
+    "mkdn",
+    "mmd",
+  ],
+  "auto_match_enabled": true,
+  "caret_extra_bottom": 1.75,
+  "caret_extra_top": 1.75,
+  "caret_extra_width": 1.75,
+  "caret_style": "smooth",
+  "color_scheme": "Packages/Theme - SuitAndCape/SpaceBabe-Crepusculum(SuitAndCape).tmTheme",
+  "dictionary": "Packages/Language - English/en_US.dic",
+  "draw_centered": true,
+  "draw_white_space": "selection",
+  "font_face": "AnonymousPro",
+  // "font_face": "Source Code Pro",
+  "font_size": 18.0,
+  "highlight_line": true,
+  "line_numbers": true,
+  "line_padding_bottom": 3.0,
+  "line_padding_top": 3.0,
+  "margin": 0,
+  "rulers":
+  [
+    -0.5,    /// => "font_face": "AnonymousPro"
+    -0.4,    /// => "font_face": "AnonymousPro"
+    80.2,    /// => "font_face": "AnonymousPro"
+    80.3,    /// => "font_face": "AnonymousPro"
+    // -0.3, /// => "font_face": "Source Code Pro"
+    // -0.2, /// => "font_face": "Source Code Pro"
+    // 80.2, /// => "font_face": "Source Code Pro"
+    // 80.3, /// => "font_face": "Source Code Pro"
+  ],
+  "spell_check": true,
+  "tab_size": 2,
+  "translate_tabs_to_spaces": true,
+  "trim_trailing_white_space_on_save": false,
+  "word_wrap": true,
+  "wrap_width": 81,    /// => "font_face": "AnonymousPro"
+  // "wrap_width": 80, /// => "font_face": "Source Code Pro"
+
+//== Custom MarkdownEditing Settings ==========================================/
+
+/// @source https://packagecontrol.io/packages/MarkdownEditing
+
+  /// Auto increments ordered list number. Set to false if you want always "1".
+  "mde.auto_increment_ordered_list_number": true,
+  /// Distraction free mode improvements.  Requires FullScreenStatus plugin
+  /// @source https://github.com/maliayas/SublimeText_FullScreenStatus
+  "mde.distraction_free_mode": {
+    "mde.keep_centered": true
+  },
+  /// Always keep current line vertically centered.
+  "mde.keep_centered": false,
+  "mde.lint": {
+    /// disabled rules, e.g. "md001".
+    "disable":
+    [
+      "md013"
+    ],
+    /// Options:
+      /// atx,        ## title    only
+      /// atx_closed, ## title ## only
+      /// setext,     title       only
+      /// =====
+      /// any,        consistent within the document
+    "md003": "any",
+    /// Options:
+      /// dash,     - only
+      /// plus,     + only
+      /// asterisk, * only
+      /// single,   same symbol on different levels
+      /// any,      same symbol on same level
+      /// =====
+      /// cyclic,   different symbols on different levels and same symbol on
+      //same level
+    "md004": "cyclic",
+    /// Number of spaces per list indent. Set to 0 to use Sublime tab_size
+    //instead
+    "md007": 0,
+    /// Maximum line length, Set to 0 to use Sublime wrap_width instead
+    "md013": 0,
+    /// Disallowed trailing punctuation in headers
+    "md026": ".,;:!",
+    /// Options:
+      /// ordered, ascending number
+      /// one,     '1.' only
+      /// =====
+      /// any,     consistent within one list
+    "md029": "any",
+    /// Number of spaces after list markers depending on list type.
+    /// (ordered vs unordered, single-line vs multi-line)
+    "md030": {
+      "ul_single": 1,
+      "ol_single": 1,
+      /// optinally, 3
+      "ul_multi": 1,
+      /// optionaly, 2
+      "ol_multi": 1
+    }
+  },
+  /// Automatically switches list bullet when indenting blank list item
+  //with <Tab>.
+  "mde.list_indent_auto_switch_bullet": true,
+  /// List bullets to be used for automatically switching.  In their order.
+  "mde.list_indent_bullets":
+  [
+    "-",
+    "+",
+    "*",
+  ],
+  /// add trailing #'s to headlines
+  "mde.match_header_hashes": false
+}

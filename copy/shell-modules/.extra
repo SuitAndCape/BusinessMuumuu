@@ -1,20 +1,12 @@
 #!/bin/sh
 # $HOME/shell-modules/.extra
 
-####= SuitAndCape Local Shell Environment Extras
+####= SuitAndCape Shell Environment Extras
 ##============================================================================##
 
-## Stash local shell environment user settings, commands, and overrides here
+## Shell environment user settings, commands, and overrides here
 
-##== Local Exports ============================================================#
-
-## Set personal locale to US style English and using UTF-8
-export LANG="en_US.UTF-8"
-
-## Override all locale preferences to US style English and using UTF-8
-export LC_ALL="en_US.UTF-8"
-
-##== Local Bash Bindkeys ======================================================#
+##== Extra Bash Bindkeys ======================================================#
 
 if SHELL_BASH; then
   ## Use `[↑]` to scroll backward through smart history (typed text prefix)
@@ -23,14 +15,14 @@ if SHELL_BASH; then
   ## Use `[↓]` to scroll forward through smart history (typed text prefix)
   bind '"\e[B": history-search-forward'
 
-##== Local Zsh Autoloads ======================================================#
+##== Extra Zsh Autoloads ======================================================#
 
 elif SHELL_ZSH; then
   ## Call Bash word selection style in Zsh
-  atld select-word-style
+  autoload -Uz select-word-style
   select-word-style bash
 
-##== Local Zsh Bindkeys =======================================================#
+##== Extra Zsh Bindkeys =======================================================#
 
   ## Use `[↑]` to scroll backward through smart history (typed text prefix)
   bindkey "^[[A" history-search-backward
@@ -38,255 +30,99 @@ elif SHELL_ZSH; then
   ## Use `[↓]` to scroll forward through smart history (typed text prefix)
   bindkey "^[[B" history-search-forward
 
-##== Local Zsh Autocompletions ================================================#
+##== Extra Zsh Autocompletions ================================================#
 
-  ## Improved autocompletion for `functions`/ignore functions beginning with `_`
+  ## Improve `functions` autocompletion by ignoring functions beginning with `_`
   zstyle ':completion:*:functions' ignored-patterns '_*'
   zstyle '*' single-ignored show
-
-##== Local Zsh Homebrew Extras ================================================#
-
-  if USE_BREW; then
-    ## Activate the Homebrew maintained Zsh Syntax Highlighting, if it exists
-    zsh_highlight=/usr/local/share/zsh-syntax-highlighting
-    [ -d $zsh_highlight ] && source $zsh_highlight/zsh-syntax-highlighting.zsh
-  fi
 fi
 
-##== Local Random Aliases =====================================================#
+##== Extra Variant Aliases ====================================================#
 
-## `badhorse` – Print the "Bad Horse Chorus" lyrics through route packets
-alias badhorse="traceroute bad.horse"
-## `colors` – Displays the various terminal colors and color codes
-## @source http://askubuntu.com/a/279014
-alias colors='for x in 0 1 4 5 7 8; do for i in {30..37}; do for a in {40..47}; do echo -ne "\e[$x;$i;$a""m\\\e[$x;$i;$a""m\e[0;37;40m "; done; echo; done; done; echo "";'
-## `devdocs` – Opens https://devdocs.io/ in the default browser
-alias devdocs="open https://devdocs.io/"
-## `emojis` – Opens http://www.emoji-cheat-sheet.com/ in the default browser
-alias emojis="open http://www.emoji-cheat-sheet.com/"
-## `gitit` – Loads `AndTheTemplateOfDoom` default local Git repo files
-## NOTE: Requires the repo scaffold directory – $HOME/Code/AndTheTemplateOfDoom/
-alias gitit="rsync -av --exclude=\".DS_Store\" ~/Code/AndTheTemplateOfDoom/ $PWD/"
-## `myip` – Acquire and output the device's IP address from http://ipecho.net/
-alias myip="curl http://ipecho.net/plain; echo"
-
-##== Local Variant Aliases ====================================================#
-
-## `javas` – Variant of `jenv`; output all available Java versions (`versions`)
+## `jenv` variant; output all available Java versions (`versions`)
 alias javas="jenv versions"
-## `pythons` – Variant of ``; output all available Python versions
-# alias pythons=""
-## `rubies` – Variant of `chruby`; output all available Ruby versions
+## `chruby` variant; output all available Ruby versions
 alias rubies="chruby"
 
-##== Local Audio Aliases ======================================================#
+##== Extra System Aliases =====================================================#
 
-if OS_OSX; then
+## Print the "Bad Horse Chorus" lyrics through route packets
+alias badhorse="traceroute bad.horse"
+## Displays the various terminal colors and color codes
+## @source http://askubuntu.com/a/279014
+alias colors='for x in 0 1 4 5 7 8; do for i in {30..37}; do for a in {40..47}; do echo -ne "\e[$x;$i;$a""m\\\e[$x;$i;$a""m\e[0;37;40m "; done; echo; done; done; echo "";'
+## Opens https://devdocs.io/ in the default browser
+alias devdocs="open https://devdocs.io/"
+## Opens http://www.emoji-cheat-sheet.com/ in the default browser
+alias emojis="open http://www.emoji-cheat-sheet.com/"
+## Loads `AndTheTemplateOfDoom` default local Git repo files
+## NOTE: Requires the repo scaffold directory – $HOME/Code/AndTheTemplateOfDoom/
+alias gitit="rsync -av --exclude=\".DS_Store\" ~/Code/AndTheTemplateOfDoom/ $PWD/"
 
-  ## `hikaren` – Select "Karen" as the System Voice
+if OS_MAC; then
+
+  ##== Extra Mac Transformed Aliases ========================================#
+
+  ## Force `ggrep`s to output in color unless the output is piped or redirected
+  ## NOTE: Must have the Homebrew/dupes maintained GNU `grep` Formula installed
+  alias gegrep="gegrep --color=auto"
+  alias gfgrep="gfgrep --color=auto"
+  alias ggrep="ggrep --color=auto"
+
+  ##== Extra Mac Variant Aliases ============================================#
+
+  ## `ggrep` variants; always output in color
+  ## NOTE: Must have the Homebrew/dupes maintained GNU `grep` Formula installed
+  alias gegrepc="gegrep --color=always"
+  alias gfgrepc="gfgrep --color=always"
+  alias ggrepc="ggrep --color=always"
+
+  ##== Extra Mac Audio Aliases ==============================================#
+
+  ## Select "Karen" as the System Voice
   ## NOTE: Must have English (Australia) voice "Karen" installed
-  alias hikaren="defaults write com.apple.speech.voice.prefs SelectedVoiceCreator -int 1886745202; defaults write com.apple.speech.voice.prefs SelectedVoiceID -int 100827421; defaults write com.apple.speech.voice.prefs SelectedVoiceName -string \"Karen\"; echo \"Karen is now your System Voice\"; say \"Hello.  My name is Karen.\"; echo;"
-  ## `himoira` – Select "Moira" as the System Voice
+  alias hikaren="defaults write com.apple.speech.voice.prefs SelectedVoiceCreator -int 1886745202; defaults write com.apple.speech.voice.prefs SelectedVoiceID -int 100827421; defaults write com.apple.speech.voice.prefs SelectedVoiceName -string \"Karen\"; echo \"Karen is now your System Voice\"; say \"Hello human.  My name is Karen.\"; echo;"
+  ## Select "Moira" as the System Voice
   ## NOTE: Must have English (Ireland) voice "Moira" installed
-  alias himoira="defaults write com.apple.speech.voice.prefs SelectedVoiceCreator -int 1886745202; defaults write com.apple.speech.voice.prefs SelectedVoiceID -int 117644429; defaults write com.apple.speech.voice.prefs SelectedVoiceName -string \"Moira\"; echo \"Moira is now your System Voice\"; say \"Hello.  My name is Moira.\"; echo;"
-  ## `mtnking` – Have "Cellos" perform "In the Hall of the Mountain King"
+  alias himoira="defaults write com.apple.speech.voice.prefs SelectedVoiceCreator -int 1886745202; defaults write com.apple.speech.voice.prefs SelectedVoiceID -int 117644429; defaults write com.apple.speech.voice.prefs SelectedVoiceName -string \"Moira\"; echo \"Moira is now your System Voice\"; say \"Hello human.  My name is Moira.\"; echo;"
+  ## Have "Cellos" perform "In the Hall of the Mountain King"
   ## NOTE: Must have English (Novelty) voice "Cellos" installed
   alias mtnking="say -v cellos \"di di di di di di di di di di di di di di di di di di di di di di di di di di\""
 
-# elif OS_LINUX; then
+  ##== Extra Mac Database Aliases ===========================================#
 
-  ##
-
-fi
-
-##== Local Application and System Aliases =====================================#
-
-## `canary` – Open (with) Google Chrome Canary
-alias canary="${OPEN_APP} Google\ Chrome\ Canary"
-## `chrome` – Open (with) Google Chrome
-alias chrome="${OPEN_APP} Google\ Chrome"
-## `chromium` – Open (with) Chromium
-alias chromium="${OPEN_APP} Chromium"
-## `firedev` – Open (with) FirefoxDeveloperEdition
-alias firedev="${OPEN_APP} FirefoxDeveloperEdition"
-## `firefox` – Open (with) Firefox
-alias firefox="${OPEN_APP} Firefox"
-## `opera` – Open (with) Opera
-alias opera="${OPEN_APP} Opera"
-## `operadev` – Open (with) Opera Developer
-alias operadev="${OPEN_APP} Opera\ Developer"
-## `vivaldi` – Open (with) Vivaldi
-alias vivaldi="${OPEN_APP} Vivaldi"
-
-if OS_OSX; then
-
-  ## `redb` – Reload all databases
+  ## Reload all databases (MongoDB, MySQL, PostgreSQL, and SQLite3)
   alias redb="remd; remy; repg; res3"
-  ## `remd` – Reload MongoDB
-  alias remd="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist; launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist"
-  ## `remy` – Reload MySQL
-  alias remy="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist; launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist"
-  ## `repg` – Reload PostgreSQL
-  alias repg="launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist; launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
-  ## `res3` – Reload (re-symlink) SQLite3
-  alias res3="brew link sqlite3 --force"
-  ## `safari` – Open (with) Safari
-  alias safari="${OPEN_APP} Safari"
-
-# elif OS_LINUX; then
-
-  ## `redb` – Reload all databases
-  # alias redb=""
-  ## `remd` – Reload MongoDB
-  # alias remd=""
-  ## `remy` – Reload MySQL
-  # alias remy=""
-  ## `repg` – Reload PostgreSQL
-  # alias repg=""
-  ## `res3` – Reload (re-symlink) SQLite3
-  # alias res3=""
+  ## Reload MongoDB
+  alias remd="launchctl unload \"${HOME}\"/Library/LaunchAgents/homebrew.mxcl.mongodb.plist && sleep 2; launchctl load \"${HOME}\"/Library/LaunchAgents/homebrew.mxcl.mongodb.plist"
+  ## Reload MySQL
+  alias remy="launchctl unload \"${HOME}\"/Library/LaunchAgents/homebrew.mxcl.mysql.plist && sleep 2; launchctl load \"${HOME}\"/Library/LaunchAgents/homebrew.mxcl.mysql.plist"
+  ## Reload PostgreSQL
+  alias repg="launchctl unload \"${HOME}\"/Library/LaunchAgents/homebrew.mxcl.postgresql.plist && sleep 2; launchctl load \"${HOME}\"/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
+  ## Reload (re-symlink) SQLite3
+  alias res3="brew link --force sqlite3"
 
 fi
 
-##== Package Manager Aliases ==================================================#
+##== Extra Application Aliases ================================================#
 
-if USE_NPM; then
-
-  ## `npmclean` – Remove data from the NPM cache directory
-  alias npmclean="echo \"Cleaning NPM's cache directory\" && npm cache clean; echo"
-  ## `npmin` – Update or install to the latest version of NPM globally
-  alias npmin="echo \"Updating/installing NPM Globally\" && npm install npm@latest -g; echo"
-  ## `npmout` – Output all outdated local and global NPM packages
-  alias npmout="echo \"Outdated local NPM packages\" && npm outdated --depth=0; echo; echo \"Outdated global NPM packages\" && npm outdated -g --depth=0; echo"
-  ## `npmoutg` – Output all outdated global NPM packages
-  alias npmoutg="echo \"Outdated global NPM packages\" && npm outdated -g --depth=0; echo"
-  ## `npmoutl` – Output all outdated local NPM packages
-  alias npmoutl="echo \"Outdated local NPM packages\" && npm outdated --depth=0; echo"
-  ## `npms` – Output all local and global NPM packages
-  alias npms="echo \"Local NPM packages\" && npm ls --depth=0; echo \"Global NPM packages\" && npm ls -g --depth=0"
-  ## `npmsg` – Output all global NPM packages
-  alias npmsg="echo \"Global NPM packages\" && npm ls -g --depth=0"
-  ## `npmsl` – Output all local NPM packages
-  alias npmsl="echo \"Local NPM packages\" && npm ls --depth=0"
-  ## `npmup` – Update all outdated local and global NPM packages
-  alias npmup="echo \"Updating locally and globally installed NPM packages\" && npm update; npm update -g npm; npm update -g"
-  ## `npmupg` – Update all outdated global NPM packages
-  alias npmupg="echo \"Updating global NPM packages\" && npm update -g npm; npm update -g"
-  ## `npmupl` – Update all outdated local NPM packages
-  alias npmupl="echo \"Updating local NPM packages\" && npm update"
-
-fi
-
-if USE_BREW; then
-
-  ## `brewclean` – Remove outdated and replaced Homebrew Formulae and Casks
-  alias brewclean="echo \"Cleaning Homebrew's Cellar and Caskroom\" && brew cleanup; brew cask cleanup; echo"
-  ## `brews` – Output all Homebrew Formulae and Casks
-  alias brews="echo \"Current environment's Homebrew Formulae\" && brew ls; echo; echo \"Current environment's Homebrew Casks\" && brew cask ls; echo"
-  ## `brewsc` – Output all Homebrew Casks
-  alias brewsc="echo \"Current environment's Homebrew Casks\" && brew cask ls; echo"
-  ## `brewsf` – Output all Homebrew Formulae
-  alias brewsf="echo \"Current environment's Homebrew Formulae\" && brew ls; echo"
-  ## `brewup` – Update and upgrade all outdated Homebrew Formulae and Casks
-  alias brewup="echo \"Updating and upgrading current environment's Homebrew Formulae and Casks\" && brew update; brew upgrade --all; echo"
-  ## `caskup` – Update and upgrade all outdated Casks
-  ## !!!TEMPORARY!!! ##
-  alias caskup="echo \"Updating and upgrading current environment's Homebrew Casks\" && brew cask list | xargs brew cask install --force; echo"
-  ## `drbrew` – Check for Homebrew warnings and issues
-  alias drbrew="echo \"Brew Doctor diagnoses\" && brew doctor; echo"
-
-# elif USE_PKGSRC; then
-
-  ## `pkgsrcclean` –
-  # alias pkgsrcclean=""
-  ## `pkgsrcout` –
-  # alias pkgsrcout=""
-  ## `pkgsrcs` –
-  # alias pkgsrcs=""
-  ## `pkgsrcup` –
-  # alias pkgsrcup=""
-
-fi
-
-##== Bundler Aliases ==========================================================#
-
-## `be` – Run a Gem executable within the context of the Bundle
-alias be="bundle exec"
-## `brails` – Run a Rails executable within the context of the Bundle
-alias brails="bundle exec rails"
-## `brailscon` – Run the Rails console within the context of the Bundle
-alias brailscon="bundle exec rails console"
-## `brailsdbc` – Run the Rails dbconsole within the context of the Bundle
-alias brailsdbc="bundle exec rails dbconsole"
-## `brailsgen` – Run the Rails generator within the context of the Bundle
-alias brailsgen="bundle exec rails generate"
-## `brailsser` – Run the Rails server within the context of the Bundle
-alias brailsser="bundle exec rails server"
-## `brake` – Run a Rake executable within the context of the Bundle
-alias brake="bundle exec rake"
-## `brspec` – Run an RSpec executable within the context of the Bundle
-alias brspec="bundle exec rspec"
-## `bundlein` – Update or install all Gems dependencies within the Gemfile
-alias bundlein="echo \"Updating/installing the current Bundle's Gem dependencies\" && bundle install; echo"
-## `bundles` – Output all Gems installed within the context of the Bundle
-alias bundles="echo \"Current Bundle's Gems\" && bundle list; echo"
-## `bundlepack` – Lock and cache the current bundle's Gems into ./vendor/cache
-alias bundlepack="echo \"Locking and caching the current Bundle's Gems\" && bundle package; echo"
-## `bundleup` – Update all Gems installed within the context of the Bundle
-alias bundleup="echo \"Updating the current Bundle's Gems\" && bundle update; echo"
-
-##== Gem Aliases ==============================================================#
-
-## `gemclean` – Remove outdated and replaced Gems
-alias gemclean="echo \"Cleaning current environment's Gemset\" && gem cleanup; echo"
-## `gemout` – Output all outdated Gems
-alias gemout="echo \"Outdated Gems in current environment\" && gem outdated; echo"
-## `gems` – Output all installed Gems
-alias gems="echo \"Current environment's Gemset\" && gem list; echo"
-## `gemup` – Update RubyGems and all installed Gems
-alias gemup="echo \"Updating RubyGems\" && gem update --system; echo; gem update; echo"
-
-##== Git Aliases ==============================================================#
-
-## `branches` – Output a listing of Git remote-tracking and local branches
-alias branches="git branch --all"
-
-##== Pip Aliases ==============================================================#
-
-## `pipout` – Output all outdated Pip packages
-alias pipout="echo \"Outdated Pip packages in current environment\" && pip list -o; echo"
-## `pips` – Output all installed Pip packages
-alias pips="echo \"Current environment's Pip packages\" && pip list; echo"
-## `pipup` – Update Pip, Setuptools, and Pip packages
-alias pipup="echo \"Updating Pip\" && pip install -U pip; echo; echo \"Updating Setuptools\" && pip install -U setuptools; echo; echo \"Updating current environment's Pip packages\" && pip list -o | cut -d ' ' -f1 | xargs -n1 pip install -U; echo"
-
-##== Pip3 Aliases =============================================================#
-
-## `pip3out` – Output all outdated Pip3 packages
-alias pip3out="echo \"Outdated Pip3 packages in current environment\" && pip3 list -o; echo"
-## `pip3s` – Output all installed Pip3 packages
-alias pip3s="echo \"Current environment's Pip3 packages\" && pip3 list; echo"
-## `pip3up` – Update Pip3, Setuptools, and Pip3 packages
-alias pip3up="echo \"Updating Pip3\" && pip3 install -U pip; echo; echo \"Updating Setuptools\" && pip3 install -U setuptools; echo; echo \"Updating current environment's Pip3 packages\" && pip3 list -o | cut -d ' ' -f1 | xargs -n1 pip3 install -U; echo"
-
-##== Ruby on Rails Aliases ====================================================#
-
-## `railscon` – Run the Rails console
-alias railscon="rails console"
-## `railsdbc` – Run the Rails dbconsole
-alias railsdbc="rails dbconsole"
-## `railsgen` – Run the Rails generator
-alias railsgen="rails generate"
-## `railsser` – Run the Rails server
-alias railsser="rails server"
-## `rakec` – Create the Rails database
-alias rakec="rake db:create"
-## `raked` – Drop the Rails database
-alias raked="rake db:drop"
-## `rakem` – Migrate the Rails database
-alias rakem="rake db:migrate"
-## `rakes` – Load the Rails seed data from db/seeds.rb
-alias rakes="rake db:seed"
-## `rerake` – Drop, create, and migrate the Rails database, then load the seed
-#data from db/seeds.rb
-alias rerake="rake db:drop db:create db:migrate db:seed"
+## Open (with) Google Chrome Canary
+alias canary="open-a Google\ Chrome\ Canary"
+## Open (with) Google Chrome
+alias chrome="open-a Google\ Chrome"
+## Open (with) Chromium
+alias chromium="open-a Chromium"
+## Open (with) Firefox
+alias firefox="open-a Firefox"
+## Open (with) FirefoxDeveloperEdition
+alias firefoxdev="open-a FirefoxDeveloperEdition"
+## Open (with) Opera
+alias opera="open-a Opera"
+## Open (with) Opera Developer
+alias operadev="open-a Opera\ Developer"
+## Open (with) Opera Neon
+alias operaneon="open-a Opera\ Neon"
+## Open (with) Safari
+OS_MAC && alias safari="open-a Safari"
+## Open (with) Vivaldi
+alias vivaldi="open-a Vivaldi"

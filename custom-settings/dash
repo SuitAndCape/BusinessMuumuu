@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# dash
+
+####= SuitAndCape Dash 4 (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Dash 4 settings"
+
+## Enable dark mode in Dash 4
+defaults write com.kapeli.dashdoc DHWebViewIsDark -bool true
+
+## Automatically check for updates
+defaults write com.kapeli.dashdoc SUEnableAutomaticChecks -bool true
+
+## Check for and install docset updates automatically in Dash 4
+defaults write com.kapeli.dashdoc automaticallyUpdate -bool true
+
+## Dash 4 opens with all open tabs from last session
+defaults write com.kapeli.dashdoc shouldRestoreTabs -bool true
+
+## Enable Dash 4 menu bar icon
+# defaults write com.kapeli.dashdoc shouldShowStatusIcon -bool true
+
+## Do not load Dash 4 on startup
+defaults write com.kapeli.dashdoc shouldStartAtLogin -bool false
+
+## Show Dash 4 Dock icon
+defaults write com.kapeli.dashdoc showInDock -bool true
+
+## Set Dash 4 window style to Standard
+## (alternative: "HUD")
+defaults write com.kapeli.dashdoc windowStyle -string "Standard"
+
+## Kill Dash 4
+appkillinator "Dash"

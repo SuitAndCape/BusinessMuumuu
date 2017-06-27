@@ -1,0 +1,16 @@
+# robots.txt
+
+####= SuitAndCape Web Robot Instructions
+##============================================================================##
+
+## @source http://www.robotstxt.org/
+
+## To allow all robots complete site access, uncomment the next two lines:
+# User-agent: *
+# Disallow:
+
+## Or...
+
+## To ban all robots from the entire server, uncomment the next two lines:
+# User-agent: *
+# Disallow: /

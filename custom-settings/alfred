@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# alfred
+
+####= SuitAndCape Alfred 3 (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Alfred 3 settings"
+
+## Sync Alfred 3 with the Dropbox/Apps/ directory
+# defaults write com.runningwithcrayons.Alfred-Preferences-3 dropbox.allowappsfolder -bool true
+
+## Kill Alfred 3
+appkillinator "Alfred 3"

@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+# skype
+
+####= SuitAndCape Skype (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Skype settings"
+
+## Show Skype's chat view by default
+defaults write com.skype.skype AutoCollapseChatView -bool false
+defaults write com.skype.skype ChatViewIsCollapsed -bool false
+
+## Show Skype's sidebar by default
+defaults write com.skype.skype AutoCollapseSidebar -bool false
+defaults write com.skype.skype SidebarIsCollapsed -bool false
+
+## Disable the Skype login dialpad
+defaults write com.skype.skype DialpadOpen -bool false
+defaults write com.skype.skype ShowDialpadOnLogin -bool false
+
+## Enable the Skype WebKit Developer Tools
+defaults write com.skype.skype DisableWebKitDeveloperExtras -bool false
+defaults write com.skype.skype WebKitDeveloperExtras -bool true
+
+## Enable the Skype Debug Menu
+defaults write com.skype.skype IncludeDebugMenu -bool true
+
+## Disable smart dashes in Skype chat
+defaults write com.skype.skype SKChatInputAutomaticDashSubstitution -bool false
+
+## Disable smart quotes in Skype chat
+defaults write com.skype.skype SKChatInputAutomaticQuoteSubstitution -bool false
+
+## Disable automatic spelling correction (auto-correct) in Skype chat
+defaults write com.skype.skype SKChatInputAutomaticSpellingCorrection -bool false
+
+## Do indicate when Contacts are typing to the user in Skype chat
+defaults write com.skype.skype SKChatReportContactsTyping -bool true
+
+## Do not indicate when the user is typing to Contacts in Skype chat
+defaults write com.skype.skype SKChatReportMeTyping -bool false
+
+## Disable the Skype watermark during calls
+defaults write com.skype.skype SKShowWatermark -bool false
+
+## Disable the Skype startup welcome tour
+defaults write com.skype.skype SKDisableWelcomeTour -bool true
+defaults write com.skype.skype SKShowWelcomeTour -bool false
+
+## Enable compact chat style in Skype chat
+defaults write com.skype.skype SKUseCompactChatStyle -bool true
+
+## Disable large emoticons in Skype chat
+defaults write com.skype.skype SKUseLargeEmoticons -bool false
+
+## Kill Skype
+appkillinator "Skype"

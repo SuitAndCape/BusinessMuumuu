@@ -1,0 +1,68 @@
+// $SUBLIME_DIR/Packages/User/Shell-Unix-Generic.sublime-settings
+
+////= SuitAndCape Sublime Text Shell Script Preferences
+//============================================================================//
+
+/// @source https://packagecontrol.io/packages/Dotfiles%20Syntax%20Highlighting
+
+{
+  "extensions":
+  [
+    ".ackrc",
+    ".aliases",
+    ".antigen",
+    ".bash_profile",
+    ".bash_prompt",
+    ".bashrc",
+    ".brew",
+    ".curlrc",
+    // ".editorconfig",
+    ".env",
+    ".envrc",
+    ".eslintignore",
+    ".exports",
+    ".extra",
+    ".functions",
+    ".git",
+    ".gitattributes",
+    ".gitconfig",
+    ".gitignore",
+    ".gitignore_global",
+    ".gitmodules",
+    ".hushlogin",
+    ".inputrc",
+    ".jsbeautifyrc",
+    ".jshintignore",
+    ".npmignore",
+    ".npmrc",
+    ".osx",
+    ".packages",
+    ".pkginit",
+    ".screenrc",
+    ".symlink",
+    ".wgetrc",
+    ".xsessionrc",
+    ".zlogin",
+    ".zlogout",
+    ".zpreztorc",
+    ".zprofile",
+    ".zshenv",
+    ".zshrc",
+    ".zsh-theme",
+    "symlink",
+    "zlogin",
+    "zlogout",
+    "zpreztorc",
+    "zprofile",
+    "zshenv",
+    "zshrc",
+    /// Proper highlighting for custom files
+    "*.local",
+    ".bash_setup",
+    ".inspectors",
+    ".shell_setup",
+    ".zsh_setup",
+    "aesm",
+    "aesmoji",
+  ]
+}

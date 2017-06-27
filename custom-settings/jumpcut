@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# jumpcut
+
+####= SuitAndCape Jumpcut (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Jumpcut settings"
+
+## Check for Jumpcut software updates on launch
+defaults write net.sf.Jumpcut SUCheckAtStartup -bool true
+
+## Set Jumpcut's main hotkey to...
+  ## `[⌃]+[⌥]+[V]`
+defaults write net.sf.Jumpcut "ShortcutRecorder mainHotkey" -dict keyCode -int 9 modifierFlags -int 786432
+  ## `[⇧]+[⌘]+[V]`
+# defaults write net.sf.Jumpcut "ShortcutRecorder mainHotkey" -dict keyCode -int 9 modifierFlags -int 1179648
+  ## `[⌃]+[⌘]+[V]`
+# defaults write net.sf.Jumpcut "ShortcutRecorder mainHotkey" -dict keyCode -int 9 modifierFlags -int 1310720
+  ## `[⌥]+[⌘]+[V]`
+# defaults write net.sf.Jumpcut "ShortcutRecorder mainHotkey" -dict keyCode -int 9 modifierFlags -int 1572864
+
+## Slightly lighten the Jumpcut bezel transparency
+defaults write net.sf.Jumpcut bezelAlpha -float 0.42000000000000000
+
+## Set the recently picked dropdown limit to thirty five clippings in Jumpcut
+defaults write net.sf.Jumpcut displayNum -int 35
+
+## Load Jumpcut on startup
+defaults write net.sf.Jumpcut loadOnStartup -bool true
+
+## Set the remembered clippings limit to ninety clippings in Jumpcut
+defaults write net.sf.Jumpcut rememberNum -int 90
+
+## Disable sticky bezel mode in Jumpcut
+defaults write net.sf.Jumpcut stickyBezel -bool false
+
+## Enable wraparound bezel mode in Jumpcut
+defaults write net.sf.Jumpcut wraparoundBezel -bool true
+
+## Kill Jumpcut
+appkillinator "Jumpcut"

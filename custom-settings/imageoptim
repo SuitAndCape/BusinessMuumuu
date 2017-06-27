@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# imageoptim
+
+####= SuitAndCape ImageOptim (Mac) Settings
+##============================================================================##
+
+echo "Adjusting ImageOptim settings"
+
+## Disable AdvPNG optimization in ImageOptim
+# defaults write net.pornel.ImageOptim AdvPngEnabled -bool false
+
+## Disable ImageOptim Dock icon animation
+# defaults write net.pornel.ImageOptim BounceDock -bool false
+
+## Disable GIFsicle optimization in ImageOptim
+# defaults write net.pornel.ImageOptim GifsicleEnabled -bool false
+
+## Disable JPEGOptim optimization in ImageOptim
+# defaults write net.pornel.ImageOptim JpegOptimEnabled -bool false
+
+## Disable Jpegtran optimization in ImageOptim
+# defaults write net.pornel.ImageOptim JpegTranEnabled -bool false
+
+## Do not strip JPEG metadata in ImageOptim
+# defaults write net.pornel.ImageOptim JpegTranStripAll -bool false
+
+## Enable lossy minification in ImageOptim
+# defaults write net.pornel.ImageOptim LossyEnabled -bool true
+
+## Disable OptiPNG optimization in ImageOptim
+# defaults write net.pornel.ImageOptim OptiPngEnabled -bool false
+
+## Disable PNGCrush optimization in ImageOptim
+# defaults write net.pornel.ImageOptim PngCrushEnabled -bool false
+
+## Enable PNGOUT optimization in ImageOptim
+# defaults write net.pornel.ImageOptim PngOutEnabled -bool true
+
+## Do not strip PNG metadata in ImageOptim
+# defaults write net.pornel.ImageOptim PngOutRemoveChunks -bool false
+
+## Do Not preserve file permissions, attributes, and hardlinks in ImageOptim
+# defaults write net.pornel.ImageOptim PreservePermissions -bool false
+
+## Disable Zopfli optimization in ImageOptim
+# defaults write net.pornel.ImageOptim ZopfliEnabled -bool false
+
+## Kill ImageOptim
+appkillinator "ImageOptim"

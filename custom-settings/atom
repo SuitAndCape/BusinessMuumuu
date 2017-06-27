@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# atom
+
+####= SuitAndCape Atom (Mac) Settings
+##============================================================================##
+
+echo "Adjusting Atom settings"
+
+## Use Atom as the default editor for plain text files
+defaults write com.apple.LaunchServices/com.apple.launchservices.secure LSHandlers -array-add "{LSHandlerContentType=public.plain-text;LSHandlerRoleAll=com.github.atom;}"

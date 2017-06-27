@@ -4,89 +4,114 @@
 ####= SuitAndCape Shell Functions
 ##============================================================================##
 
-## Functions for the user to run and to modify various outputs
+## Functions for the user to run or modify various outputs
 
-##== Usable Functions =========================================================#
+##== Shell Specific Functions =================================================#
 
-## `-` – Change to the previous working directory
-## (also see: `alias cd-`)
+## Force `command not found` handler to print in the same style for Bash and Zsh
+if SHELL_BASH; then
+  ## Shell type identifier states that "bash" is the current environment
+  SHELL_ENV_TYPE="bash"
+  ## Bash handler
+  command_not_found_handle() {
+    echo -e "${SHELL_ENV_TYPE}: command not found: $1"
+  }
+elif SHELL_ZSH; then
+  ## Shell type identifier states that "zsh" is the current environment
+  SHELL_ENV_TYPE="zsh"
+  ## Zsh handler
+  command_not_found_handler() {
+    echo -e "${SHELL_ENV_TYPE}: command not found: $1"
+  }
+fi
+
+##== General Functions ========================================================#
+
+## Change to the previous working directory
 ## @source http://unix.stackexchange.com/a/236262/165656
+## (also see: `alias cd-`)
 -() {
-  if [[ $# -eq 0 ]]; then
-    cd "${OLDPWD}" && echo -e "cd ${OLDPWD}/ ${ARROW} $PWD/"
+  if [[ "$#" -eq 0 ]]; then
+    cd "${OLDPWD}" && echo -e "cd ${OLDPWD}/ => $PWD/"
   else
     builtin - "$@"
   fi
 }
 
-## `cls PATH/TO/DIRECTORY` – Change the current working directory and list the
-#contents in long format
+## Change to $HOME or a specified working directory, then output a long listing
+## @usage `cls [PATH/TO/DIRECTORY]`
 cls() {
   if [ -d "$1" ]; then
     cd "$1"
     ls -laF
   elif [ "$1" = "" ]; then
-    cd ~
+    cd "${HOME}"
     ls -laF
   else
-    echo -e "${SHELL_ENV_TYPE}: cls: no such directory: ${NO}$1/${PE}"
+    echo -e "${SHELL_ENV_TYPE}: cls: no such directory: $1/"
   fi
 }
 
-## `cpcmd` – Copy the last command entered
+## Copy the last command entered
 cpcmd() {
   history | tail -1 | cut -c 8- | pbcopy
 }
 
-## `extract PATH/TO/FILE` – Extract common package and compressed file formats
+## Extract package and compressed file formats
 ## @based-on https://github.com/xvoland/Extract
 ## @modifier Ali Esmaili
+## @usage `extract PATH/TO/FILE [...] [PATH/TO/NTH/FILE]`
 extract() {
+  ## Display usage if no parameters given
   if [ -z "$1" ]; then
-    ## Display usage if no parameters given
-    echo "usage: extract <PATH/FILE_NAME>.<7z|Z|bz2|exe|gz|lzma|rar|tar|tar.bz2|tar.gz|tar.xz|taz|tb2|tbz2|tbz|tgz|txz|xz|zip>"
+    echo "Usage: extract <PATH/TO/FILE_NAME.EXT> [PATH/TO/FILE_NAME_2.EXT] [...]"
+    echo ""
+    echo "where <EXT> is one of the following:"
+    echo "    7z, Z, ZIP, bz2, dmg, exe, gz, lzma, rar, tar, tar.bz2,"
+    echo "    tar.gz, tar.xz, taz, tb2, tbz2, tbz, tgz, txz, xz, zip"
+  ## If parameters are given...
+  elif [ -f "$1" ]; then
+    ## Directory to hold extracted contents
+    # directory_name=${1%.*}
+    # mkdir "${directory_name}" && cd "${directory_name}"
+    ## Extract contents if system knows how
+    case "$1" in
+      *.7z)      7z x "$1"          ;;
+      *.Z)       uncompress "$1"    ;;
+      *.ZIP)     unzip "$1"         ;;
+      *.tar.bz2) tar xjf "$1"       ;;
+      *.bz2)     bunzip2 "$1"       ;;
+      *.dmg)     hdiutil mount "$1" ;;
+      *.exe)     cabextract "$1"    ;;
+      *.tar.gz)  tar xzf "$1"       ;;
+      *.gz)      gunzip "$1"        ;;
+      *.lzma)    unlzma "$1"        ;;
+      *.rar)     unrar x -ad "$1"   ;;
+      *.tar)     tar xf "$1"        ;;
+      *.taz)     tar xzf "$1"       ;;
+      *.tb2)     tar xjf "$1"       ;;
+      *.tbz2)    tar xjf "$1"       ;;
+      *.tbz)     tar xjf "$1"       ;;
+      *.tgz)     tar xzf "$1"       ;;
+      *.txz)     tar xJf "$1"       ;;
+      *.tar.xz)  tar xJf "$1"       ;;
+      *.xz)      unxz "$1"          ;;
+      *.zip)     unzip "$1"         ;;
+      *)         echo -e "${SHELL_ENV_TYPE}: extract: unknown archive method: $1" ;;
+    esac
   else
-    if [ -f "$1" ]; then
-      ## Directory to hold extracted contents
-      directory_name=${1%.*}
-      ## Extract contents if system knows how
-      case "$1" in
-        *.7z)      7z x ./"$1"        ;;
-        *.Z)       uncompress ./"$1"  ;;
-        *.bz2)     bunzip2 ./"$1"     ;;
-        *.exe)     cabextract ./"$1"  ;;
-        *.gz)      gunzip ./"$1"      ;;
-        *.lzma)    unlzma ./"$1"      ;;
-        *.rar)     unrar x -ad ./"$1" ;;
-        *.tar)     tar xvf ./"$1"     ;;
-        *.tar.bz2) tar xvjf ./"$1"    ;;
-        *.tar.gz)  tar xvzf ./"$1"    ;;
-        *.tar.xz)  tar xvJf ./"$1"    ;;
-        *.taz)     tar xvzf ./"$1"    ;;
-        *.tb2)     tar xvjf ./"$1"    ;;
-        *.tbz2)    tar xvjf ./"$1"    ;;
-        *.tbz)     tar xvjf ./"$1"    ;;
-        *.tgz)     tar xvzf ./"$1"    ;;
-        *.txz)     tar xvJf ./"$1"    ;;
-        *.xz)      unxz ./"$1"        ;;
-        *.zip)     unzip ./"$1"       ;;
-        *)         echo -e "${SHELL_ENV_TYPE}: extract: unknown archive method: ${NO}$1${PE}" ;;
-      esac
-    else
-      echo -e "${SHELL_ENV_TYPE}: extract: no such file: ${NO}$1${PE}"
-    fi
+    echo -e "${SHELL_ENV_TYPE}: extract: no such file: $1"
   fi
 }
 
-# who is using the laptop's iSight camera?
-cub() {
-    echo "Checking to see who is using the iSight camera… 📷"
-    usedby=$(lsof | grep -w "AppleCamera\|USBVDC\|iSight" | awk '{printf $2"\n"}' | xargs ps)
-    echo -e "Recent camera uses:\n$usedby"
+## Run a file pattern search on the command line history
+## usage `hgrep PATTERN`
+hgrep() {
+  history | grep "$@"
 }
 
-## `launch INTEGER` – Launch a local HTTP server from a directory, optionally at
-#a specific port number
+## Launch a local HTTP server from a directory, optionally at a specific port
+## @usage `launch [PORT_INTEGER]`
 launch() {
   port="${1:-8080}"
   open "http://localhost:${port}/"
@@ -94,32 +119,34 @@ launch() {
   python -c $'import SimpleHTTPServer; \nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map; \nmap[""] = "text/plain"; \nfor key, value in map.items():\n\tmap[key] = value + "; charset=UTF-8"; \nSimpleHTTPServer.test();' "${port}"
 }
 
-## `mkcd PATH/TO/DIRECTORY` – Create a directory then change to it
+## Create a directory then change to it
+## @usage `mkcd PATH/TO/DIRECTORY/`
 mkcd() {
+  ## Display usage if no parameters given
   if [ -z "$1" ]; then
-    ## Display usage if no parameters given
-    echo "usage: mkcd <PATH/TO/DIRECTORY>"
+    echo "Usage: mkcd <PATH/TO/DIRECTORY/>"
   else
     if ! [ -d "$1" ]; then
       mkdir -pv "$@" && cd "$_"
     elif [ -d "$1" ]; then
-      echo -e "${SHELL_ENV_TYPE}: mkcd: directory already exists: ${NO}$1/${PE}"
+      echo -e "${SHELL_ENV_TYPE}: mkcd: directory already exists: $1/"
     else
-      echo -e "${SHELL_ENV_TYPE}: mkcd: unable to create directory: ${NO}$1/${PE}"
+      echo -e "${SHELL_ENV_TYPE}: mkcd: unable to create directory: $1/"
     fi
   fi
 }
 
-## `ql` – Opens Quick Look generated previews for the specified files
+## Open Quick Look generated previews for the specified files
+## @usage `ql PATH/TO/FIRST/FILE [...] [PATH/TO/NTH/FILE]`
 ql() {
   if [ -f "$1" ]; then
     qlmanage -p "$1" >& /dev/null
   else
-    echo -e "${SHELL_ENV_TYPE}: ql: no such file: ${NO}$1${PE}"
+    echo -e "${SHELL_ENV_TYPE}: ql: no such file: $1"
   fi
 }
 
-## `shb` – Switch to the Bash shell
+## Switch to the Bash shell
 shb() {
   ## Use the Homebrew maintained Bash shell, if it exists
   if [[ -e "/usr/local/bin/bash" ]]; then
@@ -130,7 +157,7 @@ shb() {
   fi
 }
 
-## `shz` – Switch to the Zsh shell
+## Switch to the Zsh shell
 shz() {
   ## Use the Homebrew maintained Zsh shell, if it exists
   if [[ -e "/usr/local/bin/zsh" ]]; then
@@ -141,20 +168,32 @@ shz() {
   fi
 }
 
-## `tre` or `tre INTEGER` – Tree-like list of directory contents three,
-#optionally nth, levels deep
-tre() {
+## Swap the contents of two files
+## @usage `swap PATH/TO/FIRST/FILE PATH/TO/SECOND/FILE`
+swap() {
+  ## Display usage if no parameters given
+  if [ -z "$1" ]; then
+    echo "Usage: swap <PATH/TO/FIRST/FILE> <PATH/TO/SECOND/FILE>"
+  else
+    mv "$1" "$1_temp" && mv "$2" "$1" && mv "$1_temp" "$2"
+    echo "Swapping the contents of the $1 and $2 files"
+  fi
+}
+
+## Tree-like list of directory contents three, optionally nth, levels deep
+## @usage `tr33 [INTEGER]`
+tr33() {
   ## Directory contents limit
   contents_limit=20
   ## Directory contents to ignore
   contents_neglect=".DS_Store|.git|.sass-cache|Icon*|bower_components|jspm_packages|node_modules"
   ## Directory depth limit, unless an integer argument is passed
   default_depth="${1:-3}"
-  tree -CFIa "${contents_neglect}" --dirsfirst --filelimit "${contents_limit}" -L "${default_depth}" $2
+  tree -CFIa "${contents_neglect}" --dirsfirst --filelimit "${contents_limit}" -L "${default_depth}" "$2"
 }
 
-## `up` or `up INTEGER` – Change the current working directory by one,
-#optionally nth, level(s) up
+## Change the current working directory by one, optionally nth, level(s) up
+## @usage `up [INTEGER]`
 ## (also see aliases: `..`, `...`, `....`, `.....`, and `......`)
 up() {
   destination=""
@@ -166,20 +205,5 @@ up() {
   if [ -z "$destination" ]; then
     destination=..
   fi
-  cd $destination && echo -e "cd $destination/ $ARROW $PWD"
+  cd "${destination}" && echo -e "cd ${destination}/ => $PWD/"
 }
-
-##== Modifier Functions =======================================================#
-
-## Force `command not found` to pretty print
-if SHELL_BASH; then
-  ## Bash handler
-  command_not_found_handle() {
-    echo -e "${SHELL_ENV_TYPE}: command not found: ${NO}$1${PE}"
-  }
-elif SHELL_ZSH; then
-  ## Zsh handler
-  command_not_found_handler() {
-    echo -e "${SHELL_ENV_TYPE}: command not found: ${NO}$1${PE}"
-  }
-fi

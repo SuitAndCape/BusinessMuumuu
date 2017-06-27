@@ -1,6 +1,6 @@
 # .gitignore_global
 
-####= SuitAndCape Global .gitignore File List
+####= SuitAndCape Global Git Untracked File List
 ##============================================================================##
 
 ## @how-to-use-gitignore https://help.github.com/articles/ignoring-files
@@ -17,13 +17,14 @@ tmp/**/*
 ## Clojure Leiningen projects
 Leiningen.gitignore
 
-## Codekit
+## Codekit files
 .codekit-config.json
 config.codekit
+/min
 
 ## CVS (Concurrent Versions System)
+**/CVS/*
 */.cvsignore
-*/CVS/*
 .cvsignore
 /CVS/*
 
@@ -41,8 +42,9 @@ config.codekit
 .mtj.tmp/
 hs_err_pid*
 
-## Linux, OS X, and Windows
+## Linux, Mac, and Windows
 $RECYCLE.BIN/
+*.DS_Store*
 *.cab
 *.lnk
 *.msi
@@ -52,8 +54,6 @@ $RECYCLE.BIN/
 .AppleDesktop
 .AppleDouble
 .DocumentRevisions-V100
-.DS_Store
-.DS_Store?
 .LSOverride
 .Spotlight-V100
 .TemporaryItems
@@ -62,6 +62,7 @@ $RECYCLE.BIN/
 .VolumeIcon.icns
 ._*
 .apdisk
+.com.apple.timemachine.donotpresent
 .dat*
 .directory
 .fseventsd
@@ -84,18 +85,28 @@ logs
 *.asv
 *.m~
 *.mex*
+octave-workspace
 slprj/
 
 ## Packages – only raw source files should be commited
 *.7z
+*.bz2
+*.bzip
+*.deb
 *.dmg
 *.ear
+*.egg
+*.gem
 *.gz
 *.iso
 *.jar
+*.lzma
 *.rar
+*.rpm
 *.tar
 *.war
+*.xpi
+*.xz
 *.zip
 
 ## Python environment, optimized, temporary, and VirtualEnv files
@@ -125,6 +136,7 @@ pyvenv.cfg
 /rdoc/
 
 ## Sass (SCSS) caches
+*.css.map
 *.sassc
 .sass-cache/
 
@@ -139,6 +151,14 @@ node_modules
 # *.sublime-project ## Uncomment if many contributors don't use Sublime Text
 *.tmPreferences.cache
 *.tmlanguage.cache
+GitHub.sublime-settings
+Package Control.ca-bundle
+Package Control.ca-certs/
+Package Control.ca-list
+Package Control.cache/
+Package Control.last-run
+Package Control.system-ca-bundle
+bh_unicode_properties.cache
 sftp-config.json
 
 ## Tags created by cscope, ctags, etags, and gtags (GNU global)
@@ -157,12 +177,14 @@ cscope.po.out
 gtags.files
 tags
 
-## TeX/LaTeX auxiliary files
+## TeX/LaTeX auxiliary and build files
+*.aux
 *.fdb_latexmk
 *.fls
-*.lo[ft]
+*.lo[aft]
 *.pdfsync
 *.synctex
+*.synctex.gz
 *.synctex.gz(busy)
 *.toc
 
